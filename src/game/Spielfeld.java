@@ -80,160 +80,139 @@ class Spielfeld {
 	}
 
 	public void oben() {
-		
-	for(int i = 0; i<getBreite(); i++) {
-		for(int j = 0; i<getBreite(); j++) {
-		if(existiertFeld(i+1,j) ) {
-			verschieben(i, j, "oben");
-		}
+
+		for (int i = 0; i < getBreite(); i++) {
+			for (int j = 0; i < getBreite(); j++) {
+				if (existiertFeld(i + 1, j)) {
+					verschieben(i, j, "oben");
+				}
+			}
 		}
 	}
-	}
-	
+
 	public void unten() {
-		
-		for(int i = 0; i<getBreite(); i++) {
-			for(int j = 0; i<getBreite(); j++) {
-			if(existiertFeld(i-1,j) ) {
-				verschieben(i, j, "unten");
-			}
+
+		for (int i = 0; i < getBreite(); i++) {
+			for (int j = 0; i < getBreite(); j++) {
+				if (existiertFeld(i - 1, j)) {
+					verschieben(i, j, "unten");
+				}
 			}
 		}
-		}
-	
+	}
+
 	public void links() {
-		
-		for(int i = 0; i<getBreite(); i++) {
-			for(int j = 0; i<getBreite(); j++) {
-			if(existiertFeld(i,j-1) ) {
-				verschieben(i, j, "links");
-			}
+
+		for (int i = 0; i < getBreite(); i++) {
+			for (int j = 0; i < getBreite(); j++) {
+				if (existiertFeld(i, j - 1)) {
+					verschieben(i, j, "links");
+				}
 			}
 		}
-		}
-	
+	}
+
 	public void rechts() {
-		
-		for(int i = 0; i<getBreite(); i++) {
-			for(int j = 0; i<getBreite(); j++) {
-			if(existiertFeld(i,j+1) ) {
-				verschieben(i, j, "rechts");
-			}
+
+		for (int i = 0; i < getBreite(); i++) {
+			for (int j = 0; i < getBreite(); j++) {
+				if (existiertFeld(i, j + 1)) {
+					verschieben(i, j, "rechts");
+				}
 			}
 		}
-		}
-	
+	}
+
 	public void verschieben(int zeile, int spalte, String richtung) {
-		
+
 		String r = richtung;
-	  
-	    
-		switch(r) {
-		
-		case "oben": 
-			
-			
-			if(feld[zeile][spalte].getWert() == feld[zeile+1][spalte].getWert()) {
-	
-				feld[zeile+1][spalte].setWert(feld[zeile][spalte].getWert() + feld[zeile+1][spalte].getWert());
+
+		switch (r) {
+
+		case "oben":
+
+			if (feld[zeile][spalte].getWert() == feld[zeile + 1][spalte].getWert()) {
+
+				feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 				feld[zeile][spalte].setWert(0);
-				
-				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile+1][spalte].getWert());
-				
-			} else {
-				
-				if(feld[zeile+1][spalte].getWert() == 0) {
-					
-					feld[zeile+1][spalte].setWert(feld[zeile][spalte].getWert());
-					feld[zeile][spalte].setWert(0);
-					verschieben(zeile+1, spalte, "oben");
-					
-				}
-				
+
+				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile + 1][spalte].getWert());
+
+			} else if (feld[zeile + 1][spalte].getWert() == 0) {
+
+				feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert());
+				feld[zeile][spalte].setWert(0);
+				verschieben(zeile + 1, spalte, "oben");
+
 			}
-			
+
 			break;
-			
+
 		case "unten":
-			
-			if(feld[zeile][spalte].getWert() == feld[zeile-1][spalte].getWert()) {
-				
-				feld[zeile-1][spalte].setWert(feld[zeile][spalte].getWert() + feld[zeile-1][spalte].getWert());
+
+			if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert()) {
+
+				feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 				feld[zeile][spalte].setWert(0);
-				
-				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile-1][spalte].getWert());
-				
-			} else {
-				
-				if(feld[zeile-1][spalte].getWert() == 0) {
-					
-					feld[zeile-1][spalte].setWert(feld[zeile][spalte].getWert());
-					feld[zeile][spalte].setWert(0);
-					verschieben(zeile-1, spalte, "unten");
-					
-				}
-			}
-			
-			break;
-			
-case "links":
-			
-			if(feld[zeile][spalte].getWert() == feld[zeile][spalte-1].getWert()) {
-				
-				feld[zeile][spalte-1].setWert(feld[zeile][spalte].getWert() + feld[zeile][spalte-1].getWert());
+
+				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile - 1][spalte].getWert());
+
+			} else if (feld[zeile - 1][spalte].getWert() == 0) {
+
+				feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert());
 				feld[zeile][spalte].setWert(0);
-				
-				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile][spalte-1].getWert());
-				
-			} else {
-				
-				if(feld[zeile][spalte-1].getWert() == 0) {
-					
-					feld[zeile][spalte-1].setWert(feld[zeile][spalte].getWert());
-					feld[zeile][spalte].setWert(0);
-					verschieben(zeile, spalte-1, "links");
-					
-				}
+				verschieben(zeile - 1, spalte, "unten");
+
 			}
-			
+
 			break;
-			
-case "rechts":
-	
-	if(feld[zeile][spalte].getWert() == feld[zeile][spalte+1].getWert()) {
-		
-		feld[zeile][spalte+1].setWert(feld[zeile][spalte].getWert() + feld[zeile][spalte+1].getWert());
-		feld[zeile][spalte].setWert(0);
-		
-		punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile][spalte+1].getWert());
-		
-	} else {
-		
-		if(feld[zeile][spalte+1].getWert() == 0) {
-			
-			feld[zeile][spalte+1].setWert(feld[zeile][spalte].getWert());
-			feld[zeile][spalte].setWert(0);
-			verschieben(zeile, spalte+1, "rechts");
-			
+
+		case "links":
+
+			if (feld[zeile][spalte].getWert() == feld[zeile][spalte - 1].getWert()) {
+
+				feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert() * 2);
+				feld[zeile][spalte].setWert(0);
+
+				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile][spalte - 1].getWert());
+
+			} else if (feld[zeile][spalte - 1].getWert() == 0) {
+
+				feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert());
+				feld[zeile][spalte].setWert(0);
+				verschieben(zeile, spalte - 1, "links");
+
+			}
+
+			break;
+
+		case "rechts":
+
+			if (feld[zeile][spalte].getWert() == feld[zeile][spalte + 1].getWert()) {
+
+				feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert() * 2);
+				feld[zeile][spalte].setWert(0);
+
+				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile][spalte + 1].getWert());
+
+			} else if (feld[zeile][spalte + 1].getWert() == 0) {
+
+				feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert());
+				feld[zeile][spalte].setWert(0);
+				verschieben(zeile, spalte + 1, "rechts");
+
+			}
+
+			break;
+
 		}
 	}
-	
-	break;	
-			
-				}
-		}
-		
-	
-	
+
 	public void blockErstellen() {
-		
-		
-		
-	}
-
-	
 
 	}
+
+}
 
 /*
  * public int[] leereFelder(){ int l = groesse-anzahl; int[] leereFelder = new
