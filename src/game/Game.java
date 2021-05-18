@@ -1,6 +1,6 @@
 package game;
 
-public class main {
+public class Game {
 	static Spielfeld s;
 
 	public static void main(String[] args) {
