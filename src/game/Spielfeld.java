@@ -79,48 +79,61 @@ class Spielfeld {
 
 	}
 
-	public void oben() {
+	public void welcheRichtung(String Richtung) {
 
-		for (int i = 0; i < getBreite(); i++) {
-			for (int j = 0; i < getBreite(); j++) {
-				if (existiertFeld(i + 1, j)) {
-					verschieben(i, j, "oben");
+		String r = Richtung;
+
+		switch (r) {
+
+		case "oben":
+
+			for (int i = 0; i < getBreite(); i++) {
+				for (int j = 0; i < getBreite(); j++) {
+					if (existiertFeld(i + 1, j)) {
+						verschieben(i, j, "oben");
+					}
 				}
 			}
-		}
-	}
 
-	public void unten() {
+			break;
 
-		for (int i = 0; i < getBreite(); i++) {
-			for (int j = 0; i < getBreite(); j++) {
-				if (existiertFeld(i - 1, j)) {
-					verschieben(i, j, "unten");
+		case "unten":
+
+			for (int i = 0; i < getBreite(); i++) {
+				for (int j = 0; i < getBreite(); j++) {
+					if (existiertFeld(i - 1, j)) {
+						verschieben(i, j, "unten");
+					}
 				}
 			}
-		}
-	}
 
-	public void links() {
+			break;
 
-		for (int i = 0; i < getBreite(); i++) {
-			for (int j = 0; i < getBreite(); j++) {
-				if (existiertFeld(i, j - 1)) {
-					verschieben(i, j, "links");
+		case "links":
+
+			for (int i = 0; i < getBreite(); i++) {
+				for (int j = 0; i < getBreite(); j++) {
+					if (existiertFeld(i, j - 1)) {
+						verschieben(i, j, "links");
+					}
 				}
 			}
-		}
-	}
 
-	public void rechts() {
+			break;
 
-		for (int i = 0; i < getBreite(); i++) {
-			for (int j = 0; i < getBreite(); j++) {
-				if (existiertFeld(i, j + 1)) {
-					verschieben(i, j, "rechts");
+		case "rechts":
+
+			for (int i = 0; i < getBreite(); i++) {
+				for (int j = 0; i < getBreite(); j++) {
+					if (existiertFeld(i, j + 1)) {
+						verschieben(i, j, "rechts");
+
+					}
 				}
 			}
+			break;
 		}
+
 	}
 
 	public void verschieben(int zeile, int spalte, String richtung) {
@@ -136,7 +149,7 @@ class Spielfeld {
 				feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 				feld[zeile][spalte].setWert(0);
 
-				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile + 1][spalte].getWert());
+				punkte += (feld[zeile][spalte].getWert()*2);
 
 			} else if (feld[zeile + 1][spalte].getWert() == 0) {
 
@@ -155,7 +168,7 @@ class Spielfeld {
 				feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 				feld[zeile][spalte].setWert(0);
 
-				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile - 1][spalte].getWert());
+				punkte += (feld[zeile][spalte].getWert()*2);
 
 			} else if (feld[zeile - 1][spalte].getWert() == 0) {
 
@@ -174,7 +187,7 @@ class Spielfeld {
 				feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert() * 2);
 				feld[zeile][spalte].setWert(0);
 
-				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile][spalte - 1].getWert());
+				punkte += (feld[zeile][spalte].getWert()*2);
 
 			} else if (feld[zeile][spalte - 1].getWert() == 0) {
 
@@ -193,7 +206,7 @@ class Spielfeld {
 				feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert() * 2);
 				feld[zeile][spalte].setWert(0);
 
-				punkte = punkte + (feld[zeile][spalte].getWert() + feld[zeile][spalte + 1].getWert());
+				punkte += (feld[zeile][spalte].getWert()*2);
 
 			} else if (feld[zeile][spalte + 1].getWert() == 0) {
 
