@@ -2,13 +2,21 @@ package game;
 
 class Spielfeld {
 	int punkte;
-
+	int breite;
 	Block[][] feld; // Matrix mit allen Bloecken
-	int[] index; // Matrix als Liste, vlt.unnötig
 
 	Spielfeld(int g) {
 		feld = new Block[g][g];
-		index = new int[g * g];
+
+		breite = g;
+
+		for (int i = 0; i < breite; i++) {
+			for (int j = 0; j < breite; j++) {
+				
+				feld[i][j] = new Block(0, i, j); //Jedes Feld wird erstellt und hat den Wert 0 (diese sollten logischerweise nicht sichtbar sein)
+
+			}
+		}
 	}
 
 	public int getGroesse() {
@@ -23,7 +31,7 @@ class Spielfeld {
 		int a = 0;
 		for (int i = 0; i < getBreite(); i++) {
 			for (int j = 0; j < getBreite(); j++) {
-				if (feld[i][j] != null) {
+				if (feld[i][j].getWert() > 0) {
 					a++;
 				}
 			}
@@ -41,7 +49,7 @@ class Spielfeld {
 
 	public Boolean gameOver() {
 		int zahl = 0;
-		if (getAnzahl() >= getGroesse()) { // Prüft ob noch freie Felder da sind
+		if (getAnzahl() == getGroesse()) { // Prüft ob noch freie Felder da sind
 			// Einmal für jeden Block ausprobieren
 			for (int i = 0; i < getBreite(); i++) {
 				for (int j = 0; j < getBreite(); j++) {
@@ -149,7 +157,7 @@ class Spielfeld {
 				feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 				feld[zeile][spalte].setWert(0);
 
-				punkte += (feld[zeile][spalte].getWert()*2);
+				punkte += (feld[zeile][spalte].getWert() * 2);
 
 			} else if (feld[zeile + 1][spalte].getWert() == 0) {
 
@@ -168,7 +176,7 @@ class Spielfeld {
 				feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 				feld[zeile][spalte].setWert(0);
 
-				punkte += (feld[zeile][spalte].getWert()*2);
+				punkte += (feld[zeile][spalte].getWert() * 2);
 
 			} else if (feld[zeile - 1][spalte].getWert() == 0) {
 
@@ -187,7 +195,7 @@ class Spielfeld {
 				feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert() * 2);
 				feld[zeile][spalte].setWert(0);
 
-				punkte += (feld[zeile][spalte].getWert()*2);
+				punkte += (feld[zeile][spalte].getWert() * 2);
 
 			} else if (feld[zeile][spalte - 1].getWert() == 0) {
 
@@ -206,7 +214,7 @@ class Spielfeld {
 				feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert() * 2);
 				feld[zeile][spalte].setWert(0);
 
-				punkte += (feld[zeile][spalte].getWert()*2);
+				punkte += (feld[zeile][spalte].getWert() * 2);
 
 			} else if (feld[zeile][spalte + 1].getWert() == 0) {
 
@@ -219,12 +227,29 @@ class Spielfeld {
 			break;
 
 		}
+
+		blockErstellen();
 	}
 
 	public void blockErstellen() {
 
-	}
+		int zeile = (int) (Math.random() * getBreite());
+		int spalte = (int) (Math.random() * getBreite());
 
+		double zufallszahl = Math.random(); // bestimmt, wie hoch die Wahrscheinlichkeit ist, ob der Block den Wert 2
+											// oder 4 hat.
+
+		if (feld[zeile][spalte].getWert() == 0) {
+
+			if (zufallszahl < 0.6) {
+
+				feld[zeile][spalte] = new Block(2, zeile, spalte);
+			} else {
+
+				feld[zeile][spalte] = new Block(4, zeile, spalte);
+			}
+		}
+	}
 }
 
 /*
