@@ -12,19 +12,20 @@ class Spielfeld {
 
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
-				
-				feld[i][j] = new Block(0, i, j); //Jedes Feld wird erstellt und hat den Wert 0 (diese sollten logischerweise nicht sichtbar sein)
+
+				feld[i][j] = new Block(0, i, j); // Jedes Feld wird erstellt und hat den Wert 0 (diese sollten
+													// logischerweise nicht sichtbar sein)
 
 			}
 		}
 	}
 
 	public int getGroesse() {
-		return feld.length;
+		return getBreite()*getBreite();
 	}
 
 	public int getBreite() {
-		return (int) Math.sqrt(feld.length);
+		return feld.length;
 	}
 
 	public int getAnzahl() {
@@ -141,6 +142,7 @@ class Spielfeld {
 			}
 			break;
 		}
+		blockErstellen();
 
 	}
 
@@ -227,8 +229,6 @@ class Spielfeld {
 			break;
 
 		}
-
-		blockErstellen();
 	}
 
 	public void blockErstellen() {
@@ -249,17 +249,23 @@ class Spielfeld {
 				feld[zeile][spalte] = new Block(4, zeile, spalte);
 			}
 		}
+		ausdrucken();
+	}
+
+	public void ausdrucken() {
+		for (int k = 0; k < 5; k++) {
+			System.out.println();			
+		}
+		System.out.println("-----------------------");	
+		for (int i = 0; i < getBreite(); i++) {
+			for (int j = 0; j < getBreite(); j++) {
+				if (feld[i][j].getWert() == 0)
+					System.out.print("| |");
+				else
+					System.out.print("|" + feld[i][j].getWert() + "|");
+			}
+			System.out.println();
+		}
+		System.out.println("-----------------------");	
 	}
 }
-
-/*
- * public int[] leereFelder(){ int l = groesse-anzahl; int[] leereFelder = new
- * int[l]; leereFelder[0] = l;
- * 
- * for(int i = 0; i < index.legth;i++){ if(index[i]==null){ for (int k = 0;k <
- * leereFelder.legth;k++){ if(leereFelder[k]==null){ leereFelder[k] = i; } } } }
- * return leereFelder; } public int[] getIndex(){ for (int i = 0; i <
- * getGroesse(); i++) { for (int j = 0; j < getGroesse(); j++) { if (feld[i][j]
- * != null) { a++; } } }
- * 
- */
