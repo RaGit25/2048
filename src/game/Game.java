@@ -37,9 +37,9 @@ public class Game implements KeyListener {
 		
 		try {
             while (!s.gameOver()) {
-            	//int e = Eingabe.nextInt();
-            	//System.out.println("You entered int "+e);
-            	int e = (int) (Math.random() * 8);
+            	int e = Eingabe.nextInt();
+            	System.out.println("You entered int "+e);
+            	//int e = (int) (Math.random() * 8);	//Zufällige Aktionen
             	if (e == 8 ) {	//8
         			s.welcheRichtung("oben");
         			s.ausdrucken();
