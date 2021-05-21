@@ -18,20 +18,13 @@ class Spielfeld {
 
 			}
 		}
-	}
 
-	public int getGroesse() {
-		return getBreite()*getBreite();
-	}
-
-	public int getBreite() {
-		return feld.length;
 	}
 
 	public int getAnzahl() {
 		int a = 0;
-		for (int i = 0; i < getBreite(); i++) {
-			for (int j = 0; j < getBreite(); j++) {
+		for (int i = 0; i < breite; i++) {
+			for (int j = 0; j < breite; j++) {
 				if (feld[i][j].getWert() > 0) {
 					a++;
 				}
@@ -40,20 +33,23 @@ class Spielfeld {
 		return a;
 	}
 
-	public Boolean existiertFeld(int x, int y) { // überprüft ob ein Block existiert
+	public Boolean existiertFeld(int zeile, int spalte) { // überprüft ob ein Block existiert
 		try {
-			return (feld[x][y] != null) ? true : false;
-		} catch (ArrayIndexOutOfBoundsException e) { // wenn der Block außerhalb des Feldes liegt -> existiert nicht
+			return (feld[zeile][spalte] != null) ? true : false;
+		} catch (ArrayIndexOutOfBoundsException e) { // wenn der Block außerhalb des Feldesliegt -> existiert nicht
 			return false;
 		}
+
+		// return (zeile < breite && spalte < breite) ? true : false;
+
 	}
 
 	public Boolean gameOver() {
 		int zahl = 0;
-		if (getAnzahl() == getGroesse()) { // Prüft ob noch freie Felder da sind
+		if (getAnzahl() == (breite * breite)) { // Prüft ob noch freie Felder da sind
 			// Einmal für jeden Block ausprobieren
-			for (int i = 0; i < getBreite(); i++) {
-				for (int j = 0; j < getBreite(); j++) {
+			for (int i = 0; i < breite; i++) {
+				for (int j = 0; j < breite; j++) {
 					// Vier Richtungen zum Schieben werden getestet
 					if (existiertFeld(i + 1, j)) {
 						if (feld[i][j].getWert() == feld[i + 1][j].getWert()) {
@@ -74,9 +70,11 @@ class Spielfeld {
 					}
 
 					if (existiertFeld(i, j - 1)) {
-						if (feld[i][j].getWert() != feld[i][j - 1].getWert()) {
+						if (feld[i][j].getWert() == feld[i][j - 1].getWert()) {
 							zahl++;
-							if (zahl == getAnzahl()) {
+							if (zahl != getAnzahl()) {
+								return false;
+							} else {
 								return true;
 							}
 						}
@@ -89,59 +87,12 @@ class Spielfeld {
 	}
 
 	public void welcheRichtung(String Richtung) {
-
-		String r = Richtung;
-
-		switch (r) {
-
-		case "oben":
-
-			for (int i = 0; i < getBreite(); i++) {
-				for (int j = 0; i < getBreite(); j++) {
-					if (existiertFeld(i + 1, j)) {
-						verschieben(i, j, "oben");
-					}
-				}
+		for (int i = 0; i < breite; i++) {
+			for (int j = 0; j < breite; j++) {
+				verschieben(i, j, Richtung);
 			}
-
-			break;
-
-		case "unten":
-
-			for (int i = 0; i < getBreite(); i++) {
-				for (int j = 0; i < getBreite(); j++) {
-					if (existiertFeld(i - 1, j)) {
-						verschieben(i, j, "unten");
-					}
-				}
-			}
-
-			break;
-
-		case "links":
-
-			for (int i = 0; i < getBreite(); i++) {
-				for (int j = 0; i < getBreite(); j++) {
-					if (existiertFeld(i, j - 1)) {
-						verschieben(i, j, "links");
-					}
-				}
-			}
-
-			break;
-
-		case "rechts":
-
-			for (int i = 0; i < getBreite(); i++) {
-				for (int j = 0; i < getBreite(); j++) {
-					if (existiertFeld(i, j + 1)) {
-						verschieben(i, j, "rechts");
-
-					}
-				}
-			}
-			break;
 		}
+
 		blockErstellen();
 
 	}
@@ -153,77 +104,80 @@ class Spielfeld {
 		switch (r) {
 
 		case "oben":
+			if (existiertFeld(zeile + 1, spalte) && feld[zeile][spalte].getWert() != 0) {
+				if (feld[zeile][spalte].getWert() == feld[zeile + 1][spalte].getWert()) {
 
-			if (feld[zeile][spalte].getWert() == feld[zeile + 1][spalte].getWert()) {
+					feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
+					feld[zeile][spalte].setWert(0);
 
-				feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
-				feld[zeile][spalte].setWert(0);
+					punkte += (feld[zeile][spalte].getWert() * 2);
 
-				punkte += (feld[zeile][spalte].getWert() * 2);
+				} else if (feld[zeile + 1][spalte].getWert() == 0) {
 
-			} else if (feld[zeile + 1][spalte].getWert() == 0) {
+					feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert());
+					feld[zeile][spalte].setWert(0);
+					verschieben(zeile + 1, spalte, "oben");
 
-				feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert());
-				feld[zeile][spalte].setWert(0);
-				verschieben(zeile + 1, spalte, "oben");
-
+				}
 			}
 
 			break;
 
 		case "unten":
+			if (existiertFeld(zeile - 1, spalte) && feld[zeile][spalte].getWert() != 0) {
+				if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert()) {
 
-			if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert()) {
+					feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
+					feld[zeile][spalte].setWert(0);
 
-				feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
-				feld[zeile][spalte].setWert(0);
+					punkte += (feld[zeile][spalte].getWert() * 2);
 
-				punkte += (feld[zeile][spalte].getWert() * 2);
+				} else if (feld[zeile - 1][spalte].getWert() == 0) {
 
-			} else if (feld[zeile - 1][spalte].getWert() == 0) {
+					feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert());
+					feld[zeile][spalte].setWert(0);
+					verschieben(zeile - 1, spalte, "unten");
 
-				feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert());
-				feld[zeile][spalte].setWert(0);
-				verschieben(zeile - 1, spalte, "unten");
-
+				}
 			}
 
 			break;
 
 		case "links":
+			if (existiertFeld(zeile, spalte - 1) && feld[zeile][spalte].getWert() != 0) {
+				if (feld[zeile][spalte].getWert() == feld[zeile][spalte - 1].getWert()) {
 
-			if (feld[zeile][spalte].getWert() == feld[zeile][spalte - 1].getWert()) {
+					feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert() * 2);
+					feld[zeile][spalte].setWert(0);
 
-				feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert() * 2);
-				feld[zeile][spalte].setWert(0);
+					punkte += (feld[zeile][spalte].getWert() * 2);
 
-				punkte += (feld[zeile][spalte].getWert() * 2);
+				} else if (feld[zeile][spalte - 1].getWert() == 0) {
 
-			} else if (feld[zeile][spalte - 1].getWert() == 0) {
+					feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert());
+					feld[zeile][spalte].setWert(0);
+					verschieben(zeile, spalte - 1, "links");
 
-				feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert());
-				feld[zeile][spalte].setWert(0);
-				verschieben(zeile, spalte - 1, "links");
-
+				}
 			}
-
 			break;
 
 		case "rechts":
+			if (existiertFeld(zeile, spalte + 1) && feld[zeile][spalte].getWert() != 0) {
+				if (feld[zeile][spalte].getWert() == feld[zeile][spalte + 1].getWert()) {
 
-			if (feld[zeile][spalte].getWert() == feld[zeile][spalte + 1].getWert()) {
+					feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert() * 2);
+					feld[zeile][spalte].setWert(0);
 
-				feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert() * 2);
-				feld[zeile][spalte].setWert(0);
+					punkte += (feld[zeile][spalte].getWert() * 2);
 
-				punkte += (feld[zeile][spalte].getWert() * 2);
+				} else if (feld[zeile][spalte + 1].getWert() == 0) {
 
-			} else if (feld[zeile][spalte + 1].getWert() == 0) {
+					feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert());
+					feld[zeile][spalte].setWert(0);
+					verschieben(zeile, spalte + 1, "rechts");
 
-				feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert());
-				feld[zeile][spalte].setWert(0);
-				verschieben(zeile, spalte + 1, "rechts");
-
+				}
 			}
 
 			break;
@@ -233,8 +187,8 @@ class Spielfeld {
 
 	public void blockErstellen() {
 
-		int zeile = (int) (Math.random() * getBreite());
-		int spalte = (int) (Math.random() * getBreite());
+		int zeile = (int) (Math.random() * breite);
+		int spalte = (int) (Math.random() * breite);
 
 		double zufallszahl = Math.random(); // bestimmt, wie hoch die Wahrscheinlichkeit ist, ob der Block den Wert 2
 											// oder 4 hat.
@@ -248,17 +202,21 @@ class Spielfeld {
 
 				feld[zeile][spalte] = new Block(4, zeile, spalte);
 			}
+		} else {
+			if(getAnzahl() < (breite * breite)) {
+				blockErstellen();
+			}
 		}
 		ausdrucken();
 	}
 
 	public void ausdrucken() {
 		for (int k = 0; k < 5; k++) {
-			System.out.println();			
+			System.out.println();
 		}
-		System.out.println("-----------------------");	
-		for (int i = 0; i < getBreite(); i++) {
-			for (int j = 0; j < getBreite(); j++) {
+		System.out.println("-----------------------");
+		for (int i = 0; i < breite; i++) {
+			for (int j = 0; j < breite; j++) {
 				if (feld[i][j].getWert() == 0)
 					System.out.print("| |");
 				else
@@ -266,6 +224,6 @@ class Spielfeld {
 			}
 			System.out.println();
 		}
-		System.out.println("-----------------------");	
+		System.out.println("-----------------------");
 	}
 }

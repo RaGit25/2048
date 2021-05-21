@@ -2,10 +2,12 @@ package game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Scanner;
 
 public class Game implements KeyListener {
 
 	static Spielfeld s = new Spielfeld(4);
+	static Scanner Eingabe = new Scanner(System.in);
 	
 	
 	public void keyTyped(KeyEvent e) {
@@ -33,11 +35,27 @@ public class Game implements KeyListener {
 		//System.out.println((s.gameOver()) ? "GameOver" : "Es geht weiter");
 		
 		try {
-            int i = 0;
-            while (i < 10) {
-            	//System.out.println((s.gameOver()) ? "GameOver" : "Es geht weiter");
-                i--;
-               Thread.sleep(2500);
+            while (!s.gameOver()) {
+            	int e = Eingabe.nextInt();
+            	System.out.println("You entered int "+e);
+            	if (e == 8 ) {
+        			s.welcheRichtung("oben");
+        			s.ausdrucken();
+        			e = 0;
+        		} else if (e == 2) {
+        			s.welcheRichtung("unten");
+        			s.ausdrucken();
+        			e = 0;
+        		} else if (e == 4) {
+        			s.welcheRichtung("links");
+        			s.ausdrucken();
+        			e = 0;
+        		} else if (e == 6) {
+        			s.welcheRichtung("rechts");
+        			s.ausdrucken();
+        			e = 0;
+        		}
+              //Thread.sleep(2500);
             }
         } catch (Exception e) {
             e.printStackTrace();
