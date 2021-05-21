@@ -87,8 +87,9 @@ class Spielfeld {
 		String r = Richtung;
 
 		switch (r) {
-		// Man geht unterschidlich durchs Feld, beginnend mit der Seite in die geschoben wird
-		case "oben":
+		// Man geht unterschidlich durchs Feld, beginnend mit der Seite in die geschoben
+		// wird
+		case "oben": // oben links beginnend
 
 			for (int i = 0; i < breite; i++) {
 				for (int j = 0; j < breite; j++) {
@@ -98,17 +99,17 @@ class Spielfeld {
 
 			break;
 
-		case "unten":
-
-			for (int i = breite; i < 0; i--) {
-				for (int j = 0; j < breite; j++) {
+		case "unten": // unten rechts beginnend
+			
+			for (int i = (breite-1); i >= 0; i--) {
+				for (int j = (breite-1); j >= 0; j--) {
 					verschieben(i, j, r);
 				}
 			}
-
+						
 			break;
 
-		case "links":	//gleich wie oben 
+		case "links": // gleich wie oben
 
 			for (int i = 0; i < breite; i++) {
 				for (int j = 0; j < breite; j++) {
@@ -118,12 +119,11 @@ class Spielfeld {
 
 			break;
 
-		case "rechts":
+		case "rechts": // gleich wie unten
 
-			for (int i = 0; i < breite; i++) {
-				for (int j = breite; j < 0; j++) {
+			for (int i = (breite-1); i >= 0; i--) {
+				for (int j = (breite-1); j >= 0; j--) {
 					verschieben(i, j, r);
-
 				}
 			}
 			break;
