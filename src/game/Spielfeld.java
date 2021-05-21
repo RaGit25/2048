@@ -13,8 +13,8 @@ class Spielfeld {
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
 
-				feld[i][j] = new Block(0, i, j); // Jedes Feld wird erstellt und hat den Wert 0 (diese sollten
-													// logischerweise nicht sichtbar sein)
+				feld[i][j] = new Block(0, i, j); // Jedes Feld wird erstellt und hat den Wert 0 
+				//-> diese sollten logischerweise nicht sichtbar sein
 
 			}
 		}
@@ -39,9 +39,6 @@ class Spielfeld {
 		} catch (ArrayIndexOutOfBoundsException e) { // wenn der Block außerhalb des Feldesliegt -> existiert nicht
 			return false;
 		}
-
-		// return (zeile < breite && spalte < breite) ? true : false;
-
 	}
 
 	public Boolean gameOver() {
@@ -71,13 +68,12 @@ class Spielfeld {
 
 					if (existiertFeld(i, j - 1)) {
 						if (feld[i][j].getWert() == feld[i][j - 1].getWert()) {
-							zahl++;
-							if (zahl != getAnzahl()) {
-								return false;
-							} else {
-								return true;
-							}
+							return true;
 						}
+					}
+					zahl++;
+					if (zahl == getAnzahl()) {
+						return true;
 					}
 				}
 			}
@@ -203,11 +199,11 @@ class Spielfeld {
 				feld[zeile][spalte] = new Block(4, zeile, spalte);
 			}
 		} else {
-			if(getAnzahl() < (breite * breite)) {
+			if (getAnzahl() < (breite * breite)) {
 				blockErstellen();
 			}
 		}
-		ausdrucken();
+		//ausdrucken();
 	}
 
 	public void ausdrucken() {

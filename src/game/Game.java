@@ -32,30 +32,30 @@ public class Game implements KeyListener {
 	public static void main(String[] args) {
 		s.blockErstellen();
 		s.blockErstellen();
+		s.ausdrucken();
 		//System.out.println((s.gameOver()) ? "GameOver" : "Es geht weiter");
 		
 		try {
             while (!s.gameOver()) {
-            	int e = Eingabe.nextInt();
-            	System.out.println("You entered int "+e);
-            	if (e == 8 ) {
+            	//int e = Eingabe.nextInt();
+            	//System.out.println("You entered int "+e);
+            	int e = (int) (Math.random() * 8);
+            	if (e == 8 ) {	//8
         			s.welcheRichtung("oben");
         			s.ausdrucken();
-        			e = 0;
-        		} else if (e == 2) {
+        		} else if (e == 2) { //2
         			s.welcheRichtung("unten");
         			s.ausdrucken();
-        			e = 0;
-        		} else if (e == 4) {
+        		} else if (e == 4) { //4
         			s.welcheRichtung("links");
         			s.ausdrucken();
-        			e = 0;
-        		} else if (e == 6) {
+        		} else if (e == 6) { //6
         			s.welcheRichtung("rechts");
         			s.ausdrucken();
-        			e = 0;
         		}
-              //Thread.sleep(2500);
+            	e = 0;
+              Thread.sleep(50);
+              System.out.println((s.gameOver()) ? "GameOver" : "Es geht weiter");
             }
         } catch (Exception e) {
             e.printStackTrace();
