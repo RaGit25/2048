@@ -100,13 +100,13 @@ class Spielfeld {
 			break;
 
 		case "unten": // unten rechts beginnend
-			
-			for (int i = (breite-1); i >= 0; i--) {
-				for (int j = (breite-1); j >= 0; j--) {
+
+			for (int i = (breite - 1); i >= 0; i--) {
+				for (int j = (breite - 1); j >= 0; j--) {
 					verschieben(i, j, r);
 				}
 			}
-						
+
 			break;
 
 		case "links": // gleich wie oben
@@ -121,8 +121,8 @@ class Spielfeld {
 
 		case "rechts": // gleich wie unten
 
-			for (int i = (breite-1); i >= 0; i--) {
-				for (int j = (breite-1); j >= 0; j--) {
+			for (int i = (breite - 1); i >= 0; i--) {
+				for (int j = (breite - 1); j >= 0; j--) {
 					verschieben(i, j, r);
 				}
 			}
@@ -143,7 +143,8 @@ class Spielfeld {
 		switch (r) {
 
 		case "oben":
-			if (existiertFeld(zeile - 1, spalte) && feld[zeile][spalte].getWert() != 0) {
+			if (existiertFeld(zeile - 1, spalte) && feld[zeile][spalte].getWert() != 0
+					&& existiertFeld(zeile + 1, spalte)) {
 				if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert()) {
 
 					feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
@@ -163,7 +164,8 @@ class Spielfeld {
 			break;
 
 		case "unten":
-			if (existiertFeld(zeile + 1, spalte) && feld[zeile][spalte].getWert() != 0) {
+			if (existiertFeld(zeile + 1, spalte) && feld[zeile][spalte].getWert() != 0
+					&& existiertFeld(zeile - 1, spalte)) {
 				if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert()) {
 
 					feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
@@ -183,7 +185,8 @@ class Spielfeld {
 			break;
 
 		case "links":
-			if (existiertFeld(zeile, spalte - 1) && feld[zeile][spalte].getWert() != 0) {
+			if (existiertFeld(zeile, spalte - 1) && feld[zeile][spalte].getWert() != 0
+					&& existiertFeld(zeile, spalte + 1)) {
 				if (feld[zeile][spalte].getWert() == feld[zeile][spalte - 1].getWert()) {
 
 					feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert() * 2);
@@ -202,7 +205,8 @@ class Spielfeld {
 			break;
 
 		case "rechts":
-			if (existiertFeld(zeile, spalte + 1) && feld[zeile][spalte].getWert() != 0) {
+			if (existiertFeld(zeile, spalte + 1) && feld[zeile][spalte].getWert() != 0
+					&& existiertFeld(zeile, spalte - 1)) {
 				if (feld[zeile][spalte].getWert() == feld[zeile][spalte + 1].getWert()) {
 
 					feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert() * 2);
