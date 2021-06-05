@@ -144,7 +144,7 @@ class Spielfeld {
 
 		case "oben":
 			if (existiertFeld(zeile - 1, spalte) && feld[zeile][spalte].getWert() != 0
-					&& existiertFeld(zeile + 1, spalte)) {
+					) {
 				if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert()) {
 
 					feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
@@ -165,8 +165,8 @@ class Spielfeld {
 
 		case "unten":
 			if (existiertFeld(zeile + 1, spalte) && feld[zeile][spalte].getWert() != 0
-					&& existiertFeld(zeile - 1, spalte)) {
-				if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert()) {
+					) {
+				if (feld[zeile][spalte].getWert() == feld[zeile + 1][spalte].getWert()) {
 
 					feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
@@ -186,7 +186,7 @@ class Spielfeld {
 
 		case "links":
 			if (existiertFeld(zeile, spalte - 1) && feld[zeile][spalte].getWert() != 0
-					&& existiertFeld(zeile, spalte + 1)) {
+					) {
 				if (feld[zeile][spalte].getWert() == feld[zeile][spalte - 1].getWert()) {
 
 					feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert() * 2);
@@ -206,7 +206,7 @@ class Spielfeld {
 
 		case "rechts":
 			if (existiertFeld(zeile, spalte + 1) && feld[zeile][spalte].getWert() != 0
-					&& existiertFeld(zeile, spalte - 1)) {
+					) {
 				if (feld[zeile][spalte].getWert() == feld[zeile][spalte + 1].getWert()) {
 
 					feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert() * 2);
