@@ -7,8 +7,8 @@ class Spielfeld {
 
 	Spielfeld(int g) {
 		feld = new Block[g][g];
-
 		breite = g;
+		punkte = 0;
 
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
@@ -19,6 +19,11 @@ class Spielfeld {
 			}
 		}
 
+	}
+
+	public int getPunkte() {
+
+		return punkte;
 	}
 
 	public int getAnzahl() {
@@ -143,14 +148,13 @@ class Spielfeld {
 		switch (r) {
 
 		case "oben":
-			if (existiertFeld(zeile - 1, spalte) && feld[zeile][spalte].getWert() != 0
-					) {
+			if (existiertFeld(zeile - 1, spalte) && feld[zeile][spalte].getWert() != 0) {
 				if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert()) {
 
 					feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
 
-					punkte += (feld[zeile][spalte].getWert() * 2);
+					punkte += (feld[zeile-1][spalte].getWert() );
 
 				} else if (feld[zeile - 1][spalte].getWert() == 0) {
 
@@ -164,14 +168,13 @@ class Spielfeld {
 			break;
 
 		case "unten":
-			if (existiertFeld(zeile + 1, spalte) && feld[zeile][spalte].getWert() != 0
-					) {
+			if (existiertFeld(zeile + 1, spalte) && feld[zeile][spalte].getWert() != 0) {
 				if (feld[zeile][spalte].getWert() == feld[zeile + 1][spalte].getWert()) {
 
 					feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
 
-					punkte += (feld[zeile][spalte].getWert() * 2);
+					punkte += (feld[zeile+1][spalte].getWert() );
 
 				} else if (feld[zeile + 1][spalte].getWert() == 0) {
 
@@ -185,14 +188,13 @@ class Spielfeld {
 			break;
 
 		case "links":
-			if (existiertFeld(zeile, spalte - 1) && feld[zeile][spalte].getWert() != 0
-					) {
+			if (existiertFeld(zeile, spalte - 1) && feld[zeile][spalte].getWert() != 0) {
 				if (feld[zeile][spalte].getWert() == feld[zeile][spalte - 1].getWert()) {
 
 					feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
 
-					punkte += (feld[zeile][spalte].getWert() * 2);
+					punkte += (feld[zeile][spalte-1].getWert() );
 
 				} else if (feld[zeile][spalte - 1].getWert() == 0) {
 
@@ -205,14 +207,13 @@ class Spielfeld {
 			break;
 
 		case "rechts":
-			if (existiertFeld(zeile, spalte + 1) && feld[zeile][spalte].getWert() != 0
-					) {
+			if (existiertFeld(zeile, spalte + 1) && feld[zeile][spalte].getWert() != 0) {
 				if (feld[zeile][spalte].getWert() == feld[zeile][spalte + 1].getWert()) {
 
 					feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
 
-					punkte += (feld[zeile][spalte].getWert() * 2);
+					punkte += (feld[zeile][spalte+1].getWert() );
 
 				} else if (feld[zeile][spalte + 1].getWert() == 0) {
 
