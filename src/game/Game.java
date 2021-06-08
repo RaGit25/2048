@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Game implements KeyListener {
 
 	static Spielfeld s = new Spielfeld(4);
-	static Scanner Eingabe = new Scanner(System.in);
+	static Scanner Eingabe = new Scanner(System.in); //OwO
 	
 	
 	public void keyTyped(KeyEvent e) {
@@ -39,7 +39,7 @@ public class Game implements KeyListener {
             while (!s.gameOver()) {
             	int e = Eingabe.nextInt();
             	System.out.println("You entered int "+e);
-            	//int e = (int) (Math.random() * 8);	//Zufällige Aktionen
+            	//int e = (int) (Math.random() * 8);	//Zufï¿½llige Aktionen
             	if (e == 8 ) {	//8
         			s.welcheRichtung("oben");
         			s.ausdrucken();
