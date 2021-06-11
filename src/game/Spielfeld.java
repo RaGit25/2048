@@ -159,30 +159,31 @@ class Spielfeld {
 		// praktische Verbesserung: die Werte für z(eile) und s(palte), für das
 		// hinzuverschiebende Feld werden übergeben
 
-		if (existiertFeld(z, s) && feld[zeile][spalte].getWert() != 0) { 	// Schaut, ob es das Feld daneben und selbst gibt
-																		
-			if (feld[zeile][spalte].getWert() == feld[z][s].getWert() 		// Wenn: Feld identisch und
-					&& !feld[zeile - 1][spalte].getVerschoben()) { 			// 		noch nicht verschoben
+		if (existiertFeld(z, s) && feld[zeile][spalte].getWert() != 0) { // Schaut, ob es das Feld daneben und selbst
+																			// gibt
 
-				feld[z][s].setWert(feld[zeile][spalte].getWert() * 2); 		// Neues Feld mit doppeltem Wert
-				feld[z][s].setVerschoben(true); 							// Feld als verschoben gekennzeichnet
+			if (feld[zeile][spalte].getWert() == feld[z][s].getWert() // Wenn: Feld identisch und
+					&& !feld[z][s].getVerschoben()) { // noch nicht verschoben
 
-				feld[zeile][spalte].setWert(0); 							// Altes Feld wird null gesetzt
+				feld[z][s].setWert(feld[zeile][spalte].getWert() * 2); // Neues Feld mit doppeltem Wert
+				feld[z][s].setVerschoben(true); // Feld als verschoben gekennzeichnet
 
-				punkte += (feld[zeile][spalte].getWert() * 2); 				// Punktesystem
+				feld[zeile][spalte].setWert(0); // Altes Feld wird null gesetzt
+
+				punkte += (feld[z][s].getWert()); // Punktesystem
 
 				veraendert = true;
-			} else if (feld[z][s].getWert() == 0) { 						// Wenn Feld daneben null ist
+			} else if (feld[z][s].getWert() == 0) { // Wenn Feld daneben null ist
 
-				feld[z][s].setWert(feld[zeile][spalte].getWert()); 			// dort hinschieben
-				feld[zeile][spalte].setWert(0); 							// und altes Feld nullsetzen
+				feld[z][s].setWert(feld[zeile][spalte].getWert()); // dort hinschieben
+				feld[zeile][spalte].setWert(0); // und altes Feld nullsetzen
 
 				int ze = z + (z - zeile); // Neue Zeile plus/minus 1
 				int sp = s + (s - spalte); // Neue Spalte plus/minus 1
 
-				veraendert = true;				 // eigentlich unnötig, da Feld jetzt leer
+				veraendert = true; // Es wurde was verschoben
 
-				verschieben(z, s, ze, sp); //  Verschieben neuen Feldes unnötig, weil richtige Richtung durch Feld
+				verschieben(z, s, ze, sp); // Verschieben neuen Feldes unnötig, weil richtige Richtung durch Feld
 
 			}
 		}
@@ -229,5 +230,6 @@ class Spielfeld {
 			System.out.println();
 		}
 		System.out.println("-----------------------");
+		System.out.println("Zuege:" + zuege);
 	}
 }
