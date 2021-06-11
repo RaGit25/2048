@@ -113,7 +113,7 @@ class Spielfeld {
 
 			for (int i = 0; i < breite; i++) {
 				for (int j = 0; j < breite; j++) {
-					verschieben(i, j, r);
+					verschieben(i, j, r);	//verschieben(i, j, i - 1, j);
 				}
 			}
 
@@ -123,7 +123,7 @@ class Spielfeld {
 
 			for (int i = (breite - 1); i >= 0; i--) {
 				for (int j = (breite - 1); j >= 0; j--) {
-					verschieben(i, j, r);
+					verschieben(i, j, r);	//verschieben(i, j, i + 1, j);
 				}
 			}
 
@@ -133,7 +133,7 @@ class Spielfeld {
 
 			for (int i = 0; i < breite; i++) {
 				for (int j = 0; j < breite; j++) {
-					verschieben(i, j, r);
+					verschieben(i, j, r);	//verschieben(i, j, i, j - 1);
 				}
 			}
 
@@ -143,7 +143,7 @@ class Spielfeld {
 
 			for (int i = (breite - 1); i >= 0; i--) {
 				for (int j = (breite - 1); j >= 0; j--) {
-					verschieben(i, j, r);
+					verschieben(i, j, r);	//verschieben(i, j, i, j + 1);
 				}
 			}
 			break;
@@ -156,7 +156,33 @@ class Spielfeld {
 	}
 
 	public void verschieben(int zeile, int spalte, String richtung) {
-		 
+		// theoretische Verbesserung: anstatt Richtung die Werte für z(eile) und s(palte), für das hinzuverschiebende Feld
+				//int z, s
+				/*if (existiertFeld(z, s) && feld[zeile][spalte].getWert() != 0) { 	//Schaut, ob es das Feld daneben und selbst gibt
+					if (feld[zeile][spalte].getWert() == feld[z][s].getWert()		//Wenn: Feld identisch und
+							&& !feld[zeile - 1][spalte].getVerschoben()) {			//		noch nicht verschoben
+
+						feld[z][s].setWert(feld[zeile][spalte].getWert() * 2);		//Neues Feld mit doppeltem Wert
+						feld[z][s].setVerschoben(true);								//Feld als verschoben gekennzeichnet
+						
+						feld[zeile][spalte].setWert(0);								// Altes Feld wird null gesetzt
+						
+						punkte += (feld[zeile][spalte].getWert() * 2);				//Punktesystem
+						
+						veraendert = true;
+					} else if (feld[z][s].getWert() == 0) {							//Wenn Feld daneben null ist
+
+						feld[z][s].setWert(feld[zeile][spalte].getWert());			//dort hinschieben
+						feld[zeile][spalte].setWert(0);								//und altes Feld nullsetzen	
+						
+						int ze = z + (z - zeile);	//Neue Zeile plus/minus 1
+						int sp = s + (s - spalte);	//Neue Spalte plus/minus 1
+						
+						veraendert = true; 											// hier muss veraendert eigentlich nicht true gesetzt werden, da Feld leer
+						
+						verschieben(z, s, ze, sp);									//Nochmal Verschieben des neuen Feldes auch unnötig, weil richtige Richtung durchs Feld					  
+						
+					}*/
 		
 		String r = richtung;
 
@@ -179,7 +205,6 @@ class Spielfeld {
 					feld[zeile][spalte].setWert(0);
 					verschieben(zeile - 1, spalte, "oben");
 					
-					veraendert = true;
 				}
 			}
 
@@ -202,7 +227,6 @@ class Spielfeld {
 					feld[zeile][spalte].setWert(0);
 					verschieben(zeile + 1, spalte, "unten");
 					
-					veraendert = true;
 				}
 			}
 
@@ -225,7 +249,6 @@ class Spielfeld {
 					feld[zeile][spalte].setWert(0);
 					verschieben(zeile, spalte - 1, "links");
 					
-					veraendert = true;
 				}
 			}
 			break;
@@ -247,7 +270,6 @@ class Spielfeld {
 					feld[zeile][spalte].setWert(0);
 					verschieben(zeile, spalte + 1, "rechts");
 					
-					veraendert = true;
 				}
 			}
 
