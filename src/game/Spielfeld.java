@@ -33,6 +33,15 @@ class Spielfeld {
 		return a;
 	}
 
+	public void setAllFalse() {
+		for (int i = 0; i < breite; i++) {
+			for (int j = 0; j < breite; j++) {
+				feld[i][j].setVerschoben(false);
+			}
+		}
+
+	}
+
 	public Boolean existiertFeld(int zeile, int spalte) { // überprüft ob ein Block existiert
 		try {
 			return (feld[zeile][spalte] != null) ? true : false;
@@ -128,11 +137,7 @@ class Spielfeld {
 			}
 			break;
 		}
-		/*
-		 * for (int i = 0; i < breite; i++) { for (int j = 0; j < breite; j++) {
-		 * verschieben(i, j, Richtung); } }
-		 */
-
+		setAllFalse();
 		blockErstellen();
 	}
 
@@ -143,13 +148,12 @@ class Spielfeld {
 		switch (r) {
 
 		case "oben":
-			if (existiertFeld(zeile - 1, spalte) && feld[zeile][spalte].getWert() != 0
-					) {
-				if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert()) {
+			if (existiertFeld(zeile - 1, spalte) && feld[zeile][spalte].getWert() != 0) {
+				if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert() && !feld[zeile - 1][spalte].getVerschoben()) {
 
 					feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
-
+					feld[zeile - 1][spalte].setVerschoben(true);
 					punkte += (feld[zeile][spalte].getWert() * 2);
 
 				} else if (feld[zeile - 1][spalte].getWert() == 0) {
@@ -164,13 +168,12 @@ class Spielfeld {
 			break;
 
 		case "unten":
-			if (existiertFeld(zeile + 1, spalte) && feld[zeile][spalte].getWert() != 0
-					) {
-				if (feld[zeile][spalte].getWert() == feld[zeile + 1][spalte].getWert()) {
+			if (existiertFeld(zeile + 1, spalte) && feld[zeile][spalte].getWert() != 0) {
+				if (feld[zeile][spalte].getWert() == feld[zeile + 1][spalte].getWert() && !feld[zeile + 1][spalte].getVerschoben()) {
 
 					feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
-
+					feld[zeile + 1][spalte].setVerschoben(true);
 					punkte += (feld[zeile][spalte].getWert() * 2);
 
 				} else if (feld[zeile + 1][spalte].getWert() == 0) {
@@ -185,13 +188,12 @@ class Spielfeld {
 			break;
 
 		case "links":
-			if (existiertFeld(zeile, spalte - 1) && feld[zeile][spalte].getWert() != 0
-					) {
-				if (feld[zeile][spalte].getWert() == feld[zeile][spalte - 1].getWert()) {
+			if (existiertFeld(zeile, spalte - 1) && feld[zeile][spalte].getWert() != 0) {
+				if (feld[zeile][spalte].getWert() == feld[zeile][spalte - 1].getWert() && !feld[zeile][spalte -1].getVerschoben()) {
 
 					feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
-
+					feld[zeile][spalte - 1].setVerschoben(true);
 					punkte += (feld[zeile][spalte].getWert() * 2);
 
 				} else if (feld[zeile][spalte - 1].getWert() == 0) {
@@ -205,13 +207,12 @@ class Spielfeld {
 			break;
 
 		case "rechts":
-			if (existiertFeld(zeile, spalte + 1) && feld[zeile][spalte].getWert() != 0
-					) {
-				if (feld[zeile][spalte].getWert() == feld[zeile][spalte + 1].getWert()) {
+			if (existiertFeld(zeile, spalte + 1) && feld[zeile][spalte].getWert() != 0) {
+				if (feld[zeile][spalte].getWert() == feld[zeile][spalte + 1].getWert() && !feld[zeile][spalte + 1].getVerschoben()) {
 
 					feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
-
+					feld[zeile][spalte + 1].setVerschoben(true);
 					punkte += (feld[zeile][spalte].getWert() * 2);
 
 				} else if (feld[zeile][spalte + 1].getWert() == 0) {

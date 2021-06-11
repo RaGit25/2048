@@ -7,6 +7,8 @@ class Block
     int x;
     int y;
     
+    Boolean verschoben; //Spielmechanik: Verschobenes kann nicht erneut verbunden werden
+    
     Block (int wert,int spalte, int zeile)
     {
         this.wert = wert;
@@ -39,4 +41,13 @@ class Block
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	public Boolean getVerschoben() {
+		return verschoben;
+	}
+
+	public void setVerschoben(Boolean verschoben) {
+		this.verschoben = verschoben;
+	}
+
 }
