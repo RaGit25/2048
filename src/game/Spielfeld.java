@@ -1,9 +1,13 @@
 package game;
 
 class Spielfeld {
-	int punkte;
 	int breite;
 	Block[][] feld; // Matrix mit allen Bloecken
+
+	int punkte;
+	// int hoechstesFeld;
+	int zuege;
+	Boolean veraendert;
 
 	Spielfeld(int g) {
 		feld = new Block[g][g];
@@ -17,6 +21,10 @@ class Spielfeld {
 				// -> diese sollten logischerweise nicht sichtbar sein
 
 			}
+			punkte = 0;
+			zuege = 0;
+			veraendert 	= false;
+			//setAllFalse();
 		}
 
 	}
@@ -92,6 +100,9 @@ class Spielfeld {
 	}
 
 	public void welcheRichtung(String Richtung) {
+		veraendert = false;
+		setAllFalse();
+		zuege++; // addiert einen neuen Zug
 
 		String r = Richtung;
 
@@ -137,31 +148,38 @@ class Spielfeld {
 			}
 			break;
 		}
-		setAllFalse();
-		blockErstellen();
+		if (veraendert) {
+			blockErstellen();
+		} else {
+			zuege--;
+		}
 	}
 
 	public void verschieben(int zeile, int spalte, String richtung) {
-
+		 
+		
 		String r = richtung;
 
 		switch (r) {
 
 		case "oben":
 			if (existiertFeld(zeile - 1, spalte) && feld[zeile][spalte].getWert() != 0) {
-				if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert() && !feld[zeile - 1][spalte].getVerschoben()) {
+				if (feld[zeile][spalte].getWert() == feld[zeile - 1][spalte].getWert()
+						&& !feld[zeile - 1][spalte].getVerschoben()) {
 
 					feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
 					feld[zeile - 1][spalte].setVerschoben(true);
 					punkte += (feld[zeile][spalte].getWert() * 2);
-
+					
+					veraendert = true;
 				} else if (feld[zeile - 1][spalte].getWert() == 0) {
 
 					feld[zeile - 1][spalte].setWert(feld[zeile][spalte].getWert());
 					feld[zeile][spalte].setWert(0);
 					verschieben(zeile - 1, spalte, "oben");
-
+					
+					veraendert = true;
 				}
 			}
 
@@ -169,19 +187,22 @@ class Spielfeld {
 
 		case "unten":
 			if (existiertFeld(zeile + 1, spalte) && feld[zeile][spalte].getWert() != 0) {
-				if (feld[zeile][spalte].getWert() == feld[zeile + 1][spalte].getWert() && !feld[zeile + 1][spalte].getVerschoben()) {
+				if (feld[zeile][spalte].getWert() == feld[zeile + 1][spalte].getWert()
+						&& !feld[zeile + 1][spalte].getVerschoben()) {
 
 					feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
 					feld[zeile + 1][spalte].setVerschoben(true);
 					punkte += (feld[zeile][spalte].getWert() * 2);
-
+					
+					veraendert = true;
 				} else if (feld[zeile + 1][spalte].getWert() == 0) {
 
 					feld[zeile + 1][spalte].setWert(feld[zeile][spalte].getWert());
 					feld[zeile][spalte].setWert(0);
 					verschieben(zeile + 1, spalte, "unten");
-
+					
+					veraendert = true;
 				}
 			}
 
@@ -189,38 +210,44 @@ class Spielfeld {
 
 		case "links":
 			if (existiertFeld(zeile, spalte - 1) && feld[zeile][spalte].getWert() != 0) {
-				if (feld[zeile][spalte].getWert() == feld[zeile][spalte - 1].getWert() && !feld[zeile][spalte -1].getVerschoben()) {
+				if (feld[zeile][spalte].getWert() == feld[zeile][spalte - 1].getWert()
+						&& !feld[zeile][spalte - 1].getVerschoben()) {
 
 					feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
 					feld[zeile][spalte - 1].setVerschoben(true);
 					punkte += (feld[zeile][spalte].getWert() * 2);
-
+					
+					veraendert = true;
 				} else if (feld[zeile][spalte - 1].getWert() == 0) {
 
 					feld[zeile][spalte - 1].setWert(feld[zeile][spalte].getWert());
 					feld[zeile][spalte].setWert(0);
 					verschieben(zeile, spalte - 1, "links");
-
+					
+					veraendert = true;
 				}
 			}
 			break;
 
 		case "rechts":
 			if (existiertFeld(zeile, spalte + 1) && feld[zeile][spalte].getWert() != 0) {
-				if (feld[zeile][spalte].getWert() == feld[zeile][spalte + 1].getWert() && !feld[zeile][spalte + 1].getVerschoben()) {
+				if (feld[zeile][spalte].getWert() == feld[zeile][spalte + 1].getWert()
+						&& !feld[zeile][spalte + 1].getVerschoben()) {
 
 					feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert() * 2);
 					feld[zeile][spalte].setWert(0);
 					feld[zeile][spalte + 1].setVerschoben(true);
 					punkte += (feld[zeile][spalte].getWert() * 2);
-
+					
+					veraendert = true;
 				} else if (feld[zeile][spalte + 1].getWert() == 0) {
 
 					feld[zeile][spalte + 1].setWert(feld[zeile][spalte].getWert());
 					feld[zeile][spalte].setWert(0);
 					verschieben(zeile, spalte + 1, "rechts");
-
+					
+					veraendert = true;
 				}
 			}
 

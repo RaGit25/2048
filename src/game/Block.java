@@ -14,6 +14,8 @@ class Block
         this.wert = wert;
         this.x = spalte;
         this.y = zeile;
+        
+        verschoben = false;
     }
     
     //Getter Und Setter
