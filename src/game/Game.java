@@ -1,33 +1,107 @@
 package game;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-public class Game extends JPanel implements KeyListener {
+public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static Spielfeld s = new Spielfeld(4);
 
 	static Game spiel = new Game();
 
-	static JFrame frame = new JFrame("2048");
+	static JFrame gameFrame = new JFrame("2048");
 
-	
-	//Fenster, das zu Beginn geöffnet wird
-	public static void gui() {
+	static JFrame loginFrame= new JFrame("login");
 
-		frame.setSize(880, 1000); 
-		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);                  //wird in der MItte d. Bildschirms geöffnet
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //Fenster schließt sich und code wird beendet wenn man auf X das drückt
-		frame.setResizable(false);                           //fenstergröße nicht veränderbar
-		frame.addKeyListener(spiel);                       
-		frame.getContentPane().add(spiel);               //sorgt dafür, dass das gui existiert
+	static JTextField textFeld = new JTextField("namen eingeben");
+
+	static JButton loginButton = new JButton("einloggen");
+	static JButton plusButton = new JButton("+");
+	static JButton confirmButton = new JButton("bestaetigen");
+
+	static JPanel PanelfuerAccounts = new JPanel();
+	static JPanel PanelfuerKontoerstellung = new JPanel();
+
+	static String accountString[] = {"Konto auswÃ¤hlen","aaaaaaaaa","bbbbbbbb"};
+	static JComboBox accountAuswahlliste = new JComboBox(spiel.accountString);
+
+	//Fenster, das zu Beginn geï¿½ffnet wird
+	public static void loginGui() {
+
+
+
+		loginFrame.setSize(600, 200);
+		loginFrame.setLocationRelativeTo(null);                  //wird in der MItte d. Bildschirms geï¿½ffnet
+		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //Fenster schlieï¿½t sich und code wird beendet wenn man auf X das drï¿½ckt
+		loginFrame.setResizable(false);                           //fenstergrï¿½ï¿½e nicht verï¿½nderbar
+
+
+		GridBagLayout layout = new GridBagLayout();						// Layoutmanager
+		GridBagConstraints gbc = new GridBagConstraints();				//
+		loginFrame.setLayout(layout);									//
+
+		loginFrame.add(PanelfuerKontoerstellung);		//fuer die Kontoerstellung benoetigten Elemente
+		PanelfuerKontoerstellung.add(textFeld);
+		PanelfuerKontoerstellung.add(confirmButton);
+		PanelfuerKontoerstellung.setVisible(false);	//unsichtbar gemacht da hier noch nicht gebraucht
+
+		gbc.gridy = 1;	//relative Koordinaten im Layoutmanager
+		gbc.gridx = 0;
+		loginFrame.add(loginButton,gbc);	// "einloggen" Knopf mit layoutmanager
+
+
+
+		PanelfuerAccounts.add(accountAuswahlliste); 		//der Accountteil hat ein Panel damit der "einloggen" Knopf zentriert ist
+		PanelfuerAccounts.add(plusButton);
+		gbc.gridy = 0;	//relative Koordinaten im Layoutmanager
+		gbc.gridx = 0;
+		loginFrame.add(PanelfuerAccounts,gbc);		// account Panel mit layoutmanager
+
+		loginFrame.setVisible(true);
+
+		loginButton.addActionListener((ActionEvent e) -> {													//auf "einloggen" wird geclickt
+			gameGui();		//das Spielfenster wird geoeffnet und das Spiel startet
+			loginFrame.dispose(); //das Loginfenster schliesst sich
+		});
+
+		plusButton.addActionListener((ActionEvent e) -> {													//auf "+" wird geclickt
+			loginButton.setVisible(false);		//Elemente vom login werden unsichtbar gemacht
+			plusButton.setVisible(false);
+			accountAuswahlliste.setVisible(false);
+
+
+			PanelfuerKontoerstellung.setVisible(true);		//Elemente von der Kontoerstellung werden sichtbar gemacht
+			textFeld.setVisible(true);
+			confirmButton.setVisible(true);
+		});
+
+
+		confirmButton.addActionListener((ActionEvent e) -> {												// auf "bestaetigen" wird geclickt
+			loginButton.setVisible(true);;		//Elemente vom login werden wieder sichtbar gemacht
+			plusButton.setVisible(true);
+			accountAuswahlliste.setVisible(true);
+
+			PanelfuerKontoerstellung.setVisible(false);		//Elemente von der Kontoerstellung werden unsichtbar gemacht
+			textFeld.setVisible(false);
+
+		});
+
+	}
+
+	public static void gameGui() {					//das Spielfenster
+
+		gameFrame.setSize(880, 1000);
+		gameFrame.setVisible(true);
+		gameFrame.setLocationRelativeTo(null);                  //wird in der MItte d. Bildschirms geï¿½ffnet
+		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //Fenster schlieï¿½t sich und code wird beendet wenn man auf X das drï¿½ckt
+		gameFrame.setResizable(false);                           //fenstergrï¿½ï¿½e nicht verï¿½nderbar
+		gameFrame.addKeyListener(spiel);
+		gameFrame.getContentPane().add(spiel);               //sorgt dafï¿½r, dass das gui existiert
+
 	}
 
 	
@@ -43,8 +117,8 @@ public class Game extends JPanel implements KeyListener {
 		g.setFont(new Font("Arial", Font.PLAIN, 50));   
 		g.drawString("Punktzahl: " + s.punkte, 20, 50);            
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
-		g.drawString("Drücke auf 'enter' um neu zu starten", 10, 900);
-		g.setFont(new Font("Arial", Font.PLAIN, 25));  //schriftgröße der zahl im feld
+		g.drawString("Drï¿½cke auf 'enter' um neu zu starten", 10, 900);
+		g.setFont(new Font("Arial", Font.PLAIN, 25));  //schriftgrï¿½ï¿½e der zahl im feld
 		if(s.gameOver()) {
 			
 			g.setColor(Color.red);
@@ -64,7 +138,7 @@ public class Game extends JPanel implements KeyListener {
 
 	}
 
-	//kümmert sich um das Färben der Felder
+	//kï¿½mmert sich um das Fï¿½rben der Felder
 	
 	public void felder(Graphics g, Block block, int x, int y) {
 		
@@ -74,7 +148,7 @@ public class Game extends JPanel implements KeyListener {
 		g2.setColor(Color.lightGray);
 		g2.fillRoundRect(x, y, 150, 150, 5, 5);     //graue, leere Felder
 		g2.setColor(Color.black);
-		if (wert > 0) {                                   //je nach Wert wird das Feld gefärbt
+		if (wert > 0) {                                   //je nach Wert wird das Feld gefï¿½rbt
 			g2.setColor(block.getFarbe());
 			g2.fillRoundRect(x, y, 150, 150, 5, 5);
 			g2.setColor(Color.black);
@@ -88,22 +162,22 @@ public class Game extends JPanel implements KeyListener {
 		if (e.getKeyChar() == 'w' || e.getKeyCode() == KeyEvent.VK_UP) {
 
 			s.welcheRichtung("oben");
-			frame.repaint();
+			gameFrame.repaint();
 
 		} else if (e.getKeyChar() == 's' || e.getKeyCode() == KeyEvent.VK_DOWN) {
 
 			s.welcheRichtung("unten");
-			frame.repaint();
+			gameFrame.repaint();
 
 		} else if (e.getKeyChar() == 'a' || e.getKeyCode() == KeyEvent.VK_LEFT) {
 
 			s.welcheRichtung("links");
-			frame.repaint();
+			gameFrame.repaint();
 
 		} else if (e.getKeyChar() == 'd' || e.getKeyCode() == KeyEvent.VK_RIGHT) {
 
 			s.welcheRichtung("rechts");
-			frame.repaint();
+			gameFrame.repaint();
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) // neues Spiel wird gestartet
 
@@ -111,9 +185,12 @@ public class Game extends JPanel implements KeyListener {
 			s = new Spielfeld(4);
 			s.blockErstellen();
 			s.blockErstellen();
-			frame.repaint();
+			gameFrame.repaint();
 		}
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
 	}
 
 	public void keyReleased(KeyEvent e) { //macht nichts, muss aber da sein
@@ -123,11 +200,11 @@ public class Game extends JPanel implements KeyListener {
 	}
 
 	
-	//gui und zwei blöcke werden erstellt
+	//gui und zwei blï¿½cke werden erstellt
 	
 	public static void main(String[] args) {
 
-		gui();                  
+		loginGui();
 
 		 s.blockErstellen(); 
 		 s.blockErstellen();
