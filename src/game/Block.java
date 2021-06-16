@@ -2,16 +2,20 @@ package game;
 
 import java.awt.Color;
 
+
 class Block {
 	int wert;
 	int x;
 	int y;
 	Color farbe;
-
+  Boolean verschoben; //Spielmechanik: Verschobenes kann nicht erneut verbunden werden
+  
 	Block(int wert, int spalte, int zeile) {
 		this.wert = wert;
 		this.x = spalte;
 		this.y = zeile;
+    
+     verschoben = false;
 	}
 
 	Block() {
@@ -41,6 +45,7 @@ class Block {
 	public void setY(int y) {
 		this.y = y;
 	}
+
 
 	public void setFarbe() {
 
@@ -106,6 +111,15 @@ class Block {
 
 		this.setFarbe();
 		return farbe;
+
+	
+	public Boolean getVerschoben() {
+		return verschoben;
+	}
+
+	public void setVerschoben(Boolean verschoben) {
+		this.verschoben = verschoben;
+
 	}
 
 }
