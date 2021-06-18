@@ -24,7 +24,7 @@ class Spielfeld {
 			punkte = 0;
 			zuege = 0;
 			veraendert = false;
-			// setAllFalse();
+			setAllFalse();
 		}
 
 	}
@@ -161,8 +161,8 @@ class Spielfeld {
 	}
 
 	public void verschieben(int zeile, int spalte, int z, int s) {
-		// praktische Verbesserung: die Werte für z(eile) und s(palte), für das
-		// hinzuverschiebende Feld werden übergeben
+		// praktische Verbesserung: die Werte fuer z(eile) und s(palte), fuer das
+		// hinzuverschiebende Feld werden Uebergeben
 
 		if (existiertFeld(z, s) && feld[zeile][spalte].getWert() != 0) { // Schaut, ob es das Feld daneben und selbst
 																			// gibt
@@ -189,7 +189,7 @@ class Spielfeld {
 
 				veraendert = true; // Es wurde was verschoben
 
-				verschieben(z, s, ze, sp); // Verschieben neuen Feldes unnötig, weil richtige Richtung durch Feld
+				verschieben(z, s, ze, sp); // Verschieben neuen Feldes
 
 
 			}
@@ -221,8 +221,9 @@ class Spielfeld {
 		}
 		// ausdrucken();
 	}
-
-	public void ausdrucken() {
+	 
+	//Zur Fehlerbehebung
+	/*public void ausdrucken() {
 		for (int k = 0; k < 5; k++) {
 			System.out.println();
 		}
@@ -238,5 +239,5 @@ class Spielfeld {
 		}
 		System.out.println("-----------------------");
 		System.out.println("Zuege:" + zuege);
-	}
+	}*/
 }
