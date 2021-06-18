@@ -26,18 +26,18 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JPanel PanelfuerAccounts = new JPanel();
 	static JPanel PanelfuerKontoerstellung = new JPanel();
 
-	static String accountString[] = {"Konto auswÃ¤hlen","aaaaaaaaa","bbbbbbbb"};
-	static JComboBox accountAuswahlliste = new JComboBox(spiel.accountString);
+	static String accountString[] = {"Konto auswählen","aaaaaaaaa","bbbbbbbb"};
+	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(Game.accountString);
 
-	//Fenster, das zu Beginn geï¿½ffnet wird
+	//Fenster, das zu Beginn geoeffnet wird
 	public static void loginGui() {
 
 
 
 		loginFrame.setSize(600, 200);
-		loginFrame.setLocationRelativeTo(null);                  //wird in der MItte d. Bildschirms geï¿½ffnet
-		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //Fenster schlieï¿½t sich und code wird beendet wenn man auf X das drï¿½ckt
-		loginFrame.setResizable(false);                           //fenstergrï¿½ï¿½e nicht verï¿½nderbar
+		loginFrame.setLocationRelativeTo(null);                  //wird in der MItte d. Bildschirms geoeffnet
+		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //Fenster schliesst sich und code wird beendet wenn man auf X das drueckt
+		loginFrame.setResizable(false);                           //fenstergroesse nicht veraenderbar
 
 
 		GridBagLayout layout = new GridBagLayout();						// Layoutmanager
@@ -96,11 +96,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		gameFrame.setSize(880, 1000);
 		gameFrame.setVisible(true);
-		gameFrame.setLocationRelativeTo(null);                  //wird in der MItte d. Bildschirms geï¿½ffnet
-		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //Fenster schlieï¿½t sich und code wird beendet wenn man auf X das drï¿½ckt
-		gameFrame.setResizable(false);                           //fenstergrï¿½ï¿½e nicht verï¿½nderbar
+		gameFrame.setLocationRelativeTo(null);                  //wird in der MItte d. Bildschirms geoeffnet
+		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //Fenster schliesst sich und code wird beendet wenn man auf X das drueckt
+		gameFrame.setResizable(false);                           //fenstergroesse nicht veraenderbar
 		gameFrame.addKeyListener(spiel);
-		gameFrame.getContentPane().add(spiel);               //sorgt dafï¿½r, dass das gui existiert
+		gameFrame.getContentPane().add(spiel);               //sorgt dafuer, dass das GUI existiert
 
 	}
 
@@ -118,7 +118,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		g.drawString("Punktzahl: " + s.punkte, 20, 50);            
 		g.setFont(new Font("Arial", Font.PLAIN, 20));
 		g.drawString("Drï¿½cke auf 'enter' um neu zu starten", 10, 900);
-		g.setFont(new Font("Arial", Font.PLAIN, 25));  //schriftgrï¿½ï¿½e der zahl im feld
+		g.setFont(new Font("Arial", Font.PLAIN, 25));  //schriftgroesse der zahl im feld
 		if(s.gameOver()) {
 			
 			g.setColor(Color.red);
@@ -138,7 +138,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	}
 
-	//kï¿½mmert sich um das Fï¿½rben der Felder
+	//kuemmert sich um das Faerben der Felder
 	
 	public void felder(Graphics g, Block block, int x, int y) {
 		
@@ -148,7 +148,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		g2.setColor(Color.lightGray);
 		g2.fillRoundRect(x, y, 150, 150, 5, 5);     //graue, leere Felder
 		g2.setColor(Color.black);
-		if (wert > 0) {                                   //je nach Wert wird das Feld gefï¿½rbt
+		if (wert > 0) {                                   //je nach Wert wird das Feld gefaerbt
 			g2.setColor(block.getFarbe());
 			g2.fillRoundRect(x, y, 150, 150, 5, 5);
 			g2.setColor(Color.black);
@@ -200,7 +200,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	
-	//gui und zwei blï¿½cke werden erstellt
+	//GUI und zwei bloecke werden erstellt
 	
 	public static void main(String[] args) {
 
