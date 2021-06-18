@@ -24,7 +24,7 @@ class Spielfeld {
 			punkte = 0;
 			zuege = 0;
 			veraendert = false;
-			setAllFalse();
+			
 		}
 
 	}
