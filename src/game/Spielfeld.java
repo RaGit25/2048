@@ -5,7 +5,7 @@ class Spielfeld {
 	Block[][] feld; // Matrix mit allen Bloecken
 
 	int punkte;
-	// int hoechstesFeld;
+	int hoechstesFeld;
 	int zuege;
 	Boolean veraendert;
 
@@ -176,8 +176,13 @@ class Spielfeld {
 				feld[zeile][spalte].setWert(0); // Altes Feld wird null gesetzt
 
 				punkte += (feld[z][s].getWert()); // Punktesystem
-
+				
 				veraendert = true;
+				
+				if(feld[z][s].getWert() > hoechstesFeld) {
+					 hoechstesFeld = feld[z][s].getWert();
+				}
+				
 			} else if (feld[z][s].getWert() == 0) { // Wenn Feld daneben null ist
 
 				feld[z][s].setWert(feld[zeile][spalte].getWert()); // dort hinschieben
@@ -210,9 +215,19 @@ class Spielfeld {
 			if (zufallszahl < 0.6) {
 
 				feld[zeile][spalte] = new Block(2);
+				
+				if(2 > hoechstesFeld) {
+					 hoechstesFeld = feld[zeile][spalte].getWert();
+				}
+				
 			} else {
 
 				feld[zeile][spalte] = new Block(4);
+				
+				if(4 > hoechstesFeld) {
+					 hoechstesFeld = feld[zeile][spalte].getWert();
+				}
+				
 			}
 		} else {
 			if (getAnzahl() < (breite * breite)) {
