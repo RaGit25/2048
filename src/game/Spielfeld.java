@@ -24,7 +24,7 @@ class Spielfeld {
 			punkte = 0;
 			zuege = 0;
 			veraendert = false;
-			//setAllFalse();
+			// setAllFalse();
 		}
 
 	}
@@ -172,17 +172,17 @@ class Spielfeld {
 
 				feld[z][s].setWert(feld[zeile][spalte].getWert() * 2); // Neues Feld mit doppeltem Wert
 				feld[z][s].setVerschoben(true); // Feld als verschoben gekennzeichnet
-			
+
 				feld[zeile][spalte].setWert(0); // Altes Feld wird null gesetzt
 
 				punkte += (feld[z][s].getWert()); // Punktesystem
-				
+
 				veraendert = true;
-				
-				if(feld[z][s].getWert() > hoechstesFeld) {
-					 hoechstesFeld = feld[z][s].getWert();
+
+				if (feld[z][s].getWert() > hoechstesFeld) {
+					hoechstesFeld = feld[z][s].getWert();
 				}
-				
+
 			} else if (feld[z][s].getWert() == 0) { // Wenn Feld daneben null ist
 
 				feld[z][s].setWert(feld[zeile][spalte].getWert()); // dort hinschieben
@@ -191,11 +191,9 @@ class Spielfeld {
 				int ze = z + (z - zeile); // Neue Zeile plus/minus 1
 				int sp = s + (s - spalte); // Neue Spalte plus/minus 1
 
-
 				veraendert = true; // Es wurde was verschoben
 
 				verschieben(z, s, ze, sp); // Verschieben neuen Feldes
-
 
 			}
 		}
@@ -215,19 +213,19 @@ class Spielfeld {
 			if (zufallszahl < 0.6) {
 
 				feld[zeile][spalte] = new Block(2);
-				
-				if(2 > hoechstesFeld) {
-					 hoechstesFeld = feld[zeile][spalte].getWert();
+
+				if (2 > hoechstesFeld) {
+					hoechstesFeld = feld[zeile][spalte].getWert();
 				}
-				
+
 			} else {
 
 				feld[zeile][spalte] = new Block(4);
-				
-				if(4 > hoechstesFeld) {
-					 hoechstesFeld = feld[zeile][spalte].getWert();
+
+				if (4 > hoechstesFeld) {
+					hoechstesFeld = feld[zeile][spalte].getWert();
 				}
-				
+
 			}
 		} else {
 			if (getAnzahl() < (breite * breite)) {
@@ -236,23 +234,29 @@ class Spielfeld {
 		}
 		// ausdrucken();
 	}
-	 
-	//Zur Fehlerbehebung
-	/*public void ausdrucken() {
-		for (int k = 0; k < 5; k++) {
-			System.out.println();
-		}
-		System.out.println("-----------------------");
+
+	public int[][] simplesFeld() {
+		int[][] zahlenfeld = new int[breite][breite];
+
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
-				if (feld[i][j].getWert() == 0)
-					System.out.print("| |");
-				else
-					System.out.print("|" + feld[i][j].getWert() + "|");
+
+				zahlenfeld[i][j] = feld[i][j].getWert();
+
 			}
-			System.out.println();
 		}
-		System.out.println("-----------------------");
-		System.out.println("Zuege:" + zuege);
-	}*/
+
+		return zahlenfeld;
+	}
+
+	// Zur Fehlerbehebung
+	/*
+	 * public void ausdrucken() { for (int k = 0; k < 5; k++) {
+	 * System.out.println(); } System.out.println("-----------------------"); for
+	 * (int i = 0; i < breite; i++) { for (int j = 0; j < breite; j++) { if
+	 * (feld[i][j].getWert() == 0) System.out.print("| |"); else
+	 * System.out.print("|" + feld[i][j].getWert() + "|"); } System.out.println(); }
+	 * System.out.println("-----------------------"); System.out.println("Zuege:" +
+	 * zuege); }
+	 */
 }

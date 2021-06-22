@@ -10,9 +10,10 @@ import javax.swing.*;
 public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static Spielfeld s = new Spielfeld(4);
+	
+	static Autoplay a = new Autoplay();
 
 	static Game spiel = new Game();
-
 	static JFrame gameFrame = new JFrame("2048");
 
 	static JFrame loginFrame= new JFrame("login");
@@ -179,6 +180,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			s.welcheRichtung("rechts");
 			gameFrame.repaint();
 
+		}else if (e.getKeyChar() == 'r') {
+
+				s.welcheRichtung(a.zufälligeRichtung());
+				gameFrame.repaint();
+				
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) // neues Spiel wird gestartet
 
 		{
