@@ -38,6 +38,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JPanel panel4 = new JPanel();
 
 	static JLabel punkte = new JLabel(); // Punktzahl ist jetzt in einem JLabel in "panel1"
+	static JLabel rekord = new JLabel();
+
+	static JLabel titel = new JLabel();
 
 	static JButton restart = new JButton(); // restart Button oben links im Spiel
 
@@ -119,7 +122,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		Border border = BorderFactory.createLineBorder(Color.gray, 5);
 		panel1.add(punkte);
 		panel1.setLayout(null);
-		punkte.setBounds(55, 15, 150, 80);
+		punkte.setBounds(440, 15, 150, 80);
 		punkte.setFont(new Font("Arial", Font.PLAIN, 30));
 		punkte.setBorder(border);
 		punkte.setVerticalAlignment(JLabel.TOP);
@@ -127,14 +130,35 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		punkte.setBackground(Color.lightGray);
 		punkte.setOpaque(true);
 
+		// rekord
+
+		rekord.setText("<html>Rekord <br>" + 0 + "</html>"); // rekord fehlt noch, weil keine Speicherung
+		Border border1 = BorderFactory.createLineBorder(Color.gray, 5);
+		panel1.add(rekord);
+		rekord.setLayout(null);
+		rekord.setBounds(600, 15, 150, 80);
+		rekord.setFont(new Font("Arial", Font.PLAIN, 30));
+		rekord.setBorder(border1);
+		rekord.setVerticalAlignment(JLabel.TOP);
+		rekord.setHorizontalAlignment(JLabel.CENTER);
+		rekord.setBackground(Color.lightGray);
+		rekord.setOpaque(true);
+
+		// Titel
+		titel.setText("2048");
+		titel.setBounds(35, 5, 210, 110);
+		titel.setFont(new Font("Arial", Font.BOLD, 80));
+		titel.setForeground(Color.darkGray);
+		panel1.add(titel);
+
 		// restart button
 		panel1.add(restart);
-		restart.setBounds(760, 45, 50, 50);
+		restart.setBounds(680, 120, 50, 50);
 		ImageIcon icon = new ImageIcon("restart.png"); // bild mit den 2 pfeilen, siehe Dateien d. Projekts
 		restart.setIcon(icon);
 		restart.setBorder(BorderFactory.createEtchedBorder());
 		restart.setFocusable(false);
-		restart.setBackground(Color.gray);
+		restart.setBackground(Color.lightGray);
 		restart.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 			s = new Spielfeld(4);
@@ -145,10 +169,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		});
 
 		// festlegen d. groessen d. anderen panels
-		panel1.setPreferredSize(new Dimension(100, 100));
-		panel4.setPreferredSize(new Dimension(100, 50));
-		panel2.setPreferredSize(new Dimension(20, 20));
-		panel3.setPreferredSize(new Dimension(20, 20));
+		panel1.setPreferredSize(new Dimension(100, 180));
+		panel4.setPreferredSize(new Dimension(100, 60));
+		panel2.setPreferredSize(new Dimension(30, 30));
+		panel3.setPreferredSize(new Dimension(30, 30));
 
 		// borderlayout: position der einzelnen panels (north = oben, center = mitte,
 		// usw.)
@@ -158,7 +182,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		gameFrame.add(panel3, BorderLayout.WEST);
 		gameFrame.add(panel4, BorderLayout.SOUTH);
 
-		gameFrame.setSize(880, 1000);
+		gameFrame.setSize(800, 1000);
 		gameFrame.setVisible(true);
 		gameFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fenster schliesst sich und code wird beendet wenn
@@ -176,12 +200,13 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.gray);
 
-		g.setFont(new Font("Arial", Font.PLAIN, 25)); // schriftgroesse der zahl im feld
+		g.setColor(Color.black);
+		g.setFont(new Font("Arial", Font.BOLD, 80)); // schriftgroesse der zahl im feld
 
 		for (int i = 0; i < s.breite; i++) { // geht bei jedem Zug einmal durchs Feld druch und ruft felder() auf
 			for (int j = 0; j < s.breite; j++) {
 
-				felder(g, s.feld[i][j], j * 200 + 50, i * 200 + 25);
+				felder(g, s.feld[i][j], j * 175 + 85, i * 175 + 15);
 
 			}
 
@@ -207,16 +232,45 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.lightGray);
-		g2.fillRoundRect(x, y, 150, 150, 5, 5); // graue, leere Felder
+		g2.fillRoundRect(x, y, 155, 155, 10, 10); // graue, leere Felder
 		g2.setColor(Color.black);
 		if (wert > 0) { // je nach Wert wird das Feld gefaerbt
 			g2.setColor(block.getFarbe());
-			g2.fillRoundRect(x, y, 150, 150, 5, 5);
-			g2.setColor(Color.black);
+			g2.fillRoundRect(x, y, 155, 155, 10, 10);
+			g2.setColor(Color.darkGray);
 
-			g.drawString("" + wert, x + 60, y + 80);
+			if (wert < 8) {
+
+				g.drawString("" + wert, x + 55, y + 105);
+
+			}
+
+			else if (wert < 16) {
+
+				g.setColor(Color.white);
+				g.drawString("" + wert, x + 55, y + 105);
+
+			} else if (wert < 128) {
+
+				g.setColor(Color.white);
+				g.drawString("" + wert, x + 32, y + 105);
+
+			} else if (wert < 1024) {
+
+				g.setColor(Color.white);
+				g.setFont(new Font("Arial", Font.BOLD, 70));
+				g.drawString("" + wert, x + 18, y + 105);
+
+			} else if (wert < 10000) {
+
+				g.setColor(Color.white);
+				g.setFont(new Font("Arial", Font.BOLD, 60));
+				g.drawString("" + wert, x + 10, y + 105);
+
+			}
 
 		}
+
 	}
 
 	public void keyPressed(KeyEvent e) {
