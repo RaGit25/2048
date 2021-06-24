@@ -15,7 +15,11 @@ class Block {
 		verschoben = false;
 	}
 
-	Block() {
+	Block(Block alt) {	//Copy-Constructor
+		this.wert = alt.wert;
+		this.farbe = alt.farbe;
+		this.verschoben = alt.verschoben;
+		
 	}
 	// Getter Und Setter
 

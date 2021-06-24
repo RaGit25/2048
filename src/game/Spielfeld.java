@@ -12,7 +12,6 @@ class Spielfeld {
 	Spielfeld(int g) {
 		feld = new Block[g][g];
 		breite = g;
-		punkte = 0;
 
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
@@ -21,12 +20,26 @@ class Spielfeld {
 				// -> diese sollten logischerweise nicht sichtbar sein
 
 			}
-			punkte = 0;
-			zuege = 0;
-			veraendert = false;
-			// setAllFalse();
 		}
+		punkte = 0;
+		hoechstesFeld = 0;
+		zuege = 0;
+		veraendert = false;
+		// setAllFalse(); -> Zum crashen auskommentieren
+	}
 
+	Spielfeld(Spielfeld alt) { // Copy-Constructor
+		this.breite = alt.breite;
+		this.feld = new Block[breite][breite];
+		for (int i = 0; i < breite; i++) {
+			for (int j = 0; j < breite; j++) {
+				this.feld[i][j] = new Block(alt.feld[i][j]); // Anderen Copy-Constructor aufrufen
+			}
+		}
+		this.punkte = alt.punkte;
+		this.hoechstesFeld = alt.hoechstesFeld;
+		this.zuege = alt.zuege;
+		this.veraendert = alt.veraendert;
 	}
 
 	public int getPunkte() {
@@ -34,7 +47,17 @@ class Spielfeld {
 		return punkte;
 	}
 
-	public int getAnzahl() {
+	public int getHoechstesFeld() {
+
+		return hoechstesFeld;
+	}
+
+	public Block[][] getFeld() {
+
+		return feld;
+	}
+
+	public int getAnzahl() {	//Gibt die Anzahl der vollen Felder
 		int a = 0;
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
@@ -233,20 +256,6 @@ class Spielfeld {
 			}
 		}
 		// ausdrucken();
-	}
-
-	public int[][] simplesFeld() {
-		int[][] zahlenfeld = new int[breite][breite];
-
-		for (int i = 0; i < breite; i++) {
-			for (int j = 0; j < breite; j++) {
-
-				zahlenfeld[i][j] = feld[i][j].getWert();
-
-			}
-		}
-
-		return zahlenfeld;
 	}
 
 	// Zur Fehlerbehebung
