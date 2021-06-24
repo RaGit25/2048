@@ -12,7 +12,7 @@ import javax.swing.text.View;
 public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static Spielfeld s = new Spielfeld(4);
-
+	
 	static Game game = new Game();
 
 	static JFrame gameFrame = new JFrame("2048");
@@ -161,7 +161,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		restart.setBackground(Color.lightGray);
 		restart.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
-			s = new Spielfeld(4);
+			s = new Spielfeld(s.breite);
 			s.blockErstellen();
 			s.blockErstellen();
 			centerPanel.repaint();
@@ -201,12 +201,85 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		g2.setColor(Color.gray);
 
 		g.setColor(Color.black);
-		g.setFont(new Font("Arial", Font.BOLD, 80)); // schriftgroesse der zahl im feld
 
+	    int breite = 0;
+	    int schrift = 0;
+	    int x = 0;
+	    int y = 0;
+	    int abstand = 0;
+	    int schriftX = 0;
+	    int schriftY = 0;
+	    int r = 0;
+	    int v = 0;
+	    int e = 0;
+	   
+	   
+	    if(s.breite == 4) {
+	    	
+	    	breite = 155;
+	    	schrift = 80;
+	        x = 85;
+	  	    y = 15;
+	  	    abstand = 175;
+	  	    schriftX = 55;
+		    schriftY = 105;
+	  	    
+	    } else if(s.breite == 5) {
+	    	
+	    	breite = 120;
+	    	schrift = 65;
+	    	x = 85;
+	  	    y = 15;
+	  	    abstand = 140;
+	  	    schriftX = 45;
+		    schriftY = 80;
+		    v = 5;
+		    e = 5;
+		    
+	    } else if(s.breite == 6) {
+	    	
+	    	breite = 95;
+	    	schrift = 60;
+	    	x = 85;
+	  	    y = 15;
+	  	    abstand = 117;
+	  	    schriftX = 35;
+		    schriftY = 70;
+		    v = 8;
+		    e = 13;
+		    
+	    } else if(s.breite == 7) {
+	    	
+	    	breite = 75;
+	    	schrift = 45;
+	    	x = 88;
+	  	    y = 18;
+	  	    abstand = 100;
+	  	    schriftX = 24;
+		    schriftY = 58;
+		    v = 20;
+		    e = 32;
+		    r = 8;
+		    
+	    } else if(s.breite == 8) {
+	    	
+	    	breite = 70;
+	    	schrift = 35;
+	    	x = 85;
+	  	    y = 15;
+	  	    abstand = 87;
+	  	    schriftX = 26;
+		    schriftY = 52;
+		    v = 27;
+		    e = 38;
+		    r = 10;
+		    
+	    }
+		
 		for (int i = 0; i < s.breite; i++) { // geht bei jedem Zug einmal durchs Feld druch und ruft felder() auf
 			for (int j = 0; j < s.breite; j++) {
 
-				felder(g, s.feld[i][j], j * 175 + 85, i * 175 + 15);
+				felder(g, s.feld[i][j], j * abstand + x, i * abstand + y, breite, schrift, schriftX, schriftY, v, e, r);
 
 			}
 
@@ -226,46 +299,52 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	// kuemmert sich um das Faerben der Felder
 
-	public void felder(Graphics g, Block block, int x, int y) {
+	public void felder(Graphics g, Block block, int x, int y, int breite, int schrift, int schriftX, int schriftY, int v, int e, int r) {
 
 		int wert = block.getWert();
 
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.lightGray);
-		g2.fillRoundRect(x, y, 155, 155, 10, 10); // graue, leere Felder
+
+		g.setFont(new Font("Arial", Font.BOLD, schrift)); // schriftgroesse der zahl im feld
+		
+		g2.fillRoundRect(x, y, breite, breite, 10, 10); // graue, leere Felder
+
 		g2.setColor(Color.black);
 		if (wert > 0) { // je nach Wert wird das Feld gefaerbt
 			g2.setColor(block.getFarbe());
-			g2.fillRoundRect(x, y, 155, 155, 10, 10);
+
+			g2.fillRoundRect(x, y, breite, breite, 10, 10); // graue, leere Felder
+
 			g2.setColor(Color.darkGray);
 
 			if (wert < 8) {
 
-				g.drawString("" + wert, x + 55, y + 105);
+				g.drawString("" + wert, x + schriftX, y + schriftY);
 
 			}
 
 			else if (wert < 16) {
 
 				g.setColor(Color.white);
-				g.drawString("" + wert, x + 55, y + 105);
+				g.drawString("" + wert, x + schriftX, y + schriftY);
 
 			} else if (wert < 128) {
 
 				g.setColor(Color.white);
-				g.drawString("" + wert, x + 32, y + 105);
+				g.drawString("" + wert, x + schriftX - 22 + r, y + schriftY);
 
 			} else if (wert < 1024) {
 
 				g.setColor(Color.white);
-				g.setFont(new Font("Arial", Font.BOLD, 70));
-				g.drawString("" + wert, x + 18, y + 105);
+				g.setFont(new Font("Arial", Font.BOLD, schrift - 10));
+				g.drawString("" + wert, x + schriftX - 37 + v, y + schriftY);
 
 			} else if (wert < 10000) {
 
 				g.setColor(Color.white);
-				g.setFont(new Font("Arial", Font.BOLD, 60));
-				g.drawString("" + wert, x + 10, y + 105);
+				g.setFont(new Font("Arial", Font.BOLD, schrift - 20));
+				g.drawString("" + wert, x + schriftX - 45 + e, y + schriftY);
 
 			}
 
@@ -296,7 +375,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER && s.gameOver()) {
 
-			s = new Spielfeld(4);
+			s = new Spielfeld(s.breite);
 			s.blockErstellen();
 			s.blockErstellen();
 			centerPanel.repaint();
