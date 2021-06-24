@@ -4,8 +4,8 @@ public class Autoplay {
 	int anzahl;
 	String[] richtungen;
 
-	int eckenpunkte = 5;
-	int leerpunkte = 1;
+	int eckenpunkte = 10;
+	int leerpunkte = 4;
 
 	public Autoplay() {
 		anzahl = 4;
@@ -20,18 +20,6 @@ public class Autoplay {
 		int i = (int) (Math.random() * 4);
 		return richtungen[i];
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public String naechsterZug(Spielfeld feld) {
 		int pos = -1; 								// findet die position des groessten Feldes
@@ -47,7 +35,12 @@ public class Autoplay {
 			Spielfeld temp = new Spielfeld(feld);
 			temp.welcheRichtung(richtungen[i]);
 			scores[i] = score(temp);
+			System.out.println(richtungen[i]+" > "+scores[i]);
 			if (scores[i] > max) {
+				max = scores[i];
+				pos = i;
+			}
+			else if((scores[i] == max) && 1 == (int) (Math.random())*2) {
 				max = scores[i];
 				pos = i;
 			}
@@ -55,23 +48,13 @@ public class Autoplay {
 		return (pos > -1) ? richtungen[pos] : zufälligeRichtung();
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public int score(Spielfeld f) {	//Bewertet jedes Feld mit einer Zahl
 		//nachfolgend wir nur Postkrement verwendet
 		int bewertung = 0;
 		bewertung =(ecke(f)) ? + eckenpunkte : bewertung;
 		bewertung =+ ((f.breite * f.breite) - f.getAnzahl()) * leerpunkte; 			//Anzahl leere = Alles - Anzahl enthaltene
-
+		
+		bewertung =(f.veraendert) ? + 1 : 0;	//bei keiner Veraenderung ist das Verschieben unnoetig
 		return bewertung;
 	}
 
