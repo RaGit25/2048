@@ -13,6 +13,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static Spielfeld s = new Spielfeld(4);
 	
+
+	//static Game spiel = new Game();
 	static Game game = new Game();
 
 	static JFrame gameFrame = new JFrame("2048");
@@ -28,10 +30,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JPanel PanelfuerAccounts = new JPanel();
 	static JPanel PanelfuerKontoerstellung = new JPanel();
 
-	static String accountString[] = { "Konto ausw‰hlen", "aaaaaaaaa", "bbbbbbbb" };
+	static String accountString[] = { "Konto ausw√§hlen", "aaaaaaaaa", "bbbbbbbb" };
 	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(Game.accountString);
 
-	static JPanel centerPanel = new JPanel(); // Mehrere Panels benoetigt (f¸r den Layoutmanager)
+	static JPanel centerPanel = new JPanel(); // Mehrere Panels benoetigt (f√ºr den Layoutmanager)
 	static JPanel panel1 = new JPanel();
 	static JPanel panel2 = new JPanel();
 	static JPanel panel3 = new JPanel();
@@ -111,10 +113,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public static void gameGui() { // das Spielfenster
 
-		gameFrame.setLayout(new BorderLayout()); // BorderLayout = 1 panel in der Mitte und 4 auﬂenrum
+		gameFrame.setLayout(new BorderLayout()); // BorderLayout = 1 panel in der Mitte und 4 au√üenrum
 
 		centerPanel.setBackground(Color.gray);
-		centerPanel.setPreferredSize(new Dimension(100, 100)); // grˆsse d. panels in d. mitte
+		centerPanel.setPreferredSize(new Dimension(100, 100)); // gr√∂sse d. panels in d. mitte
 		centerPanel.add(new Game()); // sichtbarmachen der Felder
 
 		// punktzahl
@@ -373,6 +375,20 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			s.welcheRichtung("rechts");
 			centerPanel.repaint();
 
+		}else if (e.getKeyChar() == 'z') {
+				
+				Autoplay a = new Autoplay();
+				s.welcheRichtung(a.zuf√§lligeRichtung());
+				gameFrame.repaint();
+				
+		}else if (e.getKeyChar() == 'r') {
+			
+			Autoplay a = new Autoplay();
+			System.out.println("Autoplay: "+a.naechsterZug(s));
+			s.welcheRichtung(a.naechsterZug(s));
+			gameFrame.repaint();
+			
+				
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER && s.gameOver()) {
 
 			s = new Spielfeld(s.breite);
@@ -396,6 +412,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	// GUI und zwei bloecke werden erstellt
 
 	public static void main(String[] args) {
+
 
 		loginGui();
 		s.blockErstellen();

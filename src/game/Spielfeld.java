@@ -5,14 +5,13 @@ class Spielfeld {
 	Block[][] feld; // Matrix mit allen Bloecken
 
 	int punkte;
-	// int hoechstesFeld;
+	int hoechstesFeld;
 	int zuege;
 	Boolean veraendert;
 
 	Spielfeld(int g) {
 		feld = new Block[g][g];
 		breite = g;
-		punkte = 0;
 
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
@@ -21,12 +20,26 @@ class Spielfeld {
 				// -> diese sollten logischerweise nicht sichtbar sein
 
 			}
-			punkte = 0;
-			zuege = 0;
-			veraendert = false;
-			//setAllFalse();
 		}
+		punkte = 0;
+		hoechstesFeld = 0;
+		zuege = 0;
+		veraendert = false;
+		// setAllFalse(); -> Zum crashen auskommentieren
+	}
 
+	Spielfeld(Spielfeld alt) { // Copy-Constructor
+		this.breite = alt.breite;
+		this.feld = new Block[breite][breite];
+		for (int i = 0; i < breite; i++) {
+			for (int j = 0; j < breite; j++) {
+				this.feld[i][j] = new Block(alt.feld[i][j]); // Anderen Copy-Constructor aufrufen
+			}
+		}
+		this.punkte = alt.punkte;
+		this.hoechstesFeld = alt.hoechstesFeld;
+		this.zuege = alt.zuege;
+		this.veraendert = alt.veraendert;
 	}
 
 	public int getPunkte() {
@@ -34,7 +47,17 @@ class Spielfeld {
 		return punkte;
 	}
 
-	public int getAnzahl() {
+	public int getHoechstesFeld() {
+
+		return hoechstesFeld;
+	}
+
+	public Block[][] getFeld() {
+
+		return feld;
+	}
+
+	public int getAnzahl() {	//Gibt die Anzahl der vollen Felder
 		int a = 0;
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
@@ -172,12 +195,17 @@ class Spielfeld {
 
 				feld[z][s].setWert(feld[zeile][spalte].getWert() * 2); // Neues Feld mit doppeltem Wert
 				feld[z][s].setVerschoben(true); // Feld als verschoben gekennzeichnet
-			
+
 				feld[zeile][spalte].setWert(0); // Altes Feld wird null gesetzt
 
 				punkte += (feld[z][s].getWert()); // Punktesystem
 
 				veraendert = true;
+
+				if (feld[z][s].getWert() > hoechstesFeld) {
+					hoechstesFeld = feld[z][s].getWert();
+				}
+
 			} else if (feld[z][s].getWert() == 0) { // Wenn Feld daneben null ist
 
 				feld[z][s].setWert(feld[zeile][spalte].getWert()); // dort hinschieben
@@ -186,11 +214,9 @@ class Spielfeld {
 				int ze = z + (z - zeile); // Neue Zeile plus/minus 1
 				int sp = s + (s - spalte); // Neue Spalte plus/minus 1
 
-
 				veraendert = true; // Es wurde was verschoben
 
 				verschieben(z, s, ze, sp); // Verschieben neuen Feldes
-
 
 			}
 		}
@@ -210,9 +236,19 @@ class Spielfeld {
 			if (zufallszahl < 0.6) {
 
 				feld[zeile][spalte] = new Block(2);
+
+				if (2 > hoechstesFeld) {
+					hoechstesFeld = feld[zeile][spalte].getWert();
+				}
+
 			} else {
 
 				feld[zeile][spalte] = new Block(4);
+
+				if (4 > hoechstesFeld) {
+					hoechstesFeld = feld[zeile][spalte].getWert();
+				}
+
 			}
 		} else {
 			if (getAnzahl() < (breite * breite)) {
@@ -221,23 +257,15 @@ class Spielfeld {
 		}
 		// ausdrucken();
 	}
-	 
-	//Zur Fehlerbehebung
-	/*public void ausdrucken() {
-		for (int k = 0; k < 5; k++) {
-			System.out.println();
-		}
-		System.out.println("-----------------------");
-		for (int i = 0; i < breite; i++) {
-			for (int j = 0; j < breite; j++) {
-				if (feld[i][j].getWert() == 0)
-					System.out.print("| |");
-				else
-					System.out.print("|" + feld[i][j].getWert() + "|");
-			}
-			System.out.println();
-		}
-		System.out.println("-----------------------");
-		System.out.println("Zuege:" + zuege);
-	}*/
+
+	// Zur Fehlerbehebung
+	/*
+	 * public void ausdrucken() { for (int k = 0; k < 5; k++) {
+	 * System.out.println(); } System.out.println("-----------------------"); for
+	 * (int i = 0; i < breite; i++) { for (int j = 0; j < breite; j++) { if
+	 * (feld[i][j].getWert() == 0) System.out.print("| |"); else
+	 * System.out.print("|" + feld[i][j].getWert() + "|"); } System.out.println(); }
+	 * System.out.println("-----------------------"); System.out.println("Zuege:" +
+	 * zuege); }
+	 */
 }
