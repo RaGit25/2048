@@ -378,7 +378,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		}else if (e.getKeyChar() == 'z') {
 				
 				Autoplay a = new Autoplay();
-				s.welcheRichtung(a.zufälligeRichtung());
+				s.welcheRichtung(a.zufaelligeRichtung());
 				gameFrame.repaint();
 				
 		}else if (e.getKeyChar() == 'r') {

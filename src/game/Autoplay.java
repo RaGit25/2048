@@ -16,7 +16,7 @@ public class Autoplay {
 		richtungen[3] = "links";
 	}
 
-	public String zufälligeRichtung() {
+	public String zufaelligeRichtung() {
 		int i = (int) (Math.random() * 4);
 		return richtungen[i];
 	}
@@ -45,7 +45,7 @@ public class Autoplay {
 				pos = i;
 			}
 		}
-		return (pos > -1) ? richtungen[pos] : zufälligeRichtung();
+		return (pos > -1) ? richtungen[pos] : zufaelligeRichtung();
 	}
 
 	public int score(Spielfeld f) {	//Bewertet jedes Feld mit einer Zahl
