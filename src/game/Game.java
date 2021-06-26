@@ -181,7 +181,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		// zurueck button
 		panel1.add(zurueck);
 		zurueck.setBounds(625, 120, 50, 50);
-		ImageIcon icon1 = new ImageIcon("back.png"); // bild mit den 2 pfeilen, siehe Dateien d. Projekts
+		ImageIcon icon1 = new ImageIcon("back.png"); // bild mit den 1 pfeil, siehe Dateien d. Projekts
 		zurueck.setIcon(icon1);
 		zurueck.setBorder(BorderFactory.createEtchedBorder());
 		zurueck.setFocusable(false);
@@ -189,7 +189,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		zurueck.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 			if (!statsAktiv) {
-
+				
+				a.zuruecknehmen();
+				gameFrame.repaint();
+				
 			}
 
 		});
@@ -214,28 +217,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 				Autoplay au = new Autoplay();
 				
-				if (au.naechsterZug(a.s).equals("oben")) {
-					
-					hilfe.setText("Tipp: oben");
-					hilfe.setVisible(true);
-
-				} else if (au.naechsterZug(a.s).equals("unten")) {
-
-					hilfe.setText("Tipp: unten");
-					hilfe.setVisible(true);
-					
-				} else if (au.naechsterZug(a.s).equals("links")) {
-
-					hilfe.setText("Tipp: links");
-					hilfe.setVisible(true);
-					
-				} else if (au.naechsterZug(a.s).equals("rechts")) {
-
-					hilfe.setText("Tipp: rechts");
-					hilfe.setVisible(true);
-					
-				}
-
+				String tipp = au.naechsterZug(a.s);
+				hilfe.setText("Tipp: "+ tipp);
+				hilfe.setVisible(true);
+				
 			}
 
 		});
@@ -309,10 +294,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			g.drawString("Hoechstes erreichtes Feld", 70, 160);
 			g.drawString(" " + a.st.getFeldHoch(), 550, 160);
-
+			
 			g.drawString("Anzahl aller gespielten Runden:", 70, 200);
 			g.drawString(" " + a.st.getRundenAlt(), 550, 200);
-
+			
 			g.drawString("Anzahl aller Runden mit 2048:", 70, 240);
 			g.drawString(" " + a.st.getGewonnenAlt(), 550, 240);
 
@@ -320,6 +305,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			DecimalFormat df = new DecimalFormat("#.##");
 			g.drawString(" " + df.format(a.st.getwinLose() * 100) + "%", 550, 280);
 
+			g.drawString("Durchschnittliche Punktzahl:", 70, 320);
+			g.drawString(" " + a.st.getDurchschnittsPunkte(), 550, 320);
+			
 		} else {
 
 			int breite = 0;
@@ -475,14 +463,15 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
-
+		
+		a.klonen();
 		if (e.getKeyChar() == 'w' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_UP && !statsAktiv) {
-
+			
 			a.s.welcheRichtung("oben");
 			centerPanel.repaint();
 			
 		} else if (e.getKeyChar() == 's' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_DOWN && !statsAktiv) {
-
+			
 			a.s.welcheRichtung("unten");
 			centerPanel.repaint();
 
@@ -503,9 +492,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			gameFrame.repaint();
 
 		} else if (e.getKeyChar() == 'r' && !statsAktiv) {
-
+			
 			Autoplay au = new Autoplay();
-			System.out.println("Autoplay: " + au.naechsterZug(a.s));
 			a.s.welcheRichtung(au.naechsterZug(a.s));
 			gameFrame.repaint();
 
@@ -515,6 +503,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			newGame();
 
 		}
+		
 		a.st.update();
 		
 		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
@@ -533,7 +522,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public static void newGame() {
-		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); //unnoetig, weil live update vom Rekord
+		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); //unnoetig, weil live update von Rekord
 		a.st.updateEnde();
 		a.s = new Spielfeld(a.s.breite);
 		a.st.updateSpielfeld(a.s);

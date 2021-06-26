@@ -5,12 +5,18 @@ import java.awt.Color;
 
 class Block {
 	int wert;
-
+	
+	int xalt;
+	int yalt;
+	
 	Color farbe;
 	Boolean verschoben; //Spielmechanik: Verschobenes kann nicht erneut verbunden werden
   
-	Block(int wert) {
-		this.wert = wert;
+	Block() {	//Bloecke werden immer leer erstellt
+		this.wert =0;
+		
+		this.xalt = 0;
+		this.yalt = 0;
 		    
 		verschoben = false;
 	}
@@ -21,6 +27,8 @@ class Block {
 		this.verschoben = alt.verschoben;
 		
 	}
+	
+		
 	// Getter Und Setter
 
 	public int getWert() {
@@ -31,7 +39,18 @@ class Block {
 		this.wert = wert;
 	}
 
-	
+	public int getXalt() {
+		return xalt;
+	}
+
+	public int getYalt() {
+		return yalt;
+	}
+
+	public void setYundX(int x,int y) {		//Speicher, welcher Block der Ursprung ist
+		this.xalt = x;
+		this.yalt = y;
+	}
 
 	public void setFarbe() {
 
