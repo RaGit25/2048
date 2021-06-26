@@ -8,6 +8,8 @@ class Spielfeld {
 	int hoechstesFeld;
 	int zuege;
 	int punkteDifferenz;
+	
+	int zusammenschuebe;
 	Boolean veraendert;
 	
 	Spielfeld(int g) {
@@ -25,6 +27,8 @@ class Spielfeld {
 		punkte = 0;
 		hoechstesFeld = 0;
 		zuege = 0;
+		
+		zusammenschuebe = 0;
 		veraendert = false;
 		// setAllFalse(); -> Zum crashen auskommentieren
 	}
@@ -40,6 +44,7 @@ class Spielfeld {
 		this.punkte = a.punkte;
 		this.hoechstesFeld = a.hoechstesFeld;
 		this.zuege = a.zuege;
+		this.zusammenschuebe = a.zusammenschuebe;
 		this.veraendert = a.veraendert;
 	}
 
@@ -68,6 +73,10 @@ class Spielfeld {
 			}
 		}
 		return a;
+	}
+	
+	public int getZusammenschuebe() {
+		return zusammenschuebe;
 	}
 
 	public void setAllFalse() {
@@ -129,7 +138,7 @@ class Spielfeld {
 	}
 
 	public void welcheRichtung(String Richtung) {
-		
+		zusammenschuebe = 0;
 		veraendert = false;
 		setAllFalse();
 		zuege++; // addiert einen neuen Zug
@@ -209,6 +218,7 @@ class Spielfeld {
 
 				punkte += (feld[z][s].getWert()); // Punktesystem
 
+				zusammenschuebe++;
 				veraendert = true;
 				
 				feld[z][s].setYundX(zeile, spalte);						//Speichern des alten Feldes
@@ -273,12 +283,6 @@ class Spielfeld {
 		}
 		// ausdrucken();
 	}
-
-	/*public void setPunkte(int p) {
-		
-		punkte = p;
-		
-	}*/
 
 	// Zur Fehlerbehebung
 	/*

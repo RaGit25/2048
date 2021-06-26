@@ -39,6 +39,10 @@ public class Stats {
 		return rekord;
 
 	}
+	
+	int getDurchschnittsPunkte() {
+		return (int)(punkteGesamt/runden);
+	}
 
 	void feldHochNeu() { // NUR AM ENDE AUFRUFEN
 

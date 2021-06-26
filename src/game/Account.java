@@ -8,8 +8,7 @@ public class Account {
 	public Account(int a) {
 		this.s = new Spielfeld(a);
 		this.st = new Stats(s);
-		this.klon = new Spielfeld(5);
-		klon.blockErstellen();
+		this.klon = new Spielfeld(s);;
 		System.out.println("Acc wird jetzt schon erstellt!");
 	}
 	

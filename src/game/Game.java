@@ -294,10 +294,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			g.drawString("Hoechstes erreichtes Feld", 70, 160);
 			g.drawString(" " + a.st.getFeldHoch(), 550, 160);
-
+			
 			g.drawString("Anzahl aller gespielten Runden:", 70, 200);
 			g.drawString(" " + a.st.getRundenAlt(), 550, 200);
-
+			
 			g.drawString("Anzahl aller Runden mit 2048:", 70, 240);
 			g.drawString(" " + a.st.getGewonnenAlt(), 550, 240);
 
@@ -305,6 +305,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			DecimalFormat df = new DecimalFormat("#.##");
 			g.drawString(" " + df.format(a.st.getwinLose() * 100) + "%", 550, 280);
 
+			g.drawString("Durchschnittliche Punktzahl:", 70, 320);
+			g.drawString(" " + a.st.getDurchschnittsPunkte(), 550, 320);
+			
 		} else {
 
 			int breite = 0;
