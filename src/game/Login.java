@@ -3,12 +3,8 @@ package game;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.text.DecimalFormat;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class Login extends JPanel implements ActionListener{
 
@@ -37,25 +33,34 @@ public class Login extends JPanel implements ActionListener{
         // man auf X das drueckt
         loginFrame.setResizable(false); // fenstergroesse nicht veraenderbar
 
+        loginFrame.add(background);
+
         GridBagLayout layout = new GridBagLayout(); // Layoutmanager
         GridBagConstraints gbc = new GridBagConstraints(); //
-        loginFrame.setLayout(layout); //
+        gbc.fill = GridBagConstraints.CENTER;
+        background.setLayout(layout); //
 
-        loginFrame.add(PanelfuerKontoerstellung); // fuer die Kontoerstellung benoetigten Elemente
-        PanelfuerKontoerstellung.add(textFeld);
-        PanelfuerKontoerstellung.add(confirmButton);
-        PanelfuerKontoerstellung.setVisible(false); // unsichtbar gemacht da hier noch nicht gebraucht
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridwidth = 1;
+        background.add(accountAuswahlliste, gbc);
+
+        gbc.gridy = 0;
+        gbc.gridx = 1;
+        background.add(plusButton, gbc);
 
         gbc.gridy = 1; // relative Koordinaten im Layoutmanager
         gbc.gridx = 0;
-        loginFrame.add(loginButton, gbc); // "einloggen" Knopf mit layoutmanager
+        gbc.gridwidth = 2;
+        background.add(loginButton, gbc); // "einloggen" Knopf mit layoutmanager
 
-        PanelfuerAccounts.add(accountAuswahlliste); // der Accountteil hat ein Panel damit der "einloggen" Knopf
-        // zentriert ist
-        PanelfuerAccounts.add(plusButton);
-        gbc.gridy = 0; // relative Koordinaten im Layoutmanager
-        gbc.gridx = 0;
-        loginFrame.add(PanelfuerAccounts, gbc); // account Panel mit layoutmanager
+        background.add(textFeld);                   // fuer die Kontoerstellung benoetigten Elemente
+        background.add(confirmButton);
+        textFeld.setVisible(false);                  // unsichtbar gemacht da hier noch nicht gebraucht
+        confirmButton.setVisible(false);
 
         loginFrame.setVisible(true);
 
@@ -69,8 +74,8 @@ public class Login extends JPanel implements ActionListener{
             plusButton.setVisible(false);
             accountAuswahlliste.setVisible(false);
 
-            PanelfuerKontoerstellung.setVisible(true); // Elemente von der Kontoerstellung werden sichtbar gemacht
-            textFeld.setVisible(true);
+            textFeld.setText("namen eingeben");
+            textFeld.setVisible(true);          // Elemente von der Kontoerstellung werden sichtbar gemacht
             confirmButton.setVisible(true);
         });
 
@@ -80,8 +85,8 @@ public class Login extends JPanel implements ActionListener{
             plusButton.setVisible(true);
             accountAuswahlliste.setVisible(true);
 
-            PanelfuerKontoerstellung.setVisible(false); // Elemente von der Kontoerstellung werden unsichtbar gemacht
-            textFeld.setVisible(false);
+            textFeld.setVisible(false);         // Elemente von der Kontoerstellung werden unsichtbar gemacht
+            confirmButton.setVisible(false);
 
         });
 
