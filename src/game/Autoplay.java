@@ -4,8 +4,8 @@ public class Autoplay {
 	int anzahl;
 	String[] richtungen;
 
-	int eckenpunkte = 10;
-	int leerpunkte = 4;
+	int eckenpunkte = 20;
+	int leerpunkte = 2;
 
 	public Autoplay() {
 		anzahl = 4;
@@ -40,7 +40,7 @@ public class Autoplay {
 			Spielfeld temp = new Spielfeld(feld);
 			temp.welcheRichtung(richtungen[i]);
 			scores[i] = score(temp);
-			System.out.println(richtungen[i]+" > "+scores[i]);
+			System.out.println(richtungen[i]+" > "+scores[i]);	//-> Zum Veranschaulichen
 			if (scores[i] > max) {
 				max = scores[i];
 				pos = i;
@@ -54,23 +54,24 @@ public class Autoplay {
 	}
 
 	public int score(Spielfeld f) {	//Bewertet jedes Feld mit einer Zahl
-		//nachfolgend wir nur Postkrement verwendet
+		//nachfolgend wird nur Inkrement verwendet
 		int bewertung = 0;
-		bewertung =(ecke(f)) ? + eckenpunkte : bewertung;
-		bewertung =+ ((f.breite * f.breite) - f.getAnzahl()) * leerpunkte; 			//Anzahl leere = Alles - Anzahl enthaltene
+		System.out.println(ecke(f));
+		bewertung += (ecke(f)) ? eckenpunkte : 0;
+		bewertung += ((f.breite * f.breite) - f.getAnzahl()) * leerpunkte; 			//Anzahl leere = Alles - Anzahl enthaltene
 		
-		bewertung =(f.veraendert) ? + 1 : 0;	//bei keiner Veraenderung ist das Verschieben unnoetig
+		bewertung =(f.veraendert) ? bewertung : 0;	//bei keiner Veraenderung ist das Verschieben unnoetig
 		return bewertung;
 	}
 
 	public Boolean ecke(Spielfeld f) {	//Schaut ob groesstes Feld in der Ecke ist
 		if (f.feld[0][0].getWert() == f.getHoechstesFeld()) {
 			return true;
-		} else if (f.feld[0][3].getWert() == f.getHoechstesFeld()) {
+		} else if (f.feld[0][(f.breite-1)].getWert() == f.getHoechstesFeld()) {
 			return true;
-		} else if (f.feld[3][0].getWert() == f.getHoechstesFeld()) {
+		} else if (f.feld[(f.breite-1)][0].getWert() == f.getHoechstesFeld()) {
 			return true;
-		} else if (f.feld[3][3].getWert() == f.getHoechstesFeld()) {
+		} else if (f.feld[(f.breite-1)][(f.breite-1)].getWert() == f.getHoechstesFeld()) {
 			return true;
 		} else {
 			return false;

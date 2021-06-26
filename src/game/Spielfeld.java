@@ -9,7 +9,7 @@ class Spielfeld {
 	int zuege;
 	int punkteDifferenz;
 	Boolean veraendert;
-
+	
 	Spielfeld(int g) {
 		feld = new Block[g][g];
 		breite = g;
@@ -29,18 +29,18 @@ class Spielfeld {
 		// setAllFalse(); -> Zum crashen auskommentieren
 	}
 
-	Spielfeld(Spielfeld alt) { // Copy-Constructor
-		this.breite = alt.breite;
+	Spielfeld(Spielfeld a) { // Copy-Constructor
+		this.breite = a.breite;
 		this.feld = new Block[breite][breite];
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
-				this.feld[i][j] = new Block(alt.feld[i][j]); // Anderen Copy-Constructor aufrufen
+				this.feld[i][j] = new Block(a.feld[i][j]); // Anderen Copy-Constructor aufrufen
 			}
 		}
-		this.punkte = alt.punkte;
-		this.hoechstesFeld = alt.hoechstesFeld;
-		this.zuege = alt.zuege;
-		this.veraendert = alt.veraendert;
+		this.punkte = a.punkte;
+		this.hoechstesFeld = a.hoechstesFeld;
+		this.zuege = a.zuege;
+		this.veraendert = a.veraendert;
 	}
 
 	public int getPunkte() {
