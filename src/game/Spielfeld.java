@@ -7,6 +7,7 @@ class Spielfeld {
 	int punkte;
 	int hoechstesFeld;
 	int zuege;
+	int punkteDifferenz;
 	Boolean veraendert;
 
 	Spielfeld(int g) {
@@ -128,9 +129,13 @@ class Spielfeld {
 	}
 
 	public void welcheRichtung(String Richtung) {
+		
 		veraendert = false;
 		setAllFalse();
 		zuege++; // addiert einen neuen Zug
+		
+		punkteDifferenz = 0;
+		int punkteAlt = punkte;
 
 		String r = Richtung;
 
@@ -181,11 +186,15 @@ class Spielfeld {
 		} else {
 			zuege--;
 		}
+		
+		punkteDifferenz = punkte - punkteAlt;
+
 	}
 
 	public void verschieben(int zeile, int spalte, int z, int s) {
 		// praktische Verbesserung: die Werte fuer z(eile) und s(palte), fuer das
 		// hinzuverschiebende Feld werden Uebergeben
+		
 
 		if (existiertFeld(z, s) && feld[zeile][spalte].getWert() != 0) { // Schaut, ob es das Feld daneben und selbst
 																			// gibt
@@ -219,7 +228,7 @@ class Spielfeld {
 				verschieben(z, s, ze, sp); // Verschieben neuen Feldes
 
 			}
-		}
+		}		
 
 	}
 
@@ -257,6 +266,12 @@ class Spielfeld {
 		}
 		// ausdrucken();
 	}
+
+	/*public void setPunkte(int p) {
+		
+		punkte = p;
+		
+	}*/
 
 	// Zur Fehlerbehebung
 	/*
