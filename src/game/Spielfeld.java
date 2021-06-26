@@ -17,7 +17,7 @@ class Spielfeld {
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
 
-				feld[i][j] = new Block(0); // Jedes Feld wird erstellt und hat den Wert 0
+				feld[i][j] = new Block(); // Jedes Feld wird erstellt und hat den Wert 0
 				// -> diese sollten logischerweise nicht sichtbar sein
 
 			}
@@ -210,6 +210,8 @@ class Spielfeld {
 				punkte += (feld[z][s].getWert()); // Punktesystem
 
 				veraendert = true;
+				
+				feld[z][s].setYundX(zeile, spalte);						//Speichern des alten Feldes
 
 				if (feld[z][s].getWert() > hoechstesFeld) {
 					hoechstesFeld = feld[z][s].getWert();
@@ -224,7 +226,9 @@ class Spielfeld {
 				int sp = s + (s - spalte); // Neue Spalte plus/minus 1
 
 				veraendert = true; // Es wurde was verschoben
-
+				
+				feld[z][s].setYundX(zeile, spalte);			//Speichern des alten Feldes
+				
 				verschieben(z, s, ze, sp); // Verschieben neuen Feldes
 
 			}
@@ -244,20 +248,23 @@ class Spielfeld {
 
 			if (zufallszahl < 0.6) {
 
-				feld[zeile][spalte] = new Block(2);
+				feld[zeile][spalte].setWert(2);
 
 				if (2 > hoechstesFeld) {
 					hoechstesFeld = feld[zeile][spalte].getWert();
 				}
+				
+				feld[zeile][spalte].setYundX(zeile, spalte);	//Speichern des alten Feldes
 
 			} else {
 
-				feld[zeile][spalte] = new Block(4);
+				feld[zeile][spalte].setWert(4);
 
 				if (4 > hoechstesFeld) {
 					hoechstesFeld = feld[zeile][spalte].getWert();
 				}
-
+				
+				feld[zeile][spalte].setYundX(zeile, spalte);	//Speichern des alten Feldes
 			}
 		} else {
 			if (getAnzahl() < (breite * breite)) {
