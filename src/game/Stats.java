@@ -1,6 +1,6 @@
 package game;
 
-public class Stats extends Game {
+public class Stats {
 
 	int punkteGesamt = 0; // anzahl aller Punkte, die ein Spieler gesammelt hat
 	double runden = 0;
@@ -10,10 +10,20 @@ public class Stats extends Game {
 	double winLoseRatio = 0;
 	int zuege = 0;
 	int hoechstesFeldInsgesamt = 0;
-	int hoechstesAlt = 0;
+	int hoechstesNeu = 0;
 	int rekord = 0;
-
-	void punkte() { // PRO RUNDE AUFRUFEN
+	
+	Spielfeld s;	//Referenzattribut setzen
+	
+	public Stats(Spielfeld s) {
+		this.s = s;
+	}
+	
+	void updateSpielfeld(Spielfeld s) {
+		this.s = s;
+	}
+	
+	void punkteGesamt() { // PRO RUNDE AUFRUFEN
 
 		punkteGesamt += s.punkteDifferenz;
 	}
@@ -30,17 +40,17 @@ public class Stats extends Game {
 
 	}
 
-	void feldHochAlt() { // NUR AM ENDE AUFRUFEN
+	void feldHochNeu() { // NUR AM ENDE AUFRUFEN
 
-		hoechstesAlt = s.hoechstesFeld;
+		hoechstesNeu = s.hoechstesFeld;
 
 	}
 
 	void feldHoch() { // PRO RUNDE AUFRUFEN
 
-		if (hoechstesAlt > s.hoechstesFeld) {
+		if (hoechstesNeu > s.hoechstesFeld) {
 
-			hoechstesFeldInsgesamt = hoechstesAlt;
+			hoechstesFeldInsgesamt = hoechstesNeu;
 
 		} else {
 
@@ -121,7 +131,7 @@ public class Stats extends Game {
 
 	void update() { // Update pro Zug
 
-		punkte();
+		punkteGesamt();
 		feldHoch();
 
 	}
@@ -131,7 +141,7 @@ public class Stats extends Game {
 		runden();
 		gewonnen();
 		winLoseRatio();
-		feldHochAlt();
+		feldHochNeu();
 
 	}
 

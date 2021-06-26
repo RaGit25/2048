@@ -267,11 +267,11 @@ class Spielfeld {
 		// ausdrucken();
 	}
 
-	public void setPunkte(int p) {
+	/*public void setPunkte(int p) {
 		
 		punkte = p;
 		
-	}
+	}*/
 
 	// Zur Fehlerbehebung
 	/*

@@ -12,9 +12,9 @@ import javax.swing.border.Border;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
-	static Spielfeld s = new Spielfeld(4);
+	static Account a = new Account(4);
 
-	static Stats st = new Stats();
+	//static Stats st = new Stats();
 
 	static Boolean statsAktiv = false;
 
@@ -33,7 +33,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JPanel PanelfuerAccounts = new JPanel();
 	static JPanel PanelfuerKontoerstellung = new JPanel();
 
-	static String accountString[] = { "Konto auswählen", "aaaaaaaaa", "bbbbbbbb" };
+	static String accountString[] = { "Konto auswaehlen", "aaaaaaaaa", "bbbbbbbb" };
 	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(Game.accountString);
 
 	static JPanel centerPanel = new JPanel(); // Mehrere Panels benoetigt (für den Layoutmanager)
@@ -128,7 +128,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		centerPanel.add(new Game()); // sichtbarmachen der Felder
 
 		// punktzahl
-		punkte.setText("<html>Punkte <br>" + s.punkte + "</html>");
+		punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
 		Border border = BorderFactory.createLineBorder(Color.gray, 5);
 		panel1.add(punkte);
 		panel1.setLayout(null);
@@ -141,7 +141,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		punkte.setOpaque(true);
 
 		// rekord
-		rekord.setText("<html>Rekord <br>" + st.getRekord() + "</html>"); // rekord fehlt noch, weil keine Speicherung
+		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // rekord fehlt noch, weil keine Speicherung
 		Border border1 = BorderFactory.createLineBorder(Color.gray, 5);
 		panel1.add(rekord);
 		rekord.setLayout(null);
@@ -172,14 +172,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			if (!statsAktiv) {
 
-				st.updateEnde();
-				rekord.setText("<html>Rekord <br>" + st.getRekord() + "</html>");
-				s = new Spielfeld(s.breite);
-				s.blockErstellen();
-				s.blockErstellen();
-				punkte.setText("<html>Punkte <br>" + s.punkte + "</html>");
-				centerPanel.repaint();
-
+				newGame();
+				
 			}
 
 		});
@@ -216,26 +210,26 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		
 		tipp.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
-			if (!statsAktiv && !s.gameOver()) {
+			if (!statsAktiv && !a.s.gameOver()) {
 
-				Autoplay a = new Autoplay();
+				Autoplay au = new Autoplay();
 				
-				if (a.naechsterZug(s).equals("oben")) {
+				if (au.naechsterZug(a.s).equals("oben")) {
 					
 					hilfe.setText("Tipp: oben");
 					hilfe.setVisible(true);
 
-				} else if (a.naechsterZug(s).equals("unten")) {
+				} else if (au.naechsterZug(a.s).equals("unten")) {
 
 					hilfe.setText("Tipp: unten");
 					hilfe.setVisible(true);
 					
-				} else if (a.naechsterZug(s).equals("links")) {
+				} else if (au.naechsterZug(a.s).equals("links")) {
 
 					hilfe.setText("Tipp: links");
 					hilfe.setVisible(true);
 					
-				} else if (a.naechsterZug(s).equals("rechts")) {
+				} else if (au.naechsterZug(a.s).equals("rechts")) {
 
 					hilfe.setText("Tipp: rechts");
 					hilfe.setVisible(true);
@@ -311,20 +305,20 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			g.setColor(Color.darkGray);
 			
 			g.drawString("Anzahl aller gesammelten Punkte:", 70, 120);
-			g.drawString(" " + st.getPunkteGesamt(), 550, 120);
+			g.drawString(" " + a.st.getPunkteGesamt(), 550, 120);
 
 			g.drawString("Hoechstes erreichtes Feld", 70, 160);
-			g.drawString(" " + st.getFeldHoch(), 550, 160);
+			g.drawString(" " + a.st.getFeldHoch(), 550, 160);
 
 			g.drawString("Anzahl aller gespielten Runden:", 70, 200);
-			g.drawString(" " + st.getRundenAlt(), 550, 200);
+			g.drawString(" " + a.st.getRundenAlt(), 550, 200);
 
 			g.drawString("Anzahl aller Runden mit 2048:", 70, 240);
-			g.drawString(" " + st.getGewonnenAlt(), 550, 240);
+			g.drawString(" " + a.st.getGewonnenAlt(), 550, 240);
 
 			g.drawString("Anteil der Runden mit 2048:", 70, 280);
 			DecimalFormat df = new DecimalFormat("#.##");
-			g.drawString(" " + df.format(st.getwinLose() * 100) + "%", 550, 280);
+			g.drawString(" " + df.format(a.st.getwinLose() * 100) + "%", 550, 280);
 
 		} else {
 
@@ -339,7 +333,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			int v = 0;
 			int e = 0;
 
-			if (s.breite == 4) {
+			if (a.s.breite == 4) {
 
 				breite = 155;
 				schrift = 80;
@@ -349,7 +343,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				schriftX = 55;
 				schriftY = 105;
 
-			} else if (s.breite == 5) {
+			} else if (a.s.breite == 5) {
 
 				breite = 120;
 				schrift = 65;
@@ -361,7 +355,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				v = 5;
 				e = 5;
 
-			} else if (s.breite == 6) {
+			} else if (a.s.breite == 6) {
 
 				breite = 95;
 				schrift = 60;
@@ -373,7 +367,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				v = 8;
 				e = 13;
 
-			} else if (s.breite == 7) {
+			} else if (a.s.breite == 7) {
 
 				breite = 75;
 				schrift = 45;
@@ -386,7 +380,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				e = 32;
 				r = 8;
 
-			} else if (s.breite == 8) {
+			} else if (a.s.breite == 8) {
 
 				breite = 70;
 				schrift = 35;
@@ -401,17 +395,17 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			}
 
-			for (int i = 0; i < s.breite; i++) { // geht bei jedem Zug einmal durchs Feld druch und ruft felder() auf
-				for (int j = 0; j < s.breite; j++) {
+			for (int i = 0; i < a.s.breite; i++) { // geht bei jedem Zug einmal durchs Feld druch und ruft felder() auf
+				for (int j = 0; j < a.s.breite; j++) {
 
-					felder(g, s.feld[i][j], j * abstand + x, i * abstand + y, breite, schrift, schriftX, schriftY, v, e,
+					felder(g, a.s.feld[i][j], j * abstand + x, i * abstand + y, breite, schrift, schriftX, schriftY, v, e,
 							r);
 
 				}
 
 			}
 
-			if (s.gameOver()) { // wenn man verloren hat
+			if (a.s.gameOver()) { // wenn man verloren hat
 
 				g.setColor(Color.black);
 				g.setFont(new Font("Arial", Font.BOLD, 40));
@@ -484,50 +478,47 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		if (e.getKeyChar() == 'w' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_UP && !statsAktiv) {
 
-			s.welcheRichtung("oben");
+			a.s.welcheRichtung("oben");
 			centerPanel.repaint();
 			
 		} else if (e.getKeyChar() == 's' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_DOWN && !statsAktiv) {
 
-			s.welcheRichtung("unten");
+			a.s.welcheRichtung("unten");
 			centerPanel.repaint();
 
 		} else if (e.getKeyChar() == 'a' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_LEFT && !statsAktiv) {
 
-			s.welcheRichtung("links");
+			a.s.welcheRichtung("links");
 			centerPanel.repaint();
 
 		} else if (e.getKeyChar() == 'd' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_RIGHT && !statsAktiv) {
 
-			s.welcheRichtung("rechts");
+			a.s.welcheRichtung("rechts");
 			centerPanel.repaint();
 
 		} else if (e.getKeyChar() == 'z' && !statsAktiv) {
 
-			Autoplay a = new Autoplay();
-			s.welcheRichtung(a.zufaelligeRichtung());
+			Autoplay au = new Autoplay();
+			a.s.welcheRichtung(au.zufaelligeRichtung());
 			gameFrame.repaint();
 
 		} else if (e.getKeyChar() == 'r' && !statsAktiv) {
 
-			Autoplay a = new Autoplay();
-			System.out.println("Autoplay: " + a.naechsterZug(s));
-			s.welcheRichtung(a.naechsterZug(s));
+			Autoplay au = new Autoplay();
+			System.out.println("Autoplay: " + au.naechsterZug(a.s));
+			a.s.welcheRichtung(au.naechsterZug(a.s));
 			gameFrame.repaint();
 
-		} else if (e.getKeyCode() == KeyEvent.VK_ENTER && s.gameOver()) {
+		} else if (e.getKeyCode() == KeyEvent.VK_ENTER && a.s.gameOver()) {
 
-			rekord.setText("<html>Rekord <br>" + st.getRekord() + "</html>");
-			s = new Spielfeld(s.breite);
-			s.blockErstellen();
-			s.blockErstellen();
-			st.updateEnde();
-			centerPanel.repaint();
+			
+			newGame();
 
 		}
-		st.update();
-
-		punkte.setText("<html>Punkte <br>" + s.punkte + "</html>");
+		a.st.update();
+		
+		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
+		punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
 		hilfe.setVisible(false);
 	}
 
@@ -541,13 +532,24 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	public void keyTyped(KeyEvent e) { // macht nichts, muss aber da sein
 	}
 
+	public static void newGame() {
+		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); //unnoetig, weil live update vom Rekord
+		a.st.updateEnde();
+		a.s = new Spielfeld(a.s.breite);
+		a.st.updateSpielfeld(a.s);
+		a.s.blockErstellen();
+		a.s.blockErstellen();
+		punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
+		centerPanel.repaint();
+	}
+	
 	// GUI und zwei bloecke werden erstellt
 
 	public static void main(String[] args) {
 
 		loginGui();
-		s.blockErstellen();
-		s.blockErstellen();
+		a.s.blockErstellen();
+		a.s.blockErstellen();
 	}
 
 }

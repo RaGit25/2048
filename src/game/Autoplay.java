@@ -16,7 +16,10 @@ public class Autoplay {
 		richtungen[3] = "links";
 	}
 	
-	
+	public Boolean zufall() {
+		 double z = Math.random();
+		 return (z>0.5) ? true : false;
+	}
 
 	public String zufaelligeRichtung() {
 		int i = (int) (Math.random() * 4);
@@ -42,7 +45,7 @@ public class Autoplay {
 				max = scores[i];
 				pos = i;
 			}
-			else if((scores[i] == max) && 1 == (int) (Math.random())*2) {
+			else if((scores[i] == max) && zufall()) {
 				max = scores[i];
 				pos = i;
 			}
