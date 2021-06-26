@@ -5,16 +5,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.DecimalFormat;
+
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.text.View;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static Spielfeld s = new Spielfeld(4);
-	
 
-	//static Game spiel = new Game();
+	static Stats st = new Stats();
+
+	static Boolean statsAktiv = false;
+
 	static Game game = new Game();
 
 	static JFrame gameFrame = new JFrame("2048");
@@ -41,10 +44,15 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static JLabel punkte = new JLabel(); // Punktzahl ist jetzt in einem JLabel in "panel1"
 	static JLabel rekord = new JLabel();
+	static JLabel hilfe = new JLabel();
 
 	static JLabel titel = new JLabel();
 
 	static JButton restart = new JButton(); // restart Button oben links im Spiel
+	static JButton zurueck = new JButton();
+	static JButton tipp = new JButton();
+
+	static JButton stats = new JButton();
 
 	Game() {
 
@@ -124,7 +132,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		Border border = BorderFactory.createLineBorder(Color.gray, 5);
 		panel1.add(punkte);
 		panel1.setLayout(null);
-		punkte.setBounds(440, 15, 150, 80);
+		punkte.setBounds(425, 15, 150, 80);
 		punkte.setFont(new Font("Arial", Font.PLAIN, 30));
 		punkte.setBorder(border);
 		punkte.setVerticalAlignment(JLabel.TOP);
@@ -133,8 +141,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		punkte.setOpaque(true);
 
 		// rekord
-
-		rekord.setText("<html>Rekord <br>" + 0 + "</html>"); // rekord fehlt noch, weil keine Speicherung
+		rekord.setText("<html>Rekord <br>" + st.getRekord() + "</html>"); // rekord fehlt noch, weil keine Speicherung
 		Border border1 = BorderFactory.createLineBorder(Color.gray, 5);
 		panel1.add(rekord);
 		rekord.setLayout(null);
@@ -155,7 +162,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// restart button
 		panel1.add(restart);
-		restart.setBounds(680, 120, 50, 50);
+		restart.setBounds(700, 120, 50, 50);
 		ImageIcon icon = new ImageIcon("restart.png"); // bild mit den 2 pfeilen, siehe Dateien d. Projekts
 		restart.setIcon(icon);
 		restart.setBorder(BorderFactory.createEtchedBorder());
@@ -163,9 +170,102 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		restart.setBackground(Color.lightGray);
 		restart.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
-			s = new Spielfeld(s.breite);
-			s.blockErstellen();
-			s.blockErstellen();
+			if (!statsAktiv) {
+
+				st.updateEnde();
+				rekord.setText("<html>Rekord <br>" + st.getRekord() + "</html>");
+				s = new Spielfeld(s.breite);
+				s.blockErstellen();
+				s.blockErstellen();
+				punkte.setText("<html>Punkte <br>" + s.punkte + "</html>");
+				centerPanel.repaint();
+
+			}
+
+		});
+
+		// zurueck button
+		panel1.add(zurueck);
+		zurueck.setBounds(625, 120, 50, 50);
+		ImageIcon icon1 = new ImageIcon("back.png"); // bild mit den 2 pfeilen, siehe Dateien d. Projekts
+		zurueck.setIcon(icon1);
+		zurueck.setBorder(BorderFactory.createEtchedBorder());
+		zurueck.setFocusable(false);
+		zurueck.setBackground(Color.lightGray);
+		zurueck.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
+
+			if (!statsAktiv) {
+
+			}
+
+		});
+
+		// tipp button
+		panel1.add(tipp);
+		tipp.setBounds(550, 120, 50, 50);
+		tipp.setText("?");
+		tipp.setFont(new Font("Arial", Font.BOLD, 35));
+		tipp.setBorder(BorderFactory.createEtchedBorder());
+		tipp.setFocusable(false);
+		tipp.setBackground(Color.lightGray);
+		panel1.add(hilfe);
+		hilfe.setBounds(250, 100, 200, 100);
+		hilfe.setFont(new Font("Arial", Font.PLAIN, 30));
+		hilfe.setForeground(Color.green);
+		hilfe.setVisible(false);
+		
+		tipp.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
+
+			if (!statsAktiv && !s.gameOver()) {
+
+				Autoplay a = new Autoplay();
+				
+				if (a.naechsterZug(s).equals("oben")) {
+					
+					hilfe.setText("Tipp: oben");
+					hilfe.setVisible(true);
+
+				} else if (a.naechsterZug(s).equals("unten")) {
+
+					hilfe.setText("Tipp: unten");
+					hilfe.setVisible(true);
+					
+				} else if (a.naechsterZug(s).equals("links")) {
+
+					hilfe.setText("Tipp: links");
+					hilfe.setVisible(true);
+					
+				} else if (a.naechsterZug(s).equals("rechts")) {
+
+					hilfe.setText("Tipp: rechts");
+					hilfe.setVisible(true);
+					
+				}
+
+			}
+
+		});
+
+		// stats button
+		panel1.add(stats);
+		stats.setBounds(425, 120, 100, 50);
+		stats.setBorder(BorderFactory.createEtchedBorder());
+		stats.setFocusable(false);
+		stats.setBackground(Color.lightGray);
+		stats.setText("Statistiken");
+		stats.setFont(new Font("Arial", Font.PLAIN, 20));
+		stats.addActionListener((ActionEvent e) -> {
+
+			if (statsAktiv == false) {
+
+				statsAktiv = true;
+
+			} else {
+
+				statsAktiv = false;
+
+			}
+
 			centerPanel.repaint();
 
 		});
@@ -201,107 +301,133 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.gray);
-
 		g.setColor(Color.black);
 
-	    int breite = 0;
-	    int schrift = 0;
-	    int x = 0;
-	    int y = 0;
-	    int abstand = 0;
-	    int schriftX = 0;
-	    int schriftY = 0;
-	    int r = 0;
-	    int v = 0;
-	    int e = 0;
-	   
-	   
-	    if(s.breite == 4) {
-	    	
-	    	breite = 155;
-	    	schrift = 80;
-	        x = 85;
-	  	    y = 15;
-	  	    abstand = 175;
-	  	    schriftX = 55;
-		    schriftY = 105;
-	  	    
-	    } else if(s.breite == 5) {
-	    	
-	    	breite = 120;
-	    	schrift = 65;
-	    	x = 85;
-	  	    y = 15;
-	  	    abstand = 140;
-	  	    schriftX = 45;
-		    schriftY = 80;
-		    v = 5;
-		    e = 5;
-		    
-	    } else if(s.breite == 6) {
-	    	
-	    	breite = 95;
-	    	schrift = 60;
-	    	x = 85;
-	  	    y = 15;
-	  	    abstand = 117;
-	  	    schriftX = 35;
-		    schriftY = 70;
-		    v = 8;
-		    e = 13;
-		    
-	    } else if(s.breite == 7) {
-	    	
-	    	breite = 75;
-	    	schrift = 45;
-	    	x = 88;
-	  	    y = 18;
-	  	    abstand = 100;
-	  	    schriftX = 24;
-		    schriftY = 58;
-		    v = 20;
-		    e = 32;
-		    r = 8;
-		    
-	    } else if(s.breite == 8) {
-	    	
-	    	breite = 70;
-	    	schrift = 35;
-	    	x = 85;
-	  	    y = 15;
-	  	    abstand = 87;
-	  	    schriftX = 26;
-		    schriftY = 52;
-		    v = 27;
-		    e = 38;
-		    r = 10;
-		    
-	    }
-		
-		for (int i = 0; i < s.breite; i++) { // geht bei jedem Zug einmal durchs Feld druch und ruft felder() auf
-			for (int j = 0; j < s.breite; j++) {
+		if (statsAktiv == true) {
 
-				felder(g, s.feld[i][j], j * abstand + x, i * abstand + y, breite, schrift, schriftX, schriftY, v, e, r);
+			g.setFont(new Font("Arial", Font.BOLD, 40));
+			g.drawString("Statistiken", 70, 30);
+			g.setFont(new Font("Arial", Font.PLAIN, 30));
+			g.setColor(Color.darkGray);
+			
+			g.drawString("Anzahl aller gesammelten Punkte:", 70, 120);
+			g.drawString(" " + st.getPunkteGesamt(), 550, 120);
+
+			g.drawString("Hoechstes erreichtes Feld", 70, 160);
+			g.drawString(" " + st.getFeldHoch(), 550, 160);
+
+			g.drawString("Anzahl aller gespielten Runden:", 70, 200);
+			g.drawString(" " + st.getRundenAlt(), 550, 200);
+
+			g.drawString("Anzahl aller Runden mit 2048:", 70, 240);
+			g.drawString(" " + st.getGewonnenAlt(), 550, 240);
+
+			g.drawString("Anteil der Runden mit 2048:", 70, 280);
+			DecimalFormat df = new DecimalFormat("#.##");
+			g.drawString(" " + df.format(st.getwinLose() * 100) + "%", 550, 280);
+
+		} else {
+
+			int breite = 0;
+			int schrift = 0;
+			int x = 0;
+			int y = 0;
+			int abstand = 0;
+			int schriftX = 0;
+			int schriftY = 0;
+			int r = 0;
+			int v = 0;
+			int e = 0;
+
+			if (s.breite == 4) {
+
+				breite = 155;
+				schrift = 80;
+				x = 85;
+				y = 15;
+				abstand = 175;
+				schriftX = 55;
+				schriftY = 105;
+
+			} else if (s.breite == 5) {
+
+				breite = 120;
+				schrift = 65;
+				x = 85;
+				y = 15;
+				abstand = 140;
+				schriftX = 45;
+				schriftY = 80;
+				v = 5;
+				e = 5;
+
+			} else if (s.breite == 6) {
+
+				breite = 95;
+				schrift = 60;
+				x = 85;
+				y = 15;
+				abstand = 117;
+				schriftX = 35;
+				schriftY = 70;
+				v = 8;
+				e = 13;
+
+			} else if (s.breite == 7) {
+
+				breite = 75;
+				schrift = 45;
+				x = 88;
+				y = 18;
+				abstand = 100;
+				schriftX = 24;
+				schriftY = 58;
+				v = 20;
+				e = 32;
+				r = 8;
+
+			} else if (s.breite == 8) {
+
+				breite = 70;
+				schrift = 35;
+				x = 85;
+				y = 15;
+				abstand = 87;
+				schriftX = 26;
+				schriftY = 52;
+				v = 27;
+				e = 38;
+				r = 10;
+
+			}
+
+			for (int i = 0; i < s.breite; i++) { // geht bei jedem Zug einmal durchs Feld druch und ruft felder() auf
+				for (int j = 0; j < s.breite; j++) {
+
+					felder(g, s.feld[i][j], j * abstand + x, i * abstand + y, breite, schrift, schriftX, schriftY, v, e,
+							r);
+
+				}
+
+			}
+
+			if (s.gameOver()) { // wenn man verloren hat
+
+				g.setColor(Color.black);
+				g.setFont(new Font("Arial", Font.BOLD, 40));
+				g.drawString("Game Over!", 300, 340);
+				g.setFont(new Font("Arial", Font.BOLD, 30));
+				g.drawString("Druecke 'enter' um neu zu starten.", 200, 390);
 
 			}
 
 		}
-
-		if (s.gameOver()) { // wenn man verloren hat
-
-			g.setColor(Color.red);
-			g.setFont(new Font("Arial", Font.PLAIN, 40));
-			g.drawString("Game Over!", 300, 400);
-			g.setFont(new Font("Arial", Font.PLAIN, 30));
-			g.drawString("Druecke 'enter' um neu zu starten.", 200, 450);
-
-		}
-
 	}
 
 	// kuemmert sich um das Faerben der Felder
 
-	public void felder(Graphics g, Block block, int x, int y, int breite, int schrift, int schriftX, int schriftY, int v, int e, int r) {
+	public void felder(Graphics g, Block block, int x, int y, int breite, int schrift, int schriftX, int schriftY,
+			int v, int e, int r) {
 
 		int wert = block.getWert();
 
@@ -309,7 +435,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		g2.setColor(Color.lightGray);
 
 		g.setFont(new Font("Arial", Font.BOLD, schrift)); // schriftgroesse der zahl im feld
-		
+
 		g2.fillRoundRect(x, y, breite, breite, 10, 10); // graue, leere Felder
 
 		g2.setColor(Color.black);
@@ -355,52 +481,58 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyChar() == 'w' || e.getKeyCode() == KeyEvent.VK_UP) {
+
+		if (e.getKeyChar() == 'w' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_UP && !statsAktiv) {
 
 			s.welcheRichtung("oben");
 			centerPanel.repaint();
-
-		} else if (e.getKeyChar() == 's' || e.getKeyCode() == KeyEvent.VK_DOWN) {
+			
+		} else if (e.getKeyChar() == 's' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_DOWN && !statsAktiv) {
 
 			s.welcheRichtung("unten");
 			centerPanel.repaint();
 
-		} else if (e.getKeyChar() == 'a' || e.getKeyCode() == KeyEvent.VK_LEFT) {
+		} else if (e.getKeyChar() == 'a' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_LEFT && !statsAktiv) {
 
 			s.welcheRichtung("links");
 			centerPanel.repaint();
 
-		} else if (e.getKeyChar() == 'd' || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		} else if (e.getKeyChar() == 'd' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_RIGHT && !statsAktiv) {
 
 			s.welcheRichtung("rechts");
 			centerPanel.repaint();
 
-		}else if (e.getKeyChar() == 'z') {
-				
-				Autoplay a = new Autoplay();
-				s.welcheRichtung(a.zufaelligeRichtung());
-				gameFrame.repaint();
-				
-		}else if (e.getKeyChar() == 'r') {
-			
+		} else if (e.getKeyChar() == 'z' && !statsAktiv) {
+
 			Autoplay a = new Autoplay();
-			System.out.println("Autoplay: "+a.naechsterZug(s));
+			s.welcheRichtung(a.zufaelligeRichtung());
+			gameFrame.repaint();
+
+		} else if (e.getKeyChar() == 'r' && !statsAktiv) {
+
+			Autoplay a = new Autoplay();
+			System.out.println("Autoplay: " + a.naechsterZug(s));
 			s.welcheRichtung(a.naechsterZug(s));
 			gameFrame.repaint();
-			
-				
+
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER && s.gameOver()) {
 
+			rekord.setText("<html>Rekord <br>" + st.getRekord() + "</html>");
 			s = new Spielfeld(s.breite);
 			s.blockErstellen();
 			s.blockErstellen();
+			st.updateEnde();
 			centerPanel.repaint();
 
 		}
+		st.update();
+
 		punkte.setText("<html>Punkte <br>" + s.punkte + "</html>");
+		hilfe.setVisible(false);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+
 	}
 
 	public void keyReleased(KeyEvent e) { // macht nichts, muss aber da sein
@@ -412,7 +544,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	// GUI und zwei bloecke werden erstellt
 
 	public static void main(String[] args) {
-
 
 		loginGui();
 		s.blockErstellen();

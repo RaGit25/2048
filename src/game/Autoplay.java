@@ -15,6 +15,8 @@ public class Autoplay {
 		richtungen[2] = "unten";
 		richtungen[3] = "links";
 	}
+	
+	
 
 	public String zufaelligeRichtung() {
 		int i = (int) (Math.random() * 4);
