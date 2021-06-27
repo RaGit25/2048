@@ -11,6 +11,7 @@ public class Stats {
 	int hoechstesAlt = 0;		//Speichert das hoechste Feld des Klons
 	int rekord = 0;
 	int rekordAlt = 0;			//Speichert den Rekord des Klons
+	int zuegeGesamt = -1;
 	
 	Spielfeld s;	//Referenzattribut setzen
 	
@@ -22,6 +23,7 @@ public class Stats {
 		this.punkteGesamt -= s.punkteDifferenz;
 		this.hoechstesFeldInsgesamt =  this.hoechstesAlt;
 		this.rekord = this.rekordAlt;
+		this.zuegeGesamt -= 1; 
 			
 		
 	} 
@@ -92,6 +94,24 @@ public class Stats {
 		return runden;
 
 	}
+	
+	int getZuegeMomentan() {
+		
+		return s.zuege;
+		
+	}
+	
+	void zuegeGesamt(){
+		
+		zuegeGesamt += 1;
+		
+	}
+	
+	int getZuegeGesamt() {
+		
+		return zuegeGesamt;
+		
+	}
 
 	
 	void gewonnen() { 
@@ -125,7 +145,7 @@ public class Stats {
 
 	void update() { // Update pro Zug
 		saveAlt();
-		
+		zuegeGesamt();
 		punkteGesamt();
 		feldHoch();
 		
@@ -141,6 +161,7 @@ public class Stats {
 	void updateEnde() { // Update am Ende der Runde
 
 		runden();
+		winLoseRatio();
 		gewonneRunde = false;	//neue Runde
 		
 	}

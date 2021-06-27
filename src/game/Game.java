@@ -45,6 +45,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JLabel punkte = new JLabel(); // Punktzahl ist jetzt in einem JLabel in "panel1"
 	static JLabel rekord = new JLabel();
 	static JLabel hilfe = new JLabel();
+	static Border border = BorderFactory.createLineBorder(Color.gray, 5);
+	static Border border1 = BorderFactory.createLineBorder(Color.gray, 5); //borders von den Punkten und Rekord
 
 	static JLabel titel = new JLabel();
 
@@ -129,7 +131,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// punktzahl
 		punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
-		Border border = BorderFactory.createLineBorder(Color.gray, 5);
 		panel1.add(punkte);
 		panel1.setLayout(null);
 		punkte.setBounds(425, 15, 150, 80);
@@ -142,7 +143,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// rekord
 		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // rekord fehlt noch, weil keine Speicherung
-		Border border1 = BorderFactory.createLineBorder(Color.gray, 5);
 		panel1.add(rekord);
 		rekord.setLayout(null);
 		rekord.setBounds(600, 15, 150, 80);
@@ -239,10 +239,16 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			if (statsAktiv == false) {
 
+				restart.setVisible(false);
+				zurueck.setVisible(false);
+				tipp.setVisible(false);
 				statsAktiv = true;
 
 			} else {
 
+				restart.setVisible(true);
+				zurueck.setVisible(true);
+				tipp.setVisible(true);
 				statsAktiv = false;
 
 			}
@@ -294,7 +300,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			g.drawString(" " + a.st.getPunkteGesamt(), 550, 120);
 
 			g.drawString("Hoechstes erreichtes Feld", 70, 160);
+			
+			if(a.s.getHoechstesFeld() >= 2048) {
+				g.setColor(new Color(237, 194, 46));
+			}
+			
 			g.drawString(" " + a.st.getFeldHoch(), 550, 160);
+			
+			g.setColor(Color.darkGray);
 
 			g.drawString("Anzahl aller gespielten Runden:", 70, 200);
 			g.drawString(" " + a.st.getRunden(), 550, 200);
@@ -303,11 +316,26 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			g.drawString(" " + a.st.getGewonnen(), 550, 240);
 
 			g.drawString("Anteil der Runden mit 2048:", 70, 280);
+			
+			if(a.st.getwinLose() == 1.0) {
+				g.setColor(new Color(237, 194, 46));
+			}
+			
 			DecimalFormat df = new DecimalFormat("#.##");
 			g.drawString(" " + df.format(a.st.getwinLose() * 100) + "%", 550, 280);
+			
+			g.setColor(Color.darkGray);
 
 			g.drawString("Durchschnittliche Punktzahl:", 70, 320);
 			g.drawString(" " + a.st.getDurchschnittsPunkte(), 550, 320);
+			
+			g.drawString("Anzahl der ausgefuehrten Zuege", 70, 360);
+			g.drawString(" " + a.st.getZuegeMomentan(), 550, 360);
+			
+			g.drawString("Anzahl aller ausgefuehrten Zuege", 70, 400);
+			g.drawString(" " + a.st.getZuegeGesamt(), 550, 400);
+			
+			
 
 		} else {
 
@@ -508,7 +536,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		}
 
 		a.st.update();
-
+        labelNeuladen();
 		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
 		punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
 		hilfe.setVisible(false);
@@ -536,6 +564,16 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		centerPanel.repaint();
 	}
 
+	public void labelNeuladen() {
+		
+		if(a.s.gewonnen()) {
+			
+			titel.setForeground(new Color(237, 194, 46));
+			
+		}
+		
+	}
+	
 	// GUI und zwei bloecke werden erstellt
 
 	public static void main(String[] args) {
