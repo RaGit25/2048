@@ -497,10 +497,36 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public void labelNeuladen() {
 		
+		int count = 0;
+		
 		if(a.s.gewonnen()) {
 			
 			titel.setForeground(new Color(237, 194, 46));
 			
+		}
+		
+		for(int i = 0; i< a.s.breite; i++) {
+			for(int j = 0; j< a.s.breite; j++) {
+				
+				if(a.s.feld[i][j].getWert() == a.klon.feld[i][j].getWert()) {
+					
+					count++;
+					
+				}
+				
+			}
+			
+			
+		}
+		
+		if(count == a.s.breite*a.s.breite) {
+			
+			zurueck.setBackground(Color.gray);
+			
+		} else {
+		
+		zurueck.setBackground(Color.lightGray);
+		
 		}
 		
 	}
