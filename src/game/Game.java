@@ -377,6 +377,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				g.drawString("Game Over!", 300, 340);
 				g.setFont(new Font("Arial", Font.BOLD, 30));
 				g.drawString("Druecke 'enter' um neu zu starten.", 200, 390);
+				labelNeuladen();
 
 				// Sollte man nicht haben
 				// newGame();
@@ -526,7 +527,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		for (int i = 0; i < a.s.breite; i++) {
 			for (int j = 0; j < a.s.breite; j++) {
 
-				if (a.s.feld[i][j].getWert() == a.klon.feld[i][j].getWert()) {
+				if (a.s.feld[i][j].getWert() == a.klon.feld[i][j].getWert() || a.s.gameOver()) {
 
 					count++;
 
