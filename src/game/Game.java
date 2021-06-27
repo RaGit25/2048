@@ -190,7 +190,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			if (!statsAktiv) {
 				
-				a.zuruecknehmen();
+				a.s.reverseWelcheRichtung(a.s.reverseRichtung);
 				gameFrame.repaint();
 				
 			}

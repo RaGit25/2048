@@ -5,7 +5,7 @@ import java.awt.Color;
 
 class Block {
 	int wert;
-	
+	Boolean neuerBlock;
 	int xalt;
 	int yalt;
 	
@@ -14,7 +14,7 @@ class Block {
   
 	Block() {	//Bloecke werden immer leer erstellt
 		this.wert =0;
-		
+		neuerBlock = false;
 		this.xalt = 0;
 		this.yalt = 0;
 		    
@@ -28,6 +28,17 @@ class Block {
 		
 	}
 	
+	public void setNeu(Boolean n) {
+		
+		neuerBlock = n;
+		
+	}
+	
+	public Boolean getNeu() {
+		
+		return neuerBlock;
+		
+	}
 		
 	// Getter Und Setter
 
