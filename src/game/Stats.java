@@ -8,16 +8,24 @@ public class Stats {
 	double gewonnen = 0; // gewonnene Runden
 	int gewonnenAlt = 0;
 	double winLoseRatio = 0;
-	int zuege = 0;
 	int hoechstesFeldInsgesamt = 0;
-	int hoechstesNeu = 0;
+	int hoechstesAlt = 0;		//Speichert das hoechste Feld des Klons
 	int rekord = 0;
+	int rekordAlt = 0;
 	
 	Spielfeld s;	//Referenzattribut setzen
 	
 	public Stats(Spielfeld s) {
 		this.s = s;
 	}
+	
+	void Statszuruecknehmen(Spielfeld k) {
+		this.punkteGesamt -= s.punkteDifferenz;
+		this.hoechstesFeldInsgesamt =  this.hoechstesAlt;
+		this.rekord = this.rekordAlt;
+			
+		
+	} 
 	
 	void updateSpielfeld(Spielfeld s) {
 		this.s = s;
@@ -41,24 +49,23 @@ public class Stats {
 	}
 	
 	int getDurchschnittsPunkte() {
-		return (int)(punkteGesamt/runden);
+		return  (int)(punkteGesamt/(runden+1));
 	}
-
-	void feldHochNeu() { // NUR AM ENDE AUFRUFEN
-
-		hoechstesNeu = s.hoechstesFeld;
+	
+	
+	void saveAlt() { // Vor Update der insgesamt hoechsten
+		
+		hoechstesAlt = hoechstesFeldInsgesamt;
+		rekordAlt = rekord;
 
 	}
-
+	
+	
 	void feldHoch() { // PRO RUNDE AUFRUFEN
 
-		if (hoechstesNeu > s.hoechstesFeld) {
+		if (hoechstesFeldInsgesamt < s.getHoechstesFeld()) {	//Wenn groesseres Feld existiert
 
-			hoechstesFeldInsgesamt = hoechstesNeu;
-
-		} else {
-
-			hoechstesFeldInsgesamt = s.hoechstesFeld;
+			hoechstesFeldInsgesamt = s.getHoechstesFeld();
 
 		}
 
@@ -134,9 +141,11 @@ public class Stats {
 	}
 
 	void update() { // Update pro Zug
-
+		saveAlt();
+		
 		punkteGesamt();
 		feldHoch();
+		
 
 	}
 
@@ -145,7 +154,7 @@ public class Stats {
 		runden();
 		gewonnen();
 		winLoseRatio();
-		feldHochNeu();
+		
 
 	}
 

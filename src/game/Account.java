@@ -5,8 +5,8 @@ public class Account {
 	Stats st;
 	Spielfeld klon;		//Zum Zurücknehmen des letzten Zuges
 	
-	public Account(int a) {
-		this.s = new Spielfeld(a);
+	public Account() {
+		this.s = new Spielfeld(8);	//<- Groesse des Spielfeldes
 		this.st = new Stats(s);
 		this.klon = new Spielfeld(s);;
 		System.out.println("Acc wird jetzt schon erstellt!");
@@ -17,6 +17,8 @@ public class Account {
 	}
 	
 	public void zuruecknehmen() {
+		this.st.Statszuruecknehmen(klon);
 		this.s = new Spielfeld(klon);
+		this.st.updateSpielfeld(s);
 	}
 }
