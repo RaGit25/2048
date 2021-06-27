@@ -297,10 +297,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			g.drawString(" " + a.st.getFeldHoch(), 550, 160);
 
 			g.drawString("Anzahl aller gespielten Runden:", 70, 200);
-			g.drawString(" " + a.st.getRundenAlt(), 550, 200);
+			g.drawString(" " + a.st.getRunden(), 550, 200);
 
 			g.drawString("Anzahl aller Runden mit 2048:", 70, 240);
-			g.drawString(" " + a.st.getGewonnenAlt(), 550, 240);
+			g.drawString(" " + a.st.getGewonnen(), 550, 240);
 
 			g.drawString("Anteil der Runden mit 2048:", 70, 280);
 			DecimalFormat df = new DecimalFormat("#.##");
