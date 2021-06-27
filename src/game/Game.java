@@ -247,7 +247,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			g.drawString("Anzahl aller gesammelten Punkte:", 70, 120);
 			g.drawString(" " + a.st.getPunkteGesamt(), 550, 120);
 
-			g.drawString("Hoechstes erreichtes Feld", 70, 160);
+			g.drawString("Hoechstes erreichtes Feld:", 70, 160);
 
 			if (a.s.getHoechstesFeld() >= 2048) {
 				g.setColor(new Color(237, 194, 46));
@@ -277,10 +277,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			g.drawString("Durchschnittliche Punktzahl:", 70, 320);
 			g.drawString(" " + a.st.getDurchschnittsPunkte(), 550, 320);
 
-			g.drawString("Anzahl der ausgefuehrten Zuege", 70, 360);
+			g.drawString("Anzahl der ausgefuehrten Zuege:", 70, 360);
 			g.drawString(" " + a.st.getZuegeMomentan(), 550, 360);
 
-			g.drawString("Anzahl aller ausgefuehrten Zuege", 70, 400);
+			g.drawString("Anzahl aller ausgefuehrten Zuege:", 70, 400);
 			g.drawString(" " + a.st.getZuegeGesamt(), 550, 400);
 
 		} else {
@@ -547,7 +547,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		}
 
-		/*----------nur für ein 3x3 Feld----------*/
+		/*----------nur fï¿½r ein 3x3 Feld----------*/
 
 		if (a.s.breite == 3 && a.s.getHoechstesFeld() == 1024) {
 

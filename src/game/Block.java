@@ -56,59 +56,59 @@ class Block {
 
 		if (this.getWert() == 2) {
 
-			farbe = new Color(238, 228, 218);
+			farbe = new Color(236, 228, 219);
 
 		} else if (this.getWert() == 4) {
 
-			farbe = new Color(237, 224, 200);
+			farbe = new Color(236, 225, 204);
 
 		} else if (this.getWert() == 8) {
 
-			farbe = new Color(242, 177, 121);
+			farbe = new Color(243, 180, 130);
 
 		} else if (this.getWert() == 16) {
 
-			farbe = new Color(245, 149, 99);
+			farbe = new Color(233, 154, 109);
 
 		} else if (this.getWert() == 32) {
 
-			farbe = new Color(246, 124, 95);
+			farbe = new Color(232, 130, 103);
 
 		} else if (this.getWert() == 64) {
 
-			farbe = new Color(246, 94, 59);
+			farbe = new Color(230, 104, 72);
 
 		} else if (this.getWert() == 128) {
 
-			farbe = new Color(237, 207, 114);
+			farbe = new Color(232, 208, 125);
 
 		} else if (this.getWert() == 256) {
 
-			farbe = new Color(237, 204, 97);
+			farbe = new Color(232, 204, 114);
 
 		} else if (this.getWert() == 512) {
 
-			farbe = new Color(237, 200, 80);
+			farbe = new Color(232, 199, 101);
 
 		} else if (this.getWert() == 1024) {
 
-			farbe = new Color(237, 197, 63);
+			farbe = new Color(231, 197, 89);
 
 		} else if (this.getWert() == 2048) {
 
-			farbe = new Color(237, 194, 46);
+			farbe = new Color(231, 194, 79);
 
 		} else if (this.getWert() == 4096) {
 
-			farbe = new Color(237, 194, 46);
+			farbe = new Color(224, 110, 112);
 
 		} else if (this.getWert() == 8192) {
 
-			farbe = new Color(237, 194, 46);
+			farbe = new Color(220, 88, 94);
 
 		} else if (this.getWert() == 16384) {
 
-			farbe = new Color(237, 194, 46);
+			farbe = new Color(225, 79, 73);
 		}
 	}
 
