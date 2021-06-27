@@ -215,7 +215,7 @@ class Spielfeld {
 			if (feld[zeile][spalte].getWert() == feld[z][s].getWert() // Wenn: Feld identisch und
 					&& !feld[z][s].getVerschoben()) { // noch nicht verschoben
 
-				feld[z][s].setWert(feld[zeile][spalte].getWert() * 1024); // Neues Feld mit doppeltem Wert
+				feld[z][s].setWert(feld[zeile][spalte].getWert() * 2); // Neues Feld mit doppeltem Wert
 				feld[z][s].setVerschoben(true); // Feld als verschoben gekennzeichnet
 
 				feld[zeile][spalte].setWert(0); // Altes Feld wird null gesetzt

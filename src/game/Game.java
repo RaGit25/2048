@@ -55,7 +55,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public static void gameGui() { // das Spielfenster
-
+		
 		gameFrame.setLayout(new BorderLayout()); // BorderLayout = 1 panel in der Mitte und 4 aussenrum
 
 		centerPanel.setBackground(Color.gray);
@@ -133,6 +133,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
 				punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
 				centerPanel.repaint();
+				labelNeuladen();
 
 			}
 
@@ -499,6 +500,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public static void newGame() {
+		
 		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // unnoetig, weil live update von Rekord
 		a.st.updateEnde();
 		a.s = new Spielfeld(a.s.breite);
@@ -508,9 +510,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		a.klonen();
 		punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
 		centerPanel.repaint();
+		labelNeuladen();
 	}
 
-	public void labelNeuladen() {
+	public static void labelNeuladen() {
 
 		int count = 0;
 
@@ -566,6 +569,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		a.s.blockErstellen();
 		a.klonen();
 		a.st.update();
+		
 	}
 
 }
