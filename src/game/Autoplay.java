@@ -4,10 +4,10 @@ public class Autoplay {
 	int anzahl;
 	String[] richtungen;
 	
-	int e = 4; //Gewichtung Eckfeld
-	int ne = 2; //Gewichtung neben Eckfeld
+	int e = 3; //Gewichtung Eckfeld
+	int ne = 1; //Gewichtung neben Eckfeld
 	int l = 2; //Gewichtung leer durch
-	int p = 8; //Gewichtung passende durch
+	int p = 3; //Gewichtung passende durch
 
 	public Autoplay() {
 		anzahl = 4;
@@ -38,7 +38,7 @@ public class Autoplay {
 			Spielfeld temp = new Spielfeld(feld); // Erstellt temporären Klon
 			temp.welcheRichtung(richtungen[i]); // verschiebt diesen
 			scores[i] = score(temp); // speichert den aktuellen Score
-			System.out.println(richtungen[i] + " > " + scores[i]); // -> Zum Veranschaulichen
+			//System.out.println(richtungen[i] + " > " + scores[i]); // -> Zum Veranschaulichen
 			if (scores[i] > max) {
 				max = scores[i];
 				pos = i;

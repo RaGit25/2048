@@ -3,21 +3,28 @@ package game;
 public class Stats {
 
 	int punkteGesamt = 0; // anzahl aller Punkte, die ein Spieler gesammelt hat
-	double runden = 0;
-	int rundenAlt = 0; // alle runden
-	double gewonnen = 0; // gewonnene Runden
-	int gewonnenAlt = 0;
+	int runden = 1;		//Man startet in Runde eins
+	int gewonnen = 0; // gewonnene Runden
+	Boolean gewonneRunde = false; 	//Dieses Feld hat schon gewonnen
 	double winLoseRatio = 0;
-	int zuege = 0;
 	int hoechstesFeldInsgesamt = 0;
-	int hoechstesNeu = 0;
+	int hoechstesAlt = 0;		//Speichert das hoechste Feld des Klons
 	int rekord = 0;
+	int rekordAlt = 0;			//Speichert den Rekord des Klons
 	
 	Spielfeld s;	//Referenzattribut setzen
 	
 	public Stats(Spielfeld s) {
 		this.s = s;
 	}
+	
+	void Statszuruecknehmen(Spielfeld k) {
+		this.punkteGesamt -= s.punkteDifferenz;
+		this.hoechstesFeldInsgesamt =  this.hoechstesAlt;
+		this.rekord = this.rekordAlt;
+			
+		
+	} 
 	
 	void updateSpielfeld(Spielfeld s) {
 		this.s = s;
@@ -30,7 +37,7 @@ public class Stats {
 
 	int getRekord() {
 
-		if (rekord < s.punkte) {
+		if (rekord < s.punkte) {	//Wenn Punkte groesser als Rekord
 
 			rekord = s.punkte;
 
@@ -41,24 +48,23 @@ public class Stats {
 	}
 	
 	int getDurchschnittsPunkte() {
-		return (int)(punkteGesamt/runden);
+		return  (int)(punkteGesamt/(runden));
 	}
-
-	void feldHochNeu() { // NUR AM ENDE AUFRUFEN
-
-		hoechstesNeu = s.hoechstesFeld;
+	
+	
+	void saveAlt() { // Vor Update der insgesamt hoechsten
+		
+		hoechstesAlt = hoechstesFeldInsgesamt;
+		rekordAlt = rekord;
 
 	}
-
+	
+	
 	void feldHoch() { // PRO RUNDE AUFRUFEN
 
-		if (hoechstesNeu > s.hoechstesFeld) {
+		if (hoechstesFeldInsgesamt < s.getHoechstesFeld()) {	//Wenn groesseres Feld existiert
 
-			hoechstesFeldInsgesamt = hoechstesNeu;
-
-		} else {
-
-			hoechstesFeldInsgesamt = s.hoechstesFeld;
+			hoechstesFeldInsgesamt = s.getHoechstesFeld();
 
 		}
 
@@ -77,53 +83,37 @@ public class Stats {
 
 	void runden() { // NUR AM ENDE DES SPIELS AUFRUFEN
 
-		runden += 1.0;
-		rundenAlt += 1;
+		runden += 1;
 
 	}
 
-	double getRunden() {
+	int getRunden() {
 
 		return runden;
 
 	}
 
-	int getRundenAlt() {
+	
+	void gewonnen() { 
 
-		return rundenAlt;
+		if (s.gewonnen()) {
 
-	}
-
-	void gewonnen() { // NUR AM ENDE DES SPIELS AUFRUFEN
-
-		for (int i = 0; i < s.breite; i++) {
-			for (int j = 0; j < s.breite; j++) {
-
-				if (s.feld[i][j].getWert() >= 2048) {
-
-					gewonnen += 1.0;
-					gewonnenAlt += 1;
-
-				}
-			}
+			gewonnen += 1;
+			
 		}
+		
 	}
 
-	double getGewonnen() {
+	int getGewonnen() {
 
 		return gewonnen;
 
 	}
 
-	int getGewonnenAlt() {
 
-		return gewonnenAlt;
+	void winLoseRatio() {
 
-	}
-
-	void winLoseRatio() { // NUR AM ENDE DES SPIELS AUFRUFEN
-
-		winLoseRatio = getGewonnen() / getRunden();
+		winLoseRatio = (double) (getGewonnen()) / (double) (runden);
 
 	}
 
@@ -134,19 +124,25 @@ public class Stats {
 	}
 
 	void update() { // Update pro Zug
-
+		saveAlt();
+		
 		punkteGesamt();
 		feldHoch();
+		
+		if(s.gewonnen() && !gewonneRunde) {
+			gewonnen();
+			winLoseRatio();
+			gewonneRunde = true;
+		}
+		
 
 	}
 
 	void updateEnde() { // Update am Ende der Runde
 
 		runden();
-		gewonnen();
-		winLoseRatio();
-		feldHochNeu();
-
+		gewonneRunde = false;	//neue Runde
+		
 	}
 
 }

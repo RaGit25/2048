@@ -136,6 +136,10 @@ class Spielfeld {
 		return false; // bricht Methode ab
 
 	}
+	
+	public Boolean gewonnen() {
+		return (hoechstesFeld >= 2048) ? true : false;
+	}
 
 	public void welcheRichtung(String Richtung) {
 		zusammenschuebe = 0;
