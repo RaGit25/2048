@@ -62,7 +62,22 @@ class Block {
 		this.xalt = x;
 		this.yalt = y;
 	}
+	
+	public Boolean getVerschoben() {
+		return verschoben;
+	}
 
+	public void setVerschoben(Boolean verschoben) {
+		this.verschoben = verschoben;
+
+	}
+	
+	public Color getFarbe() {
+
+		this.setFarbe();
+		return farbe;
+	}
+	
 	public void setFarbe() {
 
 		if (this.getWert() == 2) {
@@ -123,19 +138,6 @@ class Block {
 		}
 	}
 
-	public Color getFarbe() {
-
-		this.setFarbe();
-		return farbe;
-	}
-
-	public Boolean getVerschoben() {
-		return verschoben;
-	}
-
-	public void setVerschoben(Boolean verschoben) {
-		this.verschoben = verschoben;
-
-	}
+	
 
 }

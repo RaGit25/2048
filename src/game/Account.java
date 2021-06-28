@@ -15,13 +15,12 @@ public class Account {
 
 	public void klonen() {
 		this.klon = new Spielfeld(s); // Aktuelles Spielfeld wird gespeichert
-		
 	}
 
 	public void zuruecknehmen() {
-			this.st.Statszuruecknehmen(klon);
-			this.s = new Spielfeld(klon);
-			this.st.updateSpielfeld(s);
+			this.st.Statszuruecknehmen(klon);	//Statszuruecksetzen
+			this.s = new Spielfeld(klon);	//Neusetzen des Spielfeldes
+			this.st.updateSpielfeld(s);		//Neusetzen der Referenz
 	}
 	
 	

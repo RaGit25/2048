@@ -5,7 +5,7 @@ public class Stats {
 	int punkteGesamt = 0; // anzahl aller Punkte, die ein Spieler gesammelt hat
 	int runden = 1;		//Man startet in Runde eins
 	int gewonnen = 0; // gewonnene Runden
-	Boolean gewonneRunde = false; 	//Dieses Feld hat schon gewonnen
+	Boolean gewonneneRunde = false; 	//Dieses Feld hat schon gewonnen
 	double winLoseRatio = 0;
 	int hoechstesFeldInsgesamt = 0;
 	int hoechstesAlt = 0;		//Speichert das hoechste Feld des Klons
@@ -16,11 +16,11 @@ public class Stats {
 	Spielfeld s;	//Referenzattribut setzen
 	
 	public Stats(Spielfeld s) {
-		this.s = s;
+		this.s = s;	//Setzen einer Objektreferenz
 	}
 	
 	void Statszuruecknehmen(Spielfeld k) {
-		this.punkteGesamt -= s.punkteDifferenz;
+		this.punkteGesamt -= s.getPunkteDifferenz();
 		this.hoechstesFeldInsgesamt =  this.hoechstesAlt;
 		this.rekord = this.rekordAlt;
 		this.zuegeGesamt -= 1; 
@@ -32,16 +32,17 @@ public class Stats {
 		this.s = s;
 	}
 	
+	
 	void punkteGesamt() { // PRO RUNDE AUFRUFEN
 
-		punkteGesamt += s.punkteDifferenz;
+		punkteGesamt += s.getPunkteDifferenz();
 	}
 
 	int getRekord() {
 
-		if (rekord < s.punkte) {	//Wenn Punkte groesser als Rekord
+		if (rekord < s.getPunkte()) {	//Wenn Punkte groesser als Rekord
 
-			rekord = s.punkte;
+			rekord = s.getPunkte();
 
 		}
 
@@ -54,7 +55,7 @@ public class Stats {
 	}
 	
 	
-	void saveAlt() { // Vor Update der insgesamt hoechsten
+	void saveAlt() { // Vor Update der insgesamt Hoechsten
 		
 		hoechstesAlt = hoechstesFeldInsgesamt;
 		rekordAlt = rekord;
@@ -62,7 +63,7 @@ public class Stats {
 	}
 	
 	
-	void feldHoch() { // PRO RUNDE AUFRUFEN
+	void feldHoch() {
 
 		if (hoechstesFeldInsgesamt < s.getHoechstesFeld()) {	//Wenn groesseres Feld existiert
 
@@ -97,7 +98,7 @@ public class Stats {
 	
 	int getZuegeMomentan() {
 		
-		return s.zuege;
+		return s.getZuege();
 		
 	}
 	
@@ -114,13 +115,9 @@ public class Stats {
 	}
 
 	
-	void gewonnen() { 
+	void gewonneneRunden() { 
 
-		if (s.gewonnen()) {
-
-			gewonnen += 1;
-			
-		}
+		gewonnen += (s.gewonnen()) ? 1	: 0;	
 		
 	}
 
@@ -137,7 +134,7 @@ public class Stats {
 
 	}
 
-	double getwinLose() {
+	double getwinLoseRatio() {
 
 		return winLoseRatio;
 
@@ -145,24 +142,24 @@ public class Stats {
 
 	void update() { // Update pro Zug
 		saveAlt();
+		
 		zuegeGesamt();
 		punkteGesamt();
 		feldHoch();
 		
-		if(s.gewonnen() && !gewonneRunde) {
-			gewonnen();
+		if(s.gewonnen() && !gewonneneRunde) {
+			gewonneneRunden();
 			winLoseRatio();
-			gewonneRunde = true;
+			gewonneneRunde = true;
 		}
 		
 
 	}
 
 	void updateEnde() { // Update am Ende der Runde
-
 		runden();
 		winLoseRatio();
-		gewonneRunde = false;	//neue Runde
+		gewonneneRunde = false;	//neue Runde
 		
 	}
 

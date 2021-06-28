@@ -14,10 +14,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static Account a = new Account();
 
-	static Login l;
-
-	// static Stats st = new Stats();
-
 	static Boolean statsAktiv = false;
 
 	static Game game = new Game();
@@ -69,7 +65,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		panel3.setPreferredSize(new Dimension(30, 30));
 
 		// punktzahl
-		punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
+		punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
 		panel1.add(punkte);
 		panel1.setLayout(null);
 		punkte.setBounds(425, 15, 150, 80);
@@ -111,7 +107,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			if (!statsAktiv) {
 
-				newGame();
+				neuesSpiel();
 
 			}
 
@@ -130,8 +126,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			if (!statsAktiv && !a.s.gameOver()) {
 
 				a.zuruecknehmen();
-				rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
-				punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
+				//rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
+				//punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
 				centerPanel.repaint();
 				labelNeuladen();
 
@@ -207,7 +203,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		exit.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 			gameFrame.dispose();
-			l.loginGui();
+			Login.loginGui();	//Static mit Klassennamen aufrufen
 
 		});
 
@@ -265,12 +261,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			g.drawString("Anteil der Runden mit 2048:", 70, 280);
 
-			if (a.st.getwinLose() == 1.0) {
+			if (a.st.getwinLoseRatio() == 1.0) {
 				g.setColor(new Color(237, 194, 46));
 			}
 
 			DecimalFormat df = new DecimalFormat("#.##");
-			g.drawString(" " + df.format(a.st.getwinLose() * 100) + "%", 550, 280);
+			g.drawString(" " + df.format(a.st.getwinLoseRatio() * 100) + "%", 550, 280);
 
 			g.setColor(Color.darkGray);
 
@@ -295,7 +291,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			int e = 0;
 			int schriftAenderung = 0;
 
-			if (a.s.breite == 3) {
+			if (a.s.getBreite() == 3) {
 
 				breite = 220;
 				schrift = 120;
@@ -306,7 +302,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				v = -20;
 				e = -35;
 
-			} else if (a.s.breite == 4) {
+			} else if (a.s.getBreite() == 4) {
 
 				breite = 155;
 				schrift = 80;
@@ -314,7 +310,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				schriftX = 55;
 				schriftY = 105;
 
-			} else if (a.s.breite == 5) {
+			} else if (a.s.getBreite() == 5) {
 
 				breite = 120;
 				schrift = 70;
@@ -324,7 +320,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				v = 5;
 				e = 7;
 
-			} else if (a.s.breite == 6) {
+			} else if (a.s.getBreite() == 6) {
 
 				breite = 95;
 				schrift = 60;
@@ -335,7 +331,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				e = 17;
 				r = 4;
 
-			} else if (a.s.breite == 7) {
+			} else if (a.s.getBreite() == 7) {
 
 				breite = 86;
 				schrift = 45;
@@ -346,7 +342,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				e = 32;
 				r = 10;
 
-			} else if (a.s.breite == 8) {
+			} else if (a.s.getBreite() == 8) {
 
 				breite = 72;
 				schrift = 35;
@@ -360,10 +356,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			}
 
-			for (int i = 0; i < a.s.breite; i++) { // geht bei jedem Zug einmal durchs Feld druch und ruft felder() auf
-				for (int j = 0; j < a.s.breite; j++) {
+			for (int i = 0; i < a.s.getBreite(); i++) { // geht bei jedem Zug einmal durchs Feld druch und ruft felder() auf
+				for (int j = 0; j < a.s.getBreite(); j++) {
 
-					felder(g, a.s.feld[i][j], j * abstand + 85, i * abstand + 15, breite, schrift, schriftX, schriftY,
+					felder(g, a.s.getFeld()[i][j], j * abstand + 85, i * abstand + 15, breite, schrift, schriftX, schriftY,
 							v, e, r, schriftAenderung);
 
 				}
@@ -379,8 +375,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				g.drawString("Druecke 'enter' um neu zu starten.", 200, 390);
 				labelNeuladen();
 
-				// Sollte man nicht haben
-				// newGame();
+				// Startet neue Runden bis Spielende
+				/*if (!a.s.gewonnen()) {
+					neuesSpiel();
+				}*/
 
 			}
 
@@ -444,7 +442,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
-
+		
+		e.setKeyChar('r');
 		// a.klonen();
 		if ((e.getKeyChar() == 'w' || e.getKeyCode() == KeyEvent.VK_UP) && !statsAktiv) {
 
@@ -501,14 +500,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER && a.s.gameOver()) {
 
-			newGame();
+			neuesSpiel();
 
 		}
 
 		a.st.update();
 		labelNeuladen();
-		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
-		punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
+		//rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
+		//punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
 		hilfe.setVisible(false);
 	}
 
@@ -521,22 +520,25 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	public void keyTyped(KeyEvent e) { // macht nichts, muss aber da sein
 	}
 
-	public static void newGame() {
+	public static void neuesSpiel() {
 
 		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // unnoetig, weil live update von Rekord
 		a.st.updateEnde();
-		a.s = new Spielfeld(a.s.breite);
+		a.s = new Spielfeld(a.s.getBreite());
 		a.st.updateSpielfeld(a.s);
 		a.s.blockErstellen();
 		a.s.blockErstellen();
 		a.klonen();
-		punkte.setText("<html>Punkte <br>" + a.s.punkte + "</html>");
+		//punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
 		centerPanel.repaint();
 		labelNeuladen();
 	}
 
 	public static void labelNeuladen() {
-
+		
+		punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");	//Updaten der Punktzahl
+		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");	// Updaten des Rekords
+		
 		if (a.s.gewonnen()) {
 
 			titel.setForeground(new Color(237, 194, 46));
@@ -555,7 +557,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		/*----------nur f�r ein 3x3 Feld----------*/
 
-		if (a.s.breite == 3 && a.s.getHoechstesFeld() == 1024) {
+		if (a.s.getBreite() == 3 && a.s.getHoechstesFeld() == 1024) {
 
 			titel.setForeground(Color.red);
 			panel1.setBackground(new Color(237, 204, 97));
@@ -564,6 +566,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			panel4.setBackground(new Color(237, 204, 97));
 
 		}
+		
 
 	}
 
