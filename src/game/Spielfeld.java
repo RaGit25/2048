@@ -7,16 +7,15 @@ class Spielfeld {
 	int punkte;
 	int hoechstesFeld;
 	int zuege;
-	int punkteDifferenz;
 
+	int punkteDifferenz;
 	int zusammenschuebe;
 	Boolean veraendert;
 	Boolean hinzufuegen;
 
 	Spielfeld(int g) {
-		feld = new Block[g][g];
 		breite = g;
-
+		feld = new Block[breite][breite]; // Initialisierung des Feldes
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
 
@@ -25,14 +24,16 @@ class Spielfeld {
 
 			}
 		}
+
 		punkte = 0;
 		hoechstesFeld = 0;
 		zuege = 0;
 
+		punkteDifferenz = 0;
 		zusammenschuebe = 0;
 		veraendert = false;
 		hinzufuegen = true;
-		// setAllFalse(); -> Zum crashen auskommentieren
+		// setAllFalse(); //-> Zum crashen auskommentieren
 	}
 
 	Spielfeld(Spielfeld a) { // Copy-Constructor
@@ -43,9 +44,12 @@ class Spielfeld {
 				this.feld[i][j] = new Block(a.feld[i][j]); // Anderen Copy-Constructor aufrufen
 			}
 		}
+
 		this.punkte = a.punkte;
 		this.hoechstesFeld = a.hoechstesFeld;
 		this.zuege = a.zuege;
+
+		this.punkteDifferenz = a.punkteDifferenz;
 		this.zusammenschuebe = a.zusammenschuebe;
 		this.veraendert = a.veraendert;
 		this.hinzufuegen = a.hinzufuegen;
@@ -55,48 +59,64 @@ class Spielfeld {
 	public boolean equals(Object o) { // eigene Vergleichsmethode
 		if (o instanceof Spielfeld) {
 			Spielfeld s = (Spielfeld) o;
-			boolean bl = true;
-			if (this.breite == s.breite) {	//Wenn Felder nicht unterschiedlich groß
-				//Schützt vor Indexoutof Bound exeption
+			boolean bl = true; // Testet ob jedes Feld induviduell gleich sind
+			try { // Schützt vor nicht existenten Feldern
 				for (int i = 0; i < breite; i++) {
 					for (int j = 0; j < breite; j++) {
 						if (!this.feld[i][j].equals(s.feld[i][j])) {
 							bl = false;
-							i = breite;	//Bricht for aeussere Schleife ab
-							j = breite;	//Bricht for innere Schleife ab, (unnötig)
+							i = breite; // Bricht for aeussere Schleife ab
+							j = breite; // Bricht for innere Schleife ab, (unnötig)
 						}
 
 					}
 				}
-			} else {
+			} catch (ArrayIndexOutOfBoundsException e) {
 				return false;
 			}
 
-			return (this.breite == s.breite) && (bl) && (this.punkte == s.punkte) && (this.hoechstesFeld == s.hoechstesFeld);
+			return (this.breite == s.breite) && (bl) && (this.punkte == s.punkte)
+					&& (this.hoechstesFeld == s.hoechstesFeld);
 			// Die anderen Attribute werden beim Vergleich ignoriert
 		}
 		return false;
 	}
 
-	public int getPunkte() {
-
-		return punkte;
-	}
-
-	public int getHoechstesFeld() {
-
-		return hoechstesFeld;
+	public int getBreite() {
+		return this.breite;
 	}
 
 	public Block[][] getFeld() {
 
-		return feld;
+		return this.feld;
 	}
 
-	public void setHinzufuegen(Boolean b) {
-		this.hinzufuegen = b;
+	public int getPunkte() {
+
+		return this.punkte;
 	}
 
+	public int getHoechstesFeld() {
+
+		return this.hoechstesFeld;
+	}
+	
+	public int getZuege() {
+		return this.zuege;
+	}
+
+	public int getPunkteDifferenz() {
+		return this.punkteDifferenz;
+	}
+	
+	public int getZusammenschuebe() {
+		return this.zusammenschuebe;
+	}
+	
+	public Boolean getVeraendert() {
+		return veraendert;
+	}
+	
 	public int getAnzahl() { // Gibt die Anzahl der vollen Felder
 		int a = 0;
 		for (int i = 0; i < breite; i++) {
@@ -109,8 +129,12 @@ class Spielfeld {
 		return a;
 	}
 
-	public int getZusammenschuebe() {
-		return zusammenschuebe;
+	public Boolean gewonnen() {
+		return (hoechstesFeld >= 2048) ? true : false;
+	}
+
+	public void setHinzufuegen(Boolean b) {
+		this.hinzufuegen = b;
 	}
 
 	public void setAllFalse() {
@@ -128,6 +152,13 @@ class Spielfeld {
 		} catch (ArrayIndexOutOfBoundsException e) { // wenn der Block ausserhalb des Feldesliegt -> existiert nicht
 			return false;
 		}
+	}
+
+	public Boolean verschiebbar(String richtung) {
+		Spielfeld temp = new Spielfeld(this); // Erstellt temporären Klon
+		temp.setHinzufuegen(false); // unterdrueckt neue Bloecke
+		temp.welcheRichtung(richtung); // verschiebt diesen
+		return (temp.veraendert) && (!this.equals(temp)); // Wenn es veraendert wurde, kann man es verschieben
 	}
 
 	public Boolean gameOver() {
@@ -171,17 +202,6 @@ class Spielfeld {
 
 	}
 
-	public Boolean gewonnen() {
-		return (hoechstesFeld >= 2048) ? true : false;
-	}
-
-	public Boolean verschiebbar(String richtung) {
-		Spielfeld temp = new Spielfeld(this); 	// Erstellt temporären Klon
-		temp.setHinzufuegen(false); 			// unterdrueckt neue Bloecke
-		temp.welcheRichtung(richtung); 			// verschiebt diesen
-		return (temp.veraendert) && (!this.equals(temp));	//Wenn es veraendert wurde, kann man es verschieben
-	}
-	
 	public void welcheRichtung(String Richtung) {
 		zusammenschuebe = 0;
 		veraendert = false;
@@ -235,7 +255,7 @@ class Spielfeld {
 			}
 			break;
 		}
-		if (veraendert && hinzufuegen) {
+		if (veraendert && hinzufuegen) {	//Wenn das Feld sich veraendert hat und es nicht unterdrueckt wird
 			blockErstellen();
 		} else {
 			zuege--;
@@ -325,17 +345,15 @@ class Spielfeld {
 				blockErstellen();
 			}
 		}
-		// ausdrucken();
+		//ausdrucken();
 	}
 
 	// Zur Fehlerbehebung
-	/*
-	 * public void ausdrucken() { for (int k = 0; k < 5; k++) {
-	 * System.out.println(); } System.out.println("-----------------------"); for
-	 * (int i = 0; i < breite; i++) { for (int j = 0; j < breite; j++) { if
-	 * (feld[i][j].getWert() == 0) System.out.print("| |"); else
-	 * System.out.print("|" + feld[i][j].getWert() + "|"); } System.out.println(); }
-	 * System.out.println("-----------------------"); System.out.println("Zuege:" +
-	 * zuege); }
-	 */
+	/*public void ausdrucken() { for (int k = 0; k < 5; k++) {
+	  System.out.println(); } System.out.println("-----------------------"); for
+	  (int i = 0; i < breite; i++) { for (int j = 0; j < breite; j++) { if
+	  (feld[i][j].getWert() == 0) System.out.print("| |"); else
+	  System.out.print("|" + feld[i][j].getWert() + "|"); } System.out.println(); }
+	  System.out.println("-----------------------"); System.out.println("Zuege:" +
+	  zuege); }*/
 }
