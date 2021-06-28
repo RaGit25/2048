@@ -25,6 +25,8 @@ class Block {
 		this.wert = alt.wert;
 		this.farbe = alt.farbe;
 		this.verschoben = alt.verschoben;
+		this.xalt = alt.xalt;
+		this.yalt = alt.yalt;
 		
 	}
 	

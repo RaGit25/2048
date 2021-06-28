@@ -11,6 +11,7 @@ class Spielfeld {
 	
 	int zusammenschuebe;
 	Boolean veraendert;
+	Boolean hinzufuegen;	
 	
 	Spielfeld(int g) {
 		feld = new Block[g][g];
@@ -30,6 +31,7 @@ class Spielfeld {
 		
 		zusammenschuebe = 0;
 		veraendert = false;
+		hinzufuegen = true;
 		// setAllFalse(); -> Zum crashen auskommentieren
 	}
 
@@ -46,6 +48,7 @@ class Spielfeld {
 		this.zuege = a.zuege;
 		this.zusammenschuebe = a.zusammenschuebe;
 		this.veraendert = a.veraendert;
+		this.hinzufuegen = a.hinzufuegen;
 	}
 
 	public int getPunkte() {
@@ -61,6 +64,10 @@ class Spielfeld {
 	public Block[][] getFeld() {
 
 		return feld;
+	}
+	
+	public void setHinzufuegen(Boolean b) {
+		this.hinzufuegen = b;
 	}
 
 	public int getAnzahl() {	//Gibt die Anzahl der vollen Felder
@@ -194,7 +201,7 @@ class Spielfeld {
 			}
 			break;
 		}
-		if (veraendert) {
+		if (veraendert && hinzufuegen) {
 			blockErstellen();
 		} else {
 			zuege--;
