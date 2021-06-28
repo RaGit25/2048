@@ -249,9 +249,25 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			g.drawString("Hoechstes erreichtes Feld:", 70, 160);
 
-			if (a.s.getHoechstesFeld() >= 2048) {
+			if (a.s.getHoechstesFeld() == 2048) {
+				
 				g.setColor(new Color(237, 194, 46));
+				
+			} else if(a.s.getHoechstesFeld() == 4096) {
+				
+				g.setColor(new Color(224, 110, 112));
+				
+			} else if(a.s.getHoechstesFeld() == 8192) {
+				
+				g.setColor(new Color(220, 88, 94));
+				
+			} else if(a.s.getHoechstesFeld() >= 16384) {
+				
+				g.setColor(new Color(225, 79, 73));
+				
 			}
+				
+				
 
 			g.drawString(" " + a.st.getFeldHoch(), 550, 160);
 
@@ -487,10 +503,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		} else if (e.getKeyChar() == 'r' && !statsAktiv) {
 
-			a.klonen();
-			Autoplay au = new Autoplay();
-			a.s.welcheRichtung(au.naechsterZug(a.s));
-			gameFrame.repaint();
+					a.klonen();
+					Autoplay au = new Autoplay();
+					a.s.welcheRichtung(au.naechsterZug(a.s));
+					gameFrame.repaint();
 
 		} else if (e.getKeyChar() == 'c' && !statsAktiv) {
 
@@ -537,10 +553,26 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public static void labelNeuladen() {
 
-		if (a.s.gewonnen()) {
+		if (a.s.hoechstesFeld == 2048) {
 
 			titel.setForeground(new Color(237, 194, 46));
 
+		} else if(a.s.hoechstesFeld == 4096){
+			
+			titel.setForeground(new Color(224, 110, 112));
+			
+		}else if(a.s.hoechstesFeld == 8192){
+			
+			titel.setForeground(new Color(220, 88, 94));
+			
+		}else if(a.s.hoechstesFeld >= 16384){
+			
+			titel.setForeground(new Color(225, 79, 73));
+			
+		} else {
+			
+			titel.setForeground(Color.darkGray);
+			
 		}
 
 		if (a.s.equals(a.klon)) {
