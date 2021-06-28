@@ -477,6 +477,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			Autoplay au = new Autoplay();
 			a.s.welcheRichtung(au.naechsterZug(a.s));
 			gameFrame.repaint();
+			
+		} else if (e.getKeyChar() == 'c' && !statsAktiv) {
+
+			Autoplay au = new Autoplay();
+			a.s.welcheRichtung(au.muster(a.s));
+			gameFrame.repaint();
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER && a.s.gameOver()) {
 
