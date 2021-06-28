@@ -14,7 +14,8 @@ public class Account {
 	}
 
 	public void klonen() {
-			this.klon = new Spielfeld(s); // Aktuelles Spielfeld wird gespeichert
+		this.klon = new Spielfeld(s); // Aktuelles Spielfeld wird gespeichert
+		
 	}
 
 	public void zuruecknehmen() {
@@ -22,4 +23,6 @@ public class Account {
 			this.s = new Spielfeld(klon);
 			this.st.updateSpielfeld(s);
 	}
+	
+	
 }

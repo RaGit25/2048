@@ -55,13 +55,13 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public static void gameGui() { // das Spielfenster
-		
+
 		gameFrame.setLayout(new BorderLayout()); // BorderLayout = 1 panel in der Mitte und 4 aussenrum
 
 		centerPanel.setBackground(Color.gray);
 		centerPanel.setPreferredSize(new Dimension(100, 100)); // groesssse d. panels in d. mitte
 		centerPanel.add(new Game()); // sichtbarmachen der Felder
-		
+
 		// festlegen d. groessen d. anderen panels
 		panel1.setPreferredSize(new Dimension(100, 180));
 		panel4.setPreferredSize(new Dimension(100, 60));
@@ -197,7 +197,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		});
 
-		// exit button   //DER BUTTON IST NOCH VERBUGGT, ER IST NUR SEHR KLEIN ZU SEHEN
+		// exit button //DER BUTTON IST NOCH VERBUGGT, ER IST NUR SEHR KLEIN ZU SEHEN
 		panel4.add(exit);
 		exit.setBounds(10, 10, 50, 50);
 		exit.setBorder(BorderFactory.createEtchedBorder());
@@ -445,41 +445,56 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public void keyPressed(KeyEvent e) {
 
-		a.klonen();
-		if (e.getKeyChar() == 'w' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_UP && !statsAktiv) {
+		// a.klonen();
+		if ((e.getKeyChar() == 'w' || e.getKeyCode() == KeyEvent.VK_UP) && !statsAktiv) {
 
-			a.s.welcheRichtung("oben");
-			centerPanel.repaint();
+			if (a.s.verschiebbar("oben")) {
+				a.klonen();
+				a.s.welcheRichtung("oben");
+				centerPanel.repaint();
+			}
 
-		} else if (e.getKeyChar() == 's' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_DOWN && !statsAktiv) {
-
+		} else if ((e.getKeyChar() == 's' || e.getKeyCode() == KeyEvent.VK_DOWN) && !statsAktiv) {
+			
+			if (a.s.verschiebbar("unten")) {
+			a.klonen();
 			a.s.welcheRichtung("unten");
 			centerPanel.repaint();
+			}
 
-		} else if (e.getKeyChar() == 'a' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_LEFT && !statsAktiv) {
-
+		} else if ((e.getKeyChar() == 'a' || e.getKeyCode() == KeyEvent.VK_LEFT) && !statsAktiv) {
+			
+			if (a.s.verschiebbar("links")) {
+			a.klonen();
 			a.s.welcheRichtung("links");
 			centerPanel.repaint();
+			}
 
-		} else if (e.getKeyChar() == 'd' && !statsAktiv || e.getKeyCode() == KeyEvent.VK_RIGHT && !statsAktiv) {
-
+		} else if ((e.getKeyChar() == 'd' || e.getKeyCode() == KeyEvent.VK_RIGHT) && !statsAktiv) {
+			
+			if (a.s.verschiebbar("rechts")) {
+			a.klonen();
 			a.s.welcheRichtung("rechts");
 			centerPanel.repaint();
+			}
 
 		} else if (e.getKeyChar() == 'z' && !statsAktiv) {
 
+			a.klonen();
 			Autoplay au = new Autoplay();
 			a.s.welcheRichtung(au.zufaelligeRichtung());
 			gameFrame.repaint();
 
 		} else if (e.getKeyChar() == 'r' && !statsAktiv) {
 
+			a.klonen();
 			Autoplay au = new Autoplay();
 			a.s.welcheRichtung(au.naechsterZug(a.s));
 			gameFrame.repaint();
-			
+
 		} else if (e.getKeyChar() == 'c' && !statsAktiv) {
 
+			a.klonen();
 			Autoplay au = new Autoplay();
 			a.s.welcheRichtung(au.muster(a.s));
 			gameFrame.repaint();
@@ -507,7 +522,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	}
 
 	public static void newGame() {
-		
+
 		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // unnoetig, weil live update von Rekord
 		a.st.updateEnde();
 		a.s = new Spielfeld(a.s.breite);
@@ -522,28 +537,13 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public static void labelNeuladen() {
 
-		int count = 0;
-
 		if (a.s.gewonnen()) {
 
 			titel.setForeground(new Color(237, 194, 46));
 
 		}
 
-		for (int i = 0; i < a.s.breite; i++) {
-			for (int j = 0; j < a.s.breite; j++) {
-
-				if (a.s.feld[i][j].getWert() == a.klon.feld[i][j].getWert() || a.s.gameOver()) {
-
-					count++;
-
-				}
-
-			}
-
-		}
-
-		if (count == a.s.breite * a.s.breite) {
+		if (a.s.equals(a.klon)) {
 
 			zurueck.setBackground(Color.gray);
 
@@ -576,7 +576,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		a.s.blockErstellen();
 		a.klonen();
 		a.st.update();
-		
+
 	}
 
 }

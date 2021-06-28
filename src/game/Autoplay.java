@@ -24,23 +24,17 @@ public class Autoplay {
 	}
 
 	public String muster(Spielfeld feld) {
-		if(verschiebbar(feld, "unten")) {
+		if(feld.verschiebbar( "unten")) {
 			return "unten";
-		}else if(verschiebbar(feld, "links")) {
+		}else if(feld.verschiebbar("links")) {
 			return "links";
 		}
-		else if(verschiebbar(feld, "rechts")) {
+		else if(feld.verschiebbar("rechts")) {
 			return "rechts";
 		}
 		return zufaelligeRichtung();
 	}
 	
-	public Boolean verschiebbar(Spielfeld f, String richtung) {
-		Spielfeld temp = new Spielfeld(f); // Erstellt temporären Klon
-		temp.setHinzufuegen(false); // unterdrueckt neue Bloecke
-		temp.welcheRichtung(richtung); // verschiebt diesen
-		return (temp.veraendert) ? true : false;	//Wenn es veraendert wurde, kann man es verschieben
-	}
 		
 	public String naechsterZug(Spielfeld feld) {
 		//System.out.println(ecken(feld, ecke(feld)));
