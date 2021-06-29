@@ -21,7 +21,7 @@ public class Login extends JPanel implements ActionListener{
     static JButton plusButton = new JButton("+");
     static JButton confirmButton = new JButton("bestaetigen");
 
-    static String accountString[] = { "Konto auswaehlen", "aaaaaaaaa", "bbbbbbbb" };
+    static String accountString[] = { "Konto auswaehlen", "1", "2" };
     static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(Game.accountString);
 
 

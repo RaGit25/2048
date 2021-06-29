@@ -2,13 +2,15 @@ package game;
 
 import java.awt.Color;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 class Block {
 	int wert;
 
 	int xalt;
 	int yalt;
-
-	Color farbe;
+	
+	@JsonIgnore public Color farbe;
 	Boolean verschoben; // Spielmechanik: Verschobenes kann nicht erneut verbunden werden
 
 	Block(Boolean json) { // Bloecke werden immer leer erstellt
@@ -74,12 +76,14 @@ class Block {
 
 	}
 	
+	@JsonIgnore
 	public Color getFarbe() {
 
 		this.setFarbe();
 		return farbe;
 	}
 	
+	@JsonIgnore
 	public void setFarbe() {
 
 		if (this.getWert() == 2) {

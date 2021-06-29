@@ -20,7 +20,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static JFrame gameFrame = new JFrame("2048");
 
-	static String accountString[] = { "Konto auswaehlen", "aaaaaaaaa", "bbbbbbbb" };
+	static String accountString[] = { "Konto auswaehlen", "1", "2" };
 	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(Game.accountString);
 
 	static JPanel centerPanel = new JPanel(); // Mehrere Panels benoetigt (für den Layoutmanager)
@@ -521,6 +521,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		}
 
 		a.st.update();
+		JSONVerwalter.speichern(a);
 		labelNeuladen();
 		//rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
 		//punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
