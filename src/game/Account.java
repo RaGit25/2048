@@ -17,7 +17,7 @@ public class Account {
 		this.s = new Spielfeld(4); // <- Groesse des Spielfeldes
 		this.st = new Stats(s);
 		this.klon = new Spielfeld(s);
-		System.out.println("Acc wird jetzt schon erstellt!");
+		System.out.println("Acc wird jetzt erstellt!");
 	}
 	
 	public Account() {	}

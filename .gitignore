@@ -34,3 +34,10 @@ out/
 *.ipr
 *.iws
 /target/
+##############################
+## Jason
+##############################
+*.json
+!test.json
+!rafael.json
+keinAccount.json

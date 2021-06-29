@@ -108,15 +108,18 @@ class Spielfeld {
 	public int getZuege() {
 		return this.zuege;
 	}
-
+	
+	@JsonIgnore
 	public int getPunkteDifferenz() {
 		return this.punkteDifferenz;
 	}
 	
+	@JsonIgnore
 	public int getZusammenschuebe() {
 		return this.zusammenschuebe;
 	}
 	
+	@JsonIgnore
 	public Boolean getVeraendert() {
 		return veraendert;
 	}

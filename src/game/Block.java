@@ -10,7 +10,7 @@ class Block {
 	int xalt;
 	int yalt;
 	
-	@JsonIgnore public Color farbe;
+	public Color farbe;
 	Boolean verschoben; // Spielmechanik: Verschobenes kann nicht erneut verbunden werden
 
 	Block(Boolean json) { // Bloecke werden immer leer erstellt
@@ -83,7 +83,6 @@ class Block {
 		return farbe;
 	}
 	
-	@JsonIgnore
 	public void setFarbe() {
 
 		if (this.getWert() == 2) {

@@ -1,1 +1,191 @@
-{"klon":{"breite":4,"feld":[[{"wert":32,"xalt":1,"yalt":0,"verschoben":false},{"wert":2048,"xalt":1,"yalt":1,"verschoben":false},{"wert":8,"xalt":1,"yalt":2,"verschoben":false},{"wert":8,"xalt":1,"yalt":3,"verschoben":true}],[{"wert":2,"xalt":2,"yalt":0,"verschoben":false},{"wert":8,"xalt":2,"yalt":1,"verschoben":false},{"wert":16,"xalt":1,"yalt":1,"verschoben":false},{"wert":4,"xalt":2,"yalt":3,"verschoben":false}],[{"wert":4,"xalt":2,"yalt":0,"verschoben":false},{"wert":2,"xalt":2,"yalt":2,"verschoben":false},{"wert":4,"xalt":2,"yalt":3,"verschoben":false},{"wert":0,"xalt":2,"yalt":3,"verschoben":false}],[{"wert":2,"xalt":3,"yalt":1,"verschoben":false},{"wert":0,"xalt":3,"yalt":2,"verschoben":false},{"wert":0,"xalt":3,"yalt":3,"verschoben":false},{"wert":2,"xalt":3,"yalt":3,"verschoben":false}]],"punkte":208,"hoechstesFeld":32,"zuege":38,"punkteDifferenz":8,"zusammenschuebe":1,"veraendert":true,"hinzufuegen":true},"Namen":"test","spielfeld":{"breite":4,"feld":[[{"wert":32,"xalt":1,"yalt":0,"verschoben":false},{"wert":2048,"xalt":1,"yalt":1,"verschoben":false},{"wert":8,"xalt":1,"yalt":2,"verschoben":false},{"wert":8,"xalt":1,"yalt":3,"verschoben":false}],[{"wert":2,"xalt":2,"yalt":0,"verschoben":false},{"wert":8,"xalt":2,"yalt":1,"verschoben":false},{"wert":16,"xalt":1,"yalt":1,"verschoben":false},{"wert":4,"xalt":2,"yalt":3,"verschoben":false}],[{"wert":4,"xalt":2,"yalt":0,"verschoben":false},{"wert":2,"xalt":2,"yalt":2,"verschoben":false},{"wert":4,"xalt":2,"yalt":3,"verschoben":false},{"wert":2,"xalt":3,"yalt":3,"verschoben":false}],[{"wert":2,"xalt":3,"yalt":1,"verschoben":false},{"wert":0,"xalt":3,"yalt":2,"verschoben":false},{"wert":2,"xalt":3,"yalt":2,"verschoben":false},{"wert":0,"xalt":3,"yalt":3,"verschoben":false}]],"punkte":208,"hoechstesFeld":32,"zuege":39,"punkteDifferenz":0,"zusammenschuebe":0,"veraendert":true,"hinzufuegen":true},"stats":{"punkteGesamt":1188,"runden":2,"gewonnen":0,"gewonneneRunde":false,"winLoseRatio":0.0,"hoechstesFeldInsgesamt":128,"hoechstesAlt":128,"rekord":1188,"rekordAlt":1188,"zuegeGesamt":462,"s":{"breite":4,"feld":[[{"wert":0,"xalt":0,"yalt":0,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false}],[{"wert":0,"xalt":0,"yalt":0,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false},{"wert":2,"xalt":1,"yalt":2,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false}],[{"wert":4,"xalt":2,"yalt":0,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false}],[{"wert":0,"xalt":0,"yalt":0,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false},{"wert":0,"xalt":0,"yalt":0,"verschoben":false}]],"punkte":0,"hoechstesFeld":4,"zuege":0,"punkteDifferenz":0,"zusammenschuebe":0,"veraendert":false,"hinzufuegen":true}}}
+{
+  "klon" : {
+    "breite" : 4,
+    "feld" : [ [ {
+      "wert" : 16,
+      "xalt" : 1,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 64,
+      "xalt" : 1,
+      "yalt" : 1,
+      "verschoben" : false
+    }, {
+      "wert" : 128,
+      "xalt" : 0,
+      "yalt" : 1,
+      "verschoben" : false
+    }, {
+      "wert" : 256,
+      "xalt" : 1,
+      "yalt" : 3,
+      "verschoben" : false
+    } ], [ {
+      "wert" : 2,
+      "xalt" : 2,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 4,
+      "xalt" : 2,
+      "yalt" : 1,
+      "verschoben" : false
+    }, {
+      "wert" : 8,
+      "xalt" : 1,
+      "yalt" : 3,
+      "verschoben" : false
+    }, {
+      "wert" : 2,
+      "xalt" : 2,
+      "yalt" : 3,
+      "verschoben" : false
+    } ], [ {
+      "wert" : 2,
+      "xalt" : 2,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 16,
+      "xalt" : 2,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 4,
+      "xalt" : 2,
+      "yalt" : 1,
+      "verschoben" : false
+    }, {
+      "wert" : 2,
+      "xalt" : 2,
+      "yalt" : 2,
+      "verschoben" : false
+    } ], [ {
+      "wert" : 2,
+      "xalt" : 3,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 4,
+      "xalt" : 3,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 8,
+      "xalt" : 3,
+      "yalt" : 1,
+      "verschoben" : false
+    }, {
+      "wert" : 2,
+      "xalt" : 3,
+      "yalt" : 2,
+      "verschoben" : false
+    } ] ],
+    "punkte" : 2716,
+    "hoechstesFeld" : 256,
+    "zuege" : 182,
+    "hinzufuegen" : true
+  },
+  "Namen" : "test",
+  "spielfeld" : {
+    "breite" : 4,
+    "feld" : [ [ {
+      "wert" : 16,
+      "xalt" : 1,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 64,
+      "xalt" : 1,
+      "yalt" : 1,
+      "verschoben" : false
+    }, {
+      "wert" : 128,
+      "xalt" : 0,
+      "yalt" : 1,
+      "verschoben" : false
+    }, {
+      "wert" : 256,
+      "xalt" : 1,
+      "yalt" : 3,
+      "verschoben" : false
+    } ], [ {
+      "wert" : 4,
+      "xalt" : 2,
+      "yalt" : 0,
+      "verschoben" : true
+    }, {
+      "wert" : 4,
+      "xalt" : 2,
+      "yalt" : 1,
+      "verschoben" : false
+    }, {
+      "wert" : 8,
+      "xalt" : 1,
+      "yalt" : 3,
+      "verschoben" : false
+    }, {
+      "wert" : 4,
+      "xalt" : 2,
+      "yalt" : 3,
+      "verschoben" : true
+    } ], [ {
+      "wert" : 2,
+      "xalt" : 3,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 16,
+      "xalt" : 2,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 4,
+      "xalt" : 2,
+      "yalt" : 1,
+      "verschoben" : false
+    }, {
+      "wert" : 2,
+      "xalt" : 3,
+      "yalt" : 3,
+      "verschoben" : false
+    } ], [ {
+      "wert" : 4,
+      "xalt" : 3,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 4,
+      "xalt" : 3,
+      "yalt" : 0,
+      "verschoben" : false
+    }, {
+      "wert" : 8,
+      "xalt" : 3,
+      "yalt" : 1,
+      "verschoben" : false
+    }, {
+      "wert" : 0,
+      "xalt" : 3,
+      "yalt" : 2,
+      "verschoben" : false
+    } ] ],
+    "punkte" : 2724,
+    "hoechstesFeld" : 256,
+    "zuege" : 183,
+    "hinzufuegen" : true
+  },
+  "stats" : {
+    "punkteGesamt" : 4216,
+    "runden" : 3,
+    "gewonnen" : 0,
+    "gewonneneRunde" : false,
+    "winLoseRatio" : 0.0,
+    "hoechstesFeldInsgesamt" : 256,
+    "hoechstesAlt" : 256,
+    "rekord" : 2724,
+    "rekordAlt" : 2724,
+    "zuegeGesamt" : 678
+  }
+}

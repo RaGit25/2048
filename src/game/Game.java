@@ -53,6 +53,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	
 	public void setAccount(Account n) {
 		Game.a = n;
+		a.st.updateSpielfeld(a.s);
 	}
 
 	public static void gameGui() { // das Spielfenster
