@@ -21,7 +21,6 @@ public class Stats implements Serializable {
 	public int rekordAlt = 0;			//Speichert den Rekord des Klons
 	public int zuegeGesamt = -1;
 	
-	@JsonIgnore
 	public Spielfeld s;	//Referenzattribut setzen
 	
 	

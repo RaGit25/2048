@@ -99,4 +99,10 @@ public class Login extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
     }
+    
+    public static void main(String[] args) {
+
+		Login.loginGui();
+		
+	}
 }

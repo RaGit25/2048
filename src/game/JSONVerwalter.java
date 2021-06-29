@@ -5,27 +5,30 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JSONVerwalter {
-	static ObjectMapper mapper;
-
+	
 	public static void speichern(Account a) {			// Erstellt .json -> save
-		mapper = new ObjectMapper();
-
+		//System.out.println(a.s.getPunkte());
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
 		try {
-			mapper.writeValue(new File("./test.json"), a);
+			String name = a.getName();
+			mapper.writeValue(new File("./"+name+".json"), a);
 		} catch (IOException e) {
-			System.out.println("Fehler beim speichern");
+			System.out.println("Fehler beim Speichern");
 			e.printStackTrace();
 		} 
 
 		
 	}
 
-	public Account laden() {			// Liest .json ein in java ->load
+	public static Account laden(String name) {			// Liest .json ein in java ->load
 		Account obj = null;
+		ObjectMapper mapper = new ObjectMapper();
 		try {
-			obj = mapper.readValue(new File("./test.json"), Account.class);
+			obj = mapper.readValue(new File("./"+name+".json"), Account.class);
 		} catch (IOException e) {
-			System.out.println("Fehler beim laden");
+			System.out.println("Fehler beim Laden");
 			e.printStackTrace();
 		} 
 		// System.out.println("breite ausgeben " + obj.s.breite);

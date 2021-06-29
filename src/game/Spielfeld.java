@@ -121,6 +121,10 @@ class Spielfeld {
 		return veraendert;
 	}
 	
+	public Boolean getHinzufuegen() {
+		return hinzufuegen;
+	}
+	
 	@JsonIgnore
 	public int getAnzahl() { // Gibt die Anzahl der vollen Felder
 		int a = 0;
