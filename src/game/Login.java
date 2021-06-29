@@ -10,7 +10,10 @@ public class Login extends JPanel implements ActionListener{
 
     static JFrame loginFrame = new JFrame("login");
 
-    static JLabel background = new JLabel(new ImageIcon("Login-bkg.PNG"));
+    static ImageIcon bkgicon = new ImageIcon("Login-bkg.PNG");
+    static JLabel background = new JLabel(new ImageIcon(bkgicon.getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
+    static ImageIcon titleicon = new ImageIcon("2048.png");
+    static JLabel title = new JLabel(new ImageIcon(titleicon.getImage().getScaledInstance(150, 75, Image.SCALE_DEFAULT)));
 
     static JTextField textFeld = new JTextField("namen eingeben");
 
@@ -18,16 +21,13 @@ public class Login extends JPanel implements ActionListener{
     static JButton plusButton = new JButton("+");
     static JButton confirmButton = new JButton("bestaetigen");
 
-    static JPanel PanelfuerAccounts = new JPanel();
-    static JPanel PanelfuerKontoerstellung = new JPanel();
-
     static String accountString[] = { "Konto auswaehlen", "aaaaaaaaa", "bbbbbbbb" };
     static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(Game.accountString);
 
 
     public static void loginGui() {
 
-        loginFrame.setSize(600, 200);
+        loginFrame.setSize(600, 300);
         loginFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fenster schliesst sich und code wird beendet wenn
         // man auf X das drueckt
@@ -43,16 +43,20 @@ public class Login extends JPanel implements ActionListener{
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        gbc.gridy = 0;
+        gbc.gridy=0;
         gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        background.add(title,gbc);
+
+        gbc.gridy = 1;
         gbc.gridwidth = 1;
         background.add(accountAuswahlliste, gbc);
 
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.gridx = 1;
         background.add(plusButton, gbc);
 
-        gbc.gridy = 1; // relative Koordinaten im Layoutmanager
+        gbc.gridy = 2; // relative Koordinaten im Layoutmanager
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         background.add(loginButton, gbc); // "einloggen" Knopf mit layoutmanager
