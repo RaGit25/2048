@@ -12,7 +12,7 @@ import javax.swing.border.Border;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
-	static Account a = new Account();
+	static Account a = /*JSONVerwalter.laden()*/ new Account("keinAccount");
 
 	static Boolean statsAktiv = false;
 
@@ -20,7 +20,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static JFrame gameFrame = new JFrame("2048");
 
-	static String accountString[] = { "Konto auswaehlen", "aaaaaaaaa", "bbbbbbbb" };
+	static String accountString[] = { "Konto auswaehlen", "1", "2" };
 	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(Game.accountString);
 
 	static JPanel centerPanel = new JPanel(); // Mehrere Panels benoetigt (für den Layoutmanager)
@@ -47,7 +47,13 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	Game() {
 
 		setPreferredSize(new Dimension(850, 1000)); // macht das Spielfeld im Panel "centerPanel" sichtbar
+		
 
+	}
+	
+	public void setAccount(Account n) {
+		Game.a = n;
+		a.st.updateSpielfeld(a.s);
 	}
 
 	public static void gameGui() { // das Spielfenster
@@ -459,8 +465,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public void keyPressed(KeyEvent e) {
 		
-		e.setKeyChar('r');
-		// a.klonen();
 		if ((e.getKeyChar() == 'w' || e.getKeyCode() == KeyEvent.VK_UP) && !statsAktiv) {
 
 			if (a.s.verschiebbar("oben")) {
@@ -513,6 +517,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			Autoplay au = new Autoplay();
 			a.s.welcheRichtung(au.muster(a.s));
 			gameFrame.repaint();
+			
+		} else if (e.getKeyChar() == 'l' && !statsAktiv) {	//load
+
+			setAccount(JSONVerwalter.laden("test"));	//Neuladen des TestAccounts
+			gameFrame.repaint();
 
 		} else if (e.getKeyCode() == KeyEvent.VK_ENTER && a.s.gameOver()) {
 
@@ -521,6 +530,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		}
 
 		a.st.update();
+		JSONVerwalter.speichern(a);	//Speichern der Json
 		labelNeuladen();
 		//rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
 		//punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
@@ -607,7 +617,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public static void main(String[] args) {
 
-		Login.loginGui();
+		//Login.loginGui();
+		gameGui();
 		a.s.blockErstellen();
 		a.s.blockErstellen();
 		a.klonen();
