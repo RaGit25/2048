@@ -3,13 +3,19 @@ package game;
 public class Account {
 	Spielfeld s;
 	Stats st;
-	Spielfeld klon; // Zum Zurücknehmen des letzten Zuges
+	Spielfeld klon; // Zum Zurï¿½cknehmen des letzten Zuges
 
 	public Account() {
 		this.s = new Spielfeld(4); // <- Groesse des Spielfeldes
 		this.st = new Stats(s);
 		this.klon = new Spielfeld(s);
-		;
+		System.out.println("Acc wird jetzt schon erstellt!");
+	}
+
+	public Account(int feldGroesse) {
+		this.s = new Spielfeld(feldGroesse); // <- Groesse des Spielfeldes
+		this.st = new Stats(s);
+		this.klon = new Spielfeld(s);
 		System.out.println("Acc wird jetzt schon erstellt!");
 	}
 

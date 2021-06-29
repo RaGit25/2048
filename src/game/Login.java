@@ -22,8 +22,12 @@ public class Login extends JPanel implements ActionListener{
     static JButton confirmButton = new JButton("bestaetigen");
 
     static String accountString[] = { "Konto auswaehlen", "aaaaaaaaa", "bbbbbbbb" };
-    static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(Game.accountString);
+    static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(accountString);
 
+    static String groesseString[] = { "Feldgroesse auswaehlen", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8" };
+    static JComboBox<Object> groesseComboBox = new JComboBox<Object>(groesseString);
+
+    int feldgroesse;
 
     public static void loginGui() {
 
@@ -56,10 +60,15 @@ public class Login extends JPanel implements ActionListener{
         gbc.gridx = 1;
         background.add(plusButton, gbc);
 
-        gbc.gridy = 2; // relative Koordinaten im Layoutmanager
+        gbc.gridy = 3; // relative Koordinaten im Layoutmanager
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         background.add(loginButton, gbc); // "einloggen" Knopf mit layoutmanager
+
+        gbc.gridy = 2;
+        gbc.gridx = 0;
+        background.add(groesseComboBox, gbc);
+
 
         background.add(textFeld);                   // fuer die Kontoerstellung benoetigten Elemente
         background.add(confirmButton);
@@ -68,12 +77,18 @@ public class Login extends JPanel implements ActionListener{
 
         loginFrame.setVisible(true);
 
-        loginButton.addActionListener((ActionEvent e) -> { // auf "einloggen" wird geclickt
-            Game.gameGui(); // das Spielfenster wird geoeffnet und das Spiel startet
-            loginFrame.dispose(); // das Loginfenster schliesst sich
+        loginButton.addActionListener((ActionEvent e) -> {                                              // auf "einloggen" wird geclickt
+            if (groesseComboBox.getSelectedIndex() != 0 && accountAuswahlliste.getSelectedIndex() != 0)
+            {
+                Account a = new Account(groesseComboBox.getSelectedIndex()+2);
+                Game.gameGui(groesseComboBox.getSelectedIndex()); // das Spielfenster wird geoeffnet und das Spiel startet
+                loginFrame.dispose(); // das Loginfenster schliesst sich
+            } else {
+
+            }
         });
 
-        plusButton.addActionListener((ActionEvent e) -> { // auf "+" wird geclickt
+        plusButton.addActionListener((ActionEvent e) -> {                                               // auf "+" wird geclickt
             loginButton.setVisible(false); // Elemente vom login werden unsichtbar gemacht
             plusButton.setVisible(false);
             accountAuswahlliste.setVisible(false);
@@ -83,7 +98,7 @@ public class Login extends JPanel implements ActionListener{
             confirmButton.setVisible(true);
         });
 
-        confirmButton.addActionListener((ActionEvent e) -> { // auf "bestaetigen" wird geclickt
+        confirmButton.addActionListener((ActionEvent e) -> {                                        // auf "bestaetigen" wird geclickt
             loginButton.setVisible(true);
             ; // Elemente vom login werden wieder sichtbar gemacht
             plusButton.setVisible(true);

@@ -20,9 +20,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static JFrame gameFrame = new JFrame("2048");
 
-	static String accountString[] = { "Konto auswaehlen", "aaaaaaaaa", "bbbbbbbb" };
-	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(Game.accountString);
-
 	static JPanel centerPanel = new JPanel(); // Mehrere Panels benoetigt (für den Layoutmanager)
 	static JPanel panel1 = new JPanel();
 	static JPanel panel2 = new JPanel();
@@ -50,7 +47,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	}
 
-	public static void gameGui() { // das Spielfenster
+	public static void gameGui(int FeldGroesse) { // das Spielfenster
+
+		//Account a = new Account(FeldGroesse);
 
 		gameFrame.setLayout(new BorderLayout()); // BorderLayout = 1 panel in der Mitte und 4 aussenrum
 
