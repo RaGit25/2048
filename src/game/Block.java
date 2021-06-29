@@ -11,7 +11,7 @@ class Block {
 	Color farbe;
 	Boolean verschoben; // Spielmechanik: Verschobenes kann nicht erneut verbunden werden
 
-	Block() { // Bloecke werden immer leer erstellt
+	Block(Boolean json) { // Bloecke werden immer leer erstellt
 		this.wert = 0;
 
 		this.xalt = 0;
@@ -19,6 +19,8 @@ class Block {
 
 		verschoben = false;
 	}
+	
+	Block(){}
 
 	Block(Block alt) { // Copy-Constructor
 		this.wert = alt.wert;

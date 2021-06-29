@@ -12,7 +12,7 @@ import javax.swing.border.Border;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
-	static Account a = new Account();
+	static Account a = new Account(4);
 
 	static Boolean statsAktiv = false;
 

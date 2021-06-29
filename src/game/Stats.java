@@ -1,19 +1,33 @@
 package game;
 
-public class Stats {
+import java.io.Serializable;
 
-	int punkteGesamt = 0; // anzahl aller Punkte, die ein Spieler gesammelt hat
-	int runden = 1;		//Man startet in Runde eins
-	int gewonnen = 0; // gewonnene Runden
-	Boolean gewonneneRunde = false; 	//Dieses Feld hat schon gewonnen
-	double winLoseRatio = 0;
-	int hoechstesFeldInsgesamt = 0;
-	int hoechstesAlt = 0;		//Speichert das hoechste Feld des Klons
-	int rekord = 0;
-	int rekordAlt = 0;			//Speichert den Rekord des Klons
-	int zuegeGesamt = -1;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class Stats implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2406862490360728879L;
+	public int punkteGesamt = 0; // anzahl aller Punkte, die ein Spieler gesammelt hat
+	public  int runden = 1;		//Man startet in Runde eins
+	public int gewonnen = 0; // gewonnene Runden
+	public Boolean gewonneneRunde = false; 	//Dieses Feld hat schon gewonnen
+	public double winLoseRatio = 0;
+	public int hoechstesFeldInsgesamt = 0;
+	public int hoechstesAlt = 0;		//Speichert das hoechste Feld des Klons
+	public int rekord = 0;
+	public int rekordAlt = 0;			//Speichert den Rekord des Klons
+	public int zuegeGesamt = -1;
 	
-	Spielfeld s;	//Referenzattribut setzen
+	@JsonIgnore
+	public Spielfeld s;	//Referenzattribut setzen
+	
+	
+	public Stats() {
+		
+	}
 	
 	public Stats(Spielfeld s) {
 		this.s = s;	//Setzen einer Objektreferenz

@@ -1,0 +1,276 @@
+{
+    "klon": {
+        "breite": 5,
+        "feld": [
+            [
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                }
+            ],
+            [
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                }
+            ],
+            [
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                }
+            ],
+            [
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                }
+            ]
+        ],
+        "punkte": 0,
+        "hoechstesFeld": 0,
+        "zuege": 0,
+        "punkteDifferenz": 0,
+        "zusammenschuebe": 0,
+        "veraendert": false
+    },
+    "spielfeld": {
+        "breite": 6,
+        "feld": [
+            [
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                }
+            ],
+            [
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                }
+            ],
+            [
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                }
+            ],
+            [
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                },
+                {
+                    "wert": 0,
+                    "xalt": 0,
+                    "yalt": 0,
+                    "farbe": null,
+                    "verschoben": false
+                }
+            ]
+        ],
+        "punkte": 0,
+        "hoechstesFeld": 0,
+        "zuege": 0,
+        "punkteDifferenz": 0,
+        "zusammenschuebe": 0,
+        "veraendert": false
+    },
+    "stats": {
+        "punkteGesamt": 0,
+        "runden": 1,
+        "gewonnen": 0,
+        "gewonneneRunde": false,
+        "winLoseRatio": 0.0,
+        "hoechstesFeldInsgesamt": 0,
+        "hoechstesAlt": 0,
+        "rekord": 0,
+        "rekordAlt": 0,
+        "zuegeGesamt": -1
+    }
+}
