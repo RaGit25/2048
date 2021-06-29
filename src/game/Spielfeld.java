@@ -1,5 +1,7 @@
 package game;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 class Spielfeld {
 	int breite;
 	Block[][] feld; // Matrix mit allen Bloecken
@@ -12,14 +14,16 @@ class Spielfeld {
 	int zusammenschuebe;
 	Boolean veraendert;
 	Boolean hinzufuegen;
-
+	
+	Spielfeld(){}
+	
 	Spielfeld(int g) {
 		breite = g;
 		feld = new Block[breite][breite]; // Initialisierung des Feldes
 		for (int i = 0; i < breite; i++) {
 			for (int j = 0; j < breite; j++) {
 
-				feld[i][j] = new Block(); // Jedes Feld wird erstellt und hat den Wert 0
+				feld[i][j] = new Block(false); // Jedes Feld wird erstellt und hat den Wert 0
 				// -> diese sollten logischerweise nicht sichtbar sein
 
 			}
@@ -104,19 +108,27 @@ class Spielfeld {
 	public int getZuege() {
 		return this.zuege;
 	}
-
+	
+	@JsonIgnore
 	public int getPunkteDifferenz() {
 		return this.punkteDifferenz;
 	}
 	
+	@JsonIgnore
 	public int getZusammenschuebe() {
 		return this.zusammenschuebe;
 	}
 	
+	@JsonIgnore
 	public Boolean getVeraendert() {
 		return veraendert;
 	}
 	
+	public Boolean getHinzufuegen() {
+		return hinzufuegen;
+	}
+	
+	@JsonIgnore
 	public int getAnzahl() { // Gibt die Anzahl der vollen Felder
 		int a = 0;
 		for (int i = 0; i < breite; i++) {

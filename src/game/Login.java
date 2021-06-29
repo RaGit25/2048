@@ -21,8 +21,9 @@ public class Login extends JPanel implements ActionListener{
     static JButton plusButton = new JButton("+");
     static JButton confirmButton = new JButton("bestaetigen");
 
-    static String accountString[] = { "Konto auswaehlen", "aaaaaaaaa", "bbbbbbbb" };
+    static String accountString[] = { "Konto auswaehlen", "1", "2" };
     static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(accountString);
+
 
     static String groesseString[] = { "Feldgroesse auswaehlen", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8" };
     static JComboBox<Object> groesseComboBox = new JComboBox<Object>(groesseString);
@@ -80,7 +81,7 @@ public class Login extends JPanel implements ActionListener{
         loginButton.addActionListener((ActionEvent e) -> {                                              // auf "einloggen" wird geclickt
             if (groesseComboBox.getSelectedIndex() != 0 && accountAuswahlliste.getSelectedIndex() != 0)
             {
-                Account a = new Account(groesseComboBox.getSelectedIndex()+2);
+                Account a = new Account("Test");
                 Game.gameGui(groesseComboBox.getSelectedIndex()); // das Spielfenster wird geoeffnet und das Spiel startet
                 loginFrame.dispose(); // das Loginfenster schliesst sich
             } else {
@@ -114,4 +115,10 @@ public class Login extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
     }
+    
+    public static void main(String[] args) {
+
+		Login.loginGui();
+		
+	}
 }
