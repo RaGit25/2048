@@ -17,16 +17,20 @@ public class Login extends JPanel implements ActionListener{
 
     static JTextField textFeld = new JTextField("namen eingeben");
 
-    static JButton loginButton = new JButton("einloggen");
+    static JButton loginButton = new JButton("Neues Spiel");
+    static JButton loadGame = new JButton("Spiel laden");
     static JButton plusButton = new JButton("+");
     static JButton confirmButton = new JButton("bestaetigen");
 
-    static String accountString[] = { "Konto auswaehlen", "1", "2" };
+    static String accountString[] = { "Konto auswaehlen" };
     static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(accountString);
+    
+    static int groesse = 0;
 
+   static Account a = new Account(textFeld.getSelectedText());
 
     static String groesseString[] = { "Feldgroesse auswaehlen", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8" };
-    static JComboBox<Object> groesseComboBox = new JComboBox<Object>(groesseString);
+    static JComboBox groesseComboBox = new JComboBox(groesseString);
 
     int feldgroesse;
 
@@ -69,6 +73,11 @@ public class Login extends JPanel implements ActionListener{
         gbc.gridy = 2;
         gbc.gridx = 0;
         background.add(groesseComboBox, gbc);
+        
+        gbc.gridy = 4; 
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        background.add(loadGame, gbc);
 
 
         background.add(textFeld);                   // fuer die Kontoerstellung benoetigten Elemente
@@ -78,14 +87,33 @@ public class Login extends JPanel implements ActionListener{
 
         loginFrame.setVisible(true);
 
+        
+        //----------Neues Spiel------------
+        
+        //Soll einen vorhandenen Account, der ausgewaehlt wurde, erkennen 
+        //und eine neu ausgewaehlte Feldgroesse einstellen und das Spiel starten
+        
         loginButton.addActionListener((ActionEvent e) -> {                                              // auf "einloggen" wird geclickt
             if (groesseComboBox.getSelectedIndex() != 0 && accountAuswahlliste.getSelectedIndex() != 0)
             {
-                Account a = new Account("Test");
-                Game.gameGui(groesseComboBox.getSelectedIndex()); // das Spielfenster wird geoeffnet und das Spiel startet
+              JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]).s.breite = groesseComboBox.getSelectedIndex() + 2;
+               Game.gameGui();
                 loginFrame.dispose(); // das Loginfenster schliesst sich
-            } else {
-
+            }
+        });
+        
+        
+        //---------Spiel laden--------
+        
+        //Soll einen ausgewaehlten Account erkennen und den Spielstand laden
+        
+        loadGame.addActionListener((ActionEvent e) -> {                                              // auf "einloggen" wird geclickt
+            if (accountAuswahlliste.getSelectedIndex() != 0)
+            {
+               
+              Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
+               Game.gameGui();
+                loginFrame.dispose(); // das Loginfenster schliesst sich
             }
         });
 
@@ -93,21 +121,32 @@ public class Login extends JPanel implements ActionListener{
             loginButton.setVisible(false); // Elemente vom login werden unsichtbar gemacht
             plusButton.setVisible(false);
             accountAuswahlliste.setVisible(false);
+            loadGame.setVisible(false);
+            title.setVisible(false);
+           
 
             textFeld.setText("namen eingeben");
             textFeld.setVisible(true);          // Elemente von der Kontoerstellung werden sichtbar gemacht
             confirmButton.setVisible(true);
         });
 
+        //--------Neuer Account-------
+        
+        //Soll einen neuen Account mit dem Namen erstellen, der eingegeben wurde
+        //und zur JComboBox "accountAuswahlliste" diesen Account hinzufuegen
+        //und ein Spiel mit der ausgewaehlten Feldgroesse starten
+        
         confirmButton.addActionListener((ActionEvent e) -> {                                        // auf "bestaetigen" wird geclickt
-            loginButton.setVisible(true);
-            ; // Elemente vom login werden wieder sichtbar gemacht
-            plusButton.setVisible(true);
-            accountAuswahlliste.setVisible(true);
-
-            textFeld.setVisible(false);         // Elemente von der Kontoerstellung werden unsichtbar gemacht
-            confirmButton.setVisible(false);
-
+            
+        	if(textFeld.getText() != "namen eingeben" && groesseComboBox.getSelectedIndex() != 0) {
+        	
+            
+        	accountAuswahlliste.addItem(textFeld.getText());
+        	 groesse = groesseComboBox.getSelectedIndex() + 2;
+        	Game.setAccount(a);
+        	Game.gameGui();            
+        	loginFrame.dispose();
+        	}
         });
 
     }
