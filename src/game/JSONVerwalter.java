@@ -2,36 +2,53 @@ package game;
 
 import java.io.File;
 import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JSONVerwalter {
 	
-	public static void speichern(Account a) {			// Erstellt .json -> save
-		//System.out.println(a.s.getPunkte());
-		
+	public static void speichern(Account a) {			// Erstellt/Überschreibt .json -> save
+
 		ObjectMapper mapper = new ObjectMapper();
 		
-		try {
+		
 			String name = a.getName();
-			mapper.writeValue(new File("./"+name+".json"), a);
-		} catch (IOException e) {
-			System.out.println("Fehler beim Speichern");
-			e.printStackTrace();
-		} 
+			try {
+				mapper.writeValue(new File("./"+name+".json"), a);
+			} catch (JsonGenerationException e) {
+				System.out.println("Generate-Fehler");
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				System.out.println("Mapping-Fehler");
+				e.printStackTrace();
+			} catch (IOException e) {
+				System.out.println("IO-Fehler");
+				e.printStackTrace();
+			}
+		
 
 		
 	}
 
-	public static Account laden(String name) {			// Liest .json ein in java ->load
+	public static Account laden(String name) {			// Liest .json ein in java -> load
 		Account obj = null;
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			obj = mapper.readValue(new File("./"+name+".json"), Account.class);
-		} catch (IOException e) {
-			System.out.println("Fehler beim Laden");
+		} catch (JsonParseException e) {
+			System.out.println("Parse-Fehler");
 			e.printStackTrace();
-		} 
-		// System.out.println("breite ausgeben " + obj.s.breite);
+		} catch (JsonMappingException e) {
+			System.out.println("Mapping-Fehler");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("IO-Fehler");
+			e.printStackTrace();
+		}
+		
 		return obj;
 	}
 }

@@ -12,7 +12,7 @@ import javax.swing.border.Border;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
-	static Account a = /*JSONVerwalter.laden()*/ new Account("keinAccount");
+	static Account a =  null;	/*new Account("keinAccount", 4)*/;
 
 	static Boolean statsAktiv = false;
 
@@ -622,10 +622,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		Login.loginGui();
 		//gameGui();
-		a.s.blockErstellen();
+		/*a.s.blockErstellen();
 		a.s.blockErstellen();
 		a.klonen();
-		a.st.update();
+		a.st.update();*/
 
 	}
 
