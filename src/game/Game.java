@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
-import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
@@ -31,11 +31,13 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JPanel panel3 = new JPanel();
 	static JPanel panel4 = new JPanel();
 
-	static JLabel punkte = new JLabel(); // Punktzahl ist jetzt in einem JLabel in "panel1"
+	static LineBorder border = new LineBorder(new Color(237, 194, 46), 2, true);
+	static LineBorder border1 = new LineBorder(new Color(236, 228, 219), 2, true);
+	static LineBorder border2 = new LineBorder(Color.gray, 2, true);
+	
+	static JLabel punkte = new JLabel();
 	static JLabel rekord = new JLabel();
 	static JLabel hilfe = new JLabel();
-	static Border border = BorderFactory.createLineBorder(Color.gray, 5);
-	static Border border1 = BorderFactory.createLineBorder(Color.gray, 5); // borders von den Punkten und Rekord
 
 	static JLabel titel = new JLabel();
 
@@ -60,7 +62,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public static void gameGui() { // das Spielfenster
 
-		//Account a = new Account(FeldGroesse);
 		gameFrame.setLayout(new BorderLayout()); // BorderLayout = 1 panel in der Mitte und 4 aussenrum
 
 		centerPanel.setBackground(Color.gray);
@@ -75,43 +76,54 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// punktzahl
 		punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
+		punkte.setForeground(Color.white);
 		panel1.add(punkte);
 		panel1.setLayout(null);
-		punkte.setBounds(425, 15, 150, 80);
-		punkte.setFont(new Font("Arial", Font.PLAIN, 30));
-		punkte.setBorder(border);
+		punkte.setBounds(425, 25, 150, 80);
+		punkte.setFont(new Font("Arial", Font.BOLD, 30));
+        punkte.setBorder(border);
 		punkte.setVerticalAlignment(JLabel.TOP);
 		punkte.setHorizontalAlignment(JLabel.CENTER);
-		punkte.setBackground(Color.lightGray);
+		punkte.setBackground(new Color(237, 194, 46));
 		punkte.setOpaque(true);
 
 		// rekord
 		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // rekord fehlt noch, weil keine Speicherung
 		panel1.add(rekord);
+		rekord.setForeground(Color.white);
 		rekord.setLayout(null);
-		rekord.setBounds(600, 15, 150, 80);
-		rekord.setFont(new Font("Arial", Font.PLAIN, 30));
-		rekord.setBorder(border1);
+		rekord.setBounds(600, 25, 150, 80);
+		rekord.setFont(new Font("Arial", Font.BOLD, 30));
+		rekord.setBorder(border);
 		rekord.setVerticalAlignment(JLabel.TOP);
 		rekord.setHorizontalAlignment(JLabel.CENTER);
-		rekord.setBackground(Color.lightGray);
+		rekord.setBackground(new Color(237, 194, 46));
 		rekord.setOpaque(true);
 
 		// Titel
 		titel.setText("2048");
-		titel.setBounds(35, 5, 210, 110);
-		titel.setFont(new Font("Arial", Font.BOLD, 80));
-		titel.setForeground(Color.darkGray);
 		panel1.add(titel);
+		titel.setBounds(35, 25, 210, 80);
+		titel.setFont(new Font("Arial", Font.BOLD, 70));
+		titel.setBackground(new Color(237, 194, 46));
+		titel.setLayout(null);
+		titel.setBorder(border);
+		titel.setVerticalAlignment(JLabel.TOP);
+		titel.setHorizontalAlignment(JLabel.CENTER);
+		titel.setForeground(Color.white);
+		titel.setOpaque(true);
+		
 
 		// restart button
 		panel1.add(restart);
-		restart.setBounds(700, 120, 50, 50);
-		ImageIcon icon = new ImageIcon("restart.png"); // bild mit den 2 pfeilen, siehe Dateien d. Projekts
-		restart.setIcon(icon);
-		restart.setBorder(BorderFactory.createEtchedBorder());
+		restart.setText("Neues Spiel");
+		restart.setFont(new Font("Arial", Font.BOLD, 23));
+		restart.setBounds(600, 120, 150, 50);
+    	//ImageIcon icon = new ImageIcon("restart.png"); // bild mit den 2 pfeilen, siehe Dateien d. Projekts
+		//restart.setIcon(icon);
+		restart.setBorder(border1);
 		restart.setFocusable(false);
-		restart.setBackground(Color.lightGray);
+		restart.setBackground(new Color(236, 228, 219));
 		restart.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 			if (!statsAktiv) {
@@ -124,12 +136,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// zurueck button
 		panel1.add(zurueck);
-		zurueck.setBounds(625, 120, 50, 50);
-		ImageIcon icon1 = new ImageIcon("back.png"); // bild mit den 1 pfeil, siehe Dateien d. Projekts
-		zurueck.setIcon(icon1);
-		zurueck.setBorder(BorderFactory.createEtchedBorder());
+		zurueck.setBounds(425, 120, 100, 50);
+		zurueck.setText("Zurueck");
+		zurueck.setFont(new Font("Arial", Font.BOLD, 22));
+		//ImageIcon icon1 = new ImageIcon("back.png"); // bild mit den 1 pfeil, siehe Dateien d. Projekts
+		//zurueck.setIcon(icon1);
+		zurueck.setBorder(border1);
 		zurueck.setFocusable(false);
-		zurueck.setBackground(Color.lightGray);
+		zurueck.setBackground(new Color(236, 228, 219));
 		zurueck.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 			if (!statsAktiv && !a.s.gameOver()) {
@@ -146,14 +160,15 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// tipp button
 		panel1.add(tipp);
-		tipp.setBounds(550, 120, 50, 50);
+		tipp.setBounds(528, 120, 50, 50);
 		tipp.setText("?");
 		tipp.setFont(new Font("Arial", Font.BOLD, 35));
 		tipp.setBorder(BorderFactory.createEtchedBorder());
 		tipp.setFocusable(false);
-		tipp.setBackground(Color.lightGray);
+		tipp.setBackground(new Color(236, 228, 219));
+		tipp.setBorder(border1);
 		panel1.add(hilfe);
-		hilfe.setBounds(250, 100, 200, 100);
+		hilfe.setBounds(260, 100, 200, 100);
 		hilfe.setFont(new Font("Arial", Font.PLAIN, 30));
 		hilfe.setForeground(Color.green);
 		hilfe.setVisible(false);
@@ -174,19 +189,22 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// stats button
 		panel1.add(stats);
-		stats.setBounds(425, 120, 100, 50);
+		stats.setBounds(35, 120, 210, 50);
 		stats.setBorder(BorderFactory.createEtchedBorder());
 		stats.setFocusable(false);
-		stats.setBackground(Color.lightGray);
+		stats.setBackground(new Color(236, 228, 219));
+		stats.setBorder(border1);
 		stats.setText("Statistiken");
-		stats.setFont(new Font("Arial", Font.PLAIN, 20));
+		stats.setFont(new Font("Arial", Font.BOLD, 25));
 		stats.addActionListener((ActionEvent e) -> {
 
-			if (statsAktiv == false) {
+			if (!statsAktiv) {
 
 				restart.setVisible(false);
 				zurueck.setVisible(false);
 				tipp.setVisible(false);
+				stats.setFont(new Font("Arial", Font.BOLD, 22));
+				stats.setText("Zurueck zum Spiel");
 				statsAktiv = true;
 
 			} else {
@@ -194,6 +212,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				restart.setVisible(true);
 				zurueck.setVisible(true);
 				tipp.setVisible(true);
+				stats.setFont(new Font("Arial", Font.BOLD, 25));
+				stats.setText("Statistiken");
 				statsAktiv = false;
 
 			}
@@ -201,14 +221,18 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			centerPanel.repaint();
 
 		});
+		
+	
 
-		// exit button //DER BUTTON IST NOCH VERBUGGT, ER IST NUR SEHR KLEIN ZU SEHEN
+		// exit button
 		panel4.add(exit);
-		exit.setBounds(10, 10, 50, 50);
-		exit.setBorder(BorderFactory.createEtchedBorder());
+		panel4.setLayout(null);
+		exit.setFont(new Font("Arial", Font.BOLD, 15));
+		exit.setText("Zum Login");
+		exit.setBounds(35, 18, 100, 30);
+		exit.setBackground(new Color(236, 228, 219));
+		exit.setBorder(border1);
 		exit.setFocusable(false);
-		exit.setBackground(Color.lightGray);
-		exit.setVisible(true);
 		exit.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 			gameFrame.dispose();
@@ -245,9 +269,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		if (statsAktiv == true) {
 
 			g.setFont(new Font("Arial", Font.BOLD, 40));
-			g.drawString("Statistiken", 70, 30);
+			g.drawString("Statistiken", 80, 40);
 			g.setFont(new Font("Arial", Font.PLAIN, 30));
-			g.setColor(Color.darkGray);
+			g.setColor(Color.white);
 
 			g.drawString("Anzahl aller gesammelten Punkte:", 70, 120);
 			g.drawString(" " + a.st.getPunkteGesamt(), 550, 120);
@@ -276,7 +300,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			g.drawString(" " + a.st.getFeldHoch(), 550, 160);
 
-			g.setColor(Color.darkGray);
+			g.setColor(Color.white);
 
 			g.drawString("Anzahl aller gespielten Runden:", 70, 200);
 			g.drawString(" " + a.st.getRunden(), 550, 200);
@@ -293,7 +317,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			DecimalFormat df = new DecimalFormat("#.##");
 			g.drawString(" " + df.format(a.st.getwinLoseRatio() * 100) + "%", 550, 280);
 
-			g.setColor(Color.darkGray);
+			g.setColor(Color.white);
 
 			g.drawString("Durchschnittliche Punktzahl:", 70, 320);
 			g.drawString(" " + a.st.getDurchschnittsPunkte(), 550, 320);
@@ -588,21 +612,23 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			
 		} else {
 			
-			titel.setForeground(Color.darkGray);
+			titel.setForeground(Color.white);
 			
 		}
 
 		if (a.s.equals(a.klon)) {
 
 			zurueck.setBackground(Color.gray);
+		    zurueck.setBorder(border2);
 
 		} else {
 
-			zurueck.setBackground(Color.lightGray);
+			zurueck.setBackground(new Color(236, 228, 219));
+			  zurueck.setBorder(border1);
 
 		}
 
-		/*----------nur f�r ein 3x3 Feld----------*/
+		/*----------nur fuer ein 3x3 Feld----------*/
 
 		if (a.s.getBreite() == 3 && a.s.getHoechstesFeld() == 1024) {
 
@@ -622,11 +648,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	public static void main(String[] args) {
 
 		Login.loginGui();
-		//gameGui();
-		/*a.s.blockErstellen();
-		a.s.blockErstellen();
-		a.klonen();
-		a.st.update();*/
 
 	}
 
