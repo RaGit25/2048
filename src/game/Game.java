@@ -558,6 +558,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		a.s.blockErstellen();
 		a.s.blockErstellen();
 		a.klonen();
+		JSONVerwalter.speichern(a);
 		//punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
 		centerPanel.repaint();
 		labelNeuladen();

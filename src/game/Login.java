@@ -138,6 +138,7 @@ public class Login extends JPanel implements ActionListener {
 				n.s.blockErstellen();
 				n.klonen();
 				n.st.update();
+				JSONVerwalter.speichern(n);
 
 				Game.setAccount(n);
 
