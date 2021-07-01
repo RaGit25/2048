@@ -596,7 +596,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	
 		if (a.s.hoechstesFeld == 2048) {
 
-			titel.setForeground(new Color(237, 194, 46));
+			titel.setForeground(Color.red);
 
 		} else if(a.s.hoechstesFeld == 4096){
 			
