@@ -3,17 +3,17 @@ package game;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 class Spielfeld {
-	int breite;
-	Block[][] feld; // Matrix mit allen Bloecken
+	public int breite;
+	public Block[][] feld; // Matrix mit allen Bloecken
 
-	int punkte;
-	int hoechstesFeld;
-	int zuege;
+	public int punkte;
+	public int hoechstesFeld;
+	public int zuege;
 
-	int punkteDifferenz;
-	int zusammenschuebe;
-	Boolean veraendert;
-	Boolean hinzufuegen;
+	public int punkteDifferenz;
+	public int zusammenschuebe;
+	public Boolean veraendert;
+	public Boolean hinzufuegen;
 	
 	Spielfeld(){}
 	

@@ -11,10 +11,11 @@ public class Account {
 	public Stats st;
 	@JsonProperty("klon")
 	public Spielfeld klon; // Zum Zuruecknehmen des letzten Zuges
-
-	public Account(String n) {
+	
+	
+	public Account(String n, int groesse) {	//Erstellen des Accounts
 		this.name = n;
-		this.s = new Spielfeld(4); // <- Groesse des Spielfeldes
+		this.s = new Spielfeld(groesse); // <- Groesse des Spielfeldes
 		this.st = new Stats(s);
 		this.klon = new Spielfeld(s);
 		System.out.println("Acc wird jetzt schon erstellt!");
