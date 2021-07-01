@@ -4,8 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
+import java.util.ArrayList;
 import javax.swing.*;
+
 
 public class Login extends JPanel implements ActionListener {
 
@@ -25,21 +26,14 @@ public class Login extends JPanel implements ActionListener {
 	static JButton plusButton = new JButton("+");
 	static JButton confirmButton = new JButton("bestaetigen");
 
-	static String accountString[] = { "Konto auswaehlen" };
+	//static List<String> accountStringList = accounts();
+	static String accountString[] = account();
 	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(accountString);
 
-	// static int groesse = 0;
-
-	// static Account a = new Account(textFeld.getSelectedText());
-
 	static String groesseString[] = { "Feldgroesse auswaehlen", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8" };
-	static JComboBox groesseComboBox = new JComboBox(groesseString);
+	static JComboBox<Object> groesseComboBox = new JComboBox<Object>(groesseString);
 
-		public static void loginGui() {
-
-		// Bevor das Fenster erstellt wir sollte gescannt werden, was für .json Dateien
-		// vorhanden sind
-		scannen();
+	public static void loginGui() {
 
 		loginFrame.setSize(600, 300);
 		loginFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
@@ -97,7 +91,7 @@ public class Login extends JPanel implements ActionListener {
 
 		loginButton.addActionListener((ActionEvent e) -> { // auf "einloggen" wird geclickt
 			if (groesseComboBox.getSelectedIndex() != 0 && accountAuswahlliste.getSelectedIndex() != 0) {
-				//Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
+				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
 				Game.gameGui();
 				loginFrame.dispose(); // das Loginfenster schliesst sich
 			}
@@ -110,9 +104,8 @@ public class Login extends JPanel implements ActionListener {
 		loadGame.addActionListener((ActionEvent e) -> { // auf "einloggen" wird geclickt
 			if (accountAuswahlliste.getSelectedIndex() != 0) {
 
-				Game.setAccount(JSONVerwalter.laden("test"));
-				//System.out.println(accountString[accountAuswahlliste.getSelectedIndex()]);
-				
+				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
+
 				Game.gameGui();
 				loginFrame.dispose(); // das Loginfenster schliesst sich
 			}
@@ -155,23 +148,32 @@ public class Login extends JPanel implements ActionListener {
 
 	}
 
+	
 	public void actionPerformed(ActionEvent e) {
 
 	}
 
-	public static void scannen() {
-
+		
+	private static String[] account() {
 		File f = new File("./"); // Im gleichen Ordner starten
 		File[] fileArray = f.listFiles(); // Erstellen eines Feldes mit allen Dateien
-
+		
+		ArrayList<String> acc = new ArrayList<String>();
 		for (int i = 0; i < fileArray.length; i++) {
 			if (fileArray[i].getPath().contains(".json")) { // Wenn die Datei .json enthält
 				String name = fileArray[i].getPath();
 				name = name.substring(2, name.length() - 5); // Abschneiden des .json
-				accountAuswahlliste.addItem(name);
+				acc.add(name);
 			}
 		}
-
+				
+		String[] accounts = new String[(acc.size())+1];	//Erstellen einer String-Liste
+		accounts[0] = "Konto auswahlen";		//Erster Eintrag
+		for (int j = 0; j < (acc.size()); j++) {
+			accounts[j+1] = acc.get(j);	//Übertragung der Liste
+		}
+		
+		return accounts;
 	}
 
 	public static void main(String[] args) {

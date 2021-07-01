@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Stats implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2406862490360728879L;
 	public int punkteGesamt = 0; // anzahl aller Punkte, die ein Spieler gesammelt hat
 	public  int runden = 1;		//Man startet in Runde eins

@@ -12,8 +12,7 @@ public class Account {
 	@JsonProperty("klon")
 	public Spielfeld klon; // Zum Zuruecknehmen des letzten Zuges
 	
-	public Login l;
-
+	
 	public Account(String n, int groesse) {	//Erstellen des Accounts
 		this.name = n;
 		this.s = new Spielfeld(groesse); // <- Groesse des Spielfeldes
