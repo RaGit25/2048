@@ -6,15 +6,24 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
+import java.applet.*;
 
 
 public class Login extends JPanel implements ActionListener {
 
 	static JFrame loginFrame = new JFrame("login");
 
-	static ImageIcon bkgicon = new ImageIcon("Login-bkg.PNG");
-	static JLabel background = new JLabel(
-			new ImageIcon(bkgicon.getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
+	static ImageIcon[] bkgicon = new ImageIcon[7];
+	static ImageIcon bkg1 =  new ImageIcon("bkg1.jpg");
+	static ImageIcon bkg2 =  new ImageIcon("bkg2.jpg");
+	static ImageIcon bkg3 =  new ImageIcon("bkg3.jpg");
+	static ImageIcon bkg4 =  new ImageIcon("bkg4.jpg");
+	static ImageIcon bkg5 =  new ImageIcon("bkg5.jpg");
+	static ImageIcon bkg6 =  new ImageIcon("bkg6.jpg");
+	static ImageIcon bkg7 =  new ImageIcon("bkg7.PNG");
+
+
+
 	static ImageIcon titleicon = new ImageIcon("2048.png");
 	static JLabel title = new JLabel(
 			new ImageIcon(titleicon.getImage().getScaledInstance(150, 75, Image.SCALE_DEFAULT)));
@@ -33,7 +42,18 @@ public class Login extends JPanel implements ActionListener {
 	static String groesseString[] = { "Feldgroesse auswaehlen", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8" };
 	static JComboBox<Object> groesseComboBox = new JComboBox<Object>(groesseString);
 
+
 	public static void loginGui() {
+
+		bkgicon[0] = bkg1;
+		bkgicon[1] = bkg2;
+		bkgicon[2] = bkg3;
+		bkgicon[3] = bkg4;
+		bkgicon[4] = bkg5;
+		bkgicon[5] = bkg6;
+		bkgicon[6] = bkg7;
+		JLabel background = new JLabel(
+				new ImageIcon(bkgicon[(int)(Math.random()*7)].getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
 
 		loginFrame.setSize(600, 300);
 		loginFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
@@ -161,7 +181,7 @@ public class Login extends JPanel implements ActionListener {
 		
 		ArrayList<String> acc = new ArrayList<String>();
 		for (int i = 0; i < fileArray.length; i++) {
-			if (fileArray[i].getPath().contains(".json")) { // Wenn die Datei .json enthält
+			if (fileArray[i].getPath().contains(".json")) { // Wenn die Datei .json enthï¿½lt
 				String name = fileArray[i].getPath();
 				name = name.substring(2, name.length() - 5); // Abschneiden des .json
 				acc.add(name);
@@ -171,14 +191,14 @@ public class Login extends JPanel implements ActionListener {
 		String[] accounts = new String[(acc.size())+1];	//Erstellen einer String-Liste
 		accounts[0] = "Konto auswahlen";		//Erster Eintrag
 		for (int j = 0; j < (acc.size()); j++) {
-			accounts[j+1] = acc.get(j);	//Übertragung der Liste
+			accounts[j+1] = acc.get(j);	//ï¿½bertragung der Liste
 		}
 		
 		return accounts;
 	}
 
 	public static void main(String[] args) {
-
+		Login l = new Login();
 		Login.loginGui();
 
 	}

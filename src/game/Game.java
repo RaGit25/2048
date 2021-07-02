@@ -21,9 +21,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JFrame gameFrame = new JFrame("2048");
 
 
-	static String accountString[] = { "Konto auswaehlen", "1", "2" };
-	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(Game.accountString);
 
+	static ImageIcon[] bkgicon = new ImageIcon[7];
+	static JLabel background = new JLabel();
 
 	static JPanel centerPanel = new JPanel(); // Mehrere Panels benoetigt (für den Layoutmanager)
 	static JPanel panel1 = new JPanel();
@@ -64,9 +64,22 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		gameFrame.setLayout(new BorderLayout()); // BorderLayout = 1 panel in der Mitte und 4 aussenrum
 
-		centerPanel.setBackground(Color.gray);
-		centerPanel.setPreferredSize(new Dimension(100, 100)); // groesssse d. panels in d. mitte
-		centerPanel.add(new Game()); // sichtbarmachen der Felder
+		bkgicon[0] = Login.bkg1; //Initialisierung des Hintergrundbild-Arrays
+		bkgicon[1] = Login.bkg2;
+		bkgicon[2] = Login.bkg3;
+		bkgicon[3] = Login.bkg4;
+		bkgicon[4] = Login.bkg5;
+		bkgicon[5] = Login.bkg6;
+		bkgicon[6] = Login.bkg7;
+
+		//ImageIcon zwischenIcon = new ImageIcon(bkgicon[(int)(Math.random()*7)].getImage().getScaledInstance(750, 750, Image.SCALE_DEFAULT));
+        JLabel lokalesBackgroundlabel = new JLabel(new ImageIcon(bkgicon[(int)(Math.random()*7)].getImage().getScaledInstance(750, 750, Image.SCALE_DEFAULT)));
+		background.add(lokalesBackgroundlabel);
+
+		centerPanel.add(background);
+		//centerPanel.setBackground(Color.gray);
+		//background.setPreferredSize(new Dimension(100, 100)); // groesssse d. panels in d. mitte
+		background.add(new Game()); // sichtbarmachen der Felder
 
 		// festlegen d. groessen d. anderen panels
 		panel1.setPreferredSize(new Dimension(100, 180));
@@ -151,7 +164,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				a.zuruecknehmen();
 				//rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
 				//punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
-				centerPanel.repaint();
+				background.repaint();
 				labelNeuladen();
 
 			}
@@ -218,7 +231,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			}
 
-			centerPanel.repaint();
+			background.repaint();
 
 		});
 		
@@ -242,7 +255,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// borderlayout: position der einzelnen panels (north = oben, center = mitte,
 		// usw.)
-		gameFrame.add(centerPanel, BorderLayout.CENTER);
+		gameFrame.add(background, BorderLayout.CENTER);
 		gameFrame.add(panel1, BorderLayout.NORTH);
 		gameFrame.add(panel2, BorderLayout.EAST);
 		gameFrame.add(panel3, BorderLayout.WEST);
@@ -497,7 +510,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			if (a.s.verschiebbar("oben")) {
 				a.klonen();
 				a.s.welcheRichtung("oben");
-				centerPanel.repaint();
+				background.repaint();
 			}
 
 		} else if ((e.getKeyChar() == 's' || e.getKeyCode() == KeyEvent.VK_DOWN) && !statsAktiv) {
@@ -505,7 +518,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			if (a.s.verschiebbar("unten")) {
 			a.klonen();
 			a.s.welcheRichtung("unten");
-			centerPanel.repaint();
+			background.repaint();
 			}
 
 		} else if ((e.getKeyChar() == 'a' || e.getKeyCode() == KeyEvent.VK_LEFT) && !statsAktiv) {
@@ -513,7 +526,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			if (a.s.verschiebbar("links")) {
 			a.klonen();
 			a.s.welcheRichtung("links");
-			centerPanel.repaint();
+			background.repaint();
 			}
 
 		} else if ((e.getKeyChar() == 'd' || e.getKeyCode() == KeyEvent.VK_RIGHT) && !statsAktiv) {
@@ -521,7 +534,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			if (a.s.verschiebbar("rechts")) {
 			a.klonen();
 			a.s.welcheRichtung("rechts");
-			centerPanel.repaint();
+			background.repaint();
 			}
 
 		} else if (e.getKeyChar() == 'z' && !statsAktiv) {
@@ -584,7 +597,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		a.klonen();
 		JSONVerwalter.speichern(a);
 		//punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
-		centerPanel.repaint();
+		background.repaint();
 		labelNeuladen();
 	}
 
