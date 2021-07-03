@@ -2,22 +2,22 @@ package game;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Stats  {
+public class Stats {
 
 	public int punkteGesamt; // anzahl aller Punkte, die ein Spieler gesammelt hat
-	public  int runden;		//Man startet in Runde eins
+	public int runden; // Man startet in Runde eins
 	public int gewonnen; // gewonnene Runden
-	public Boolean gewonneneRunde; 	//Dieses Feld hat schon gewonnen
+	public Boolean gewonneneRunde; // Dieses Feld hat schon gewonnen
 	public double winLoseRatio;
 	public int hoechstesFeldInsgesamt;
-	public int hoechstesAlt;		//Speichert das hoechste Feld des Klons
+	public int hoechstesAlt; // Speichert das hoechste Feld des Klons
 	public int rekord;
-	public int rekordAlt;			//Speichert den Rekord des Klons
+	public int rekordAlt; // Speichert den Rekord des Klons
 	public int zuegeGesamt;
-	
+
 	@JsonIgnore
-	public Spielfeld s;	//Referenzattribut setzen
-	
+	public Spielfeld s; // Referenzattribut setzen
+
 	public Stats(Spielfeld s) {
 		this.punkteGesamt = 0;
 		this.runden = 1;
@@ -30,10 +30,10 @@ public class Stats  {
 		this.rekordAlt = 0;
 		this.zuegeGesamt = -1;
 		this.s = s;
-		
+
 	}
-	
-	public Stats(Stats alt) {
+
+	public Stats(Stats alt) {	//Copy-Constructor
 		this.punkteGesamt = alt.punkteGesamt;
 		this.runden = alt.runden;
 		this.gewonnen = alt.gewonnen;
@@ -44,28 +44,25 @@ public class Stats  {
 		this.rekord = alt.rekord;
 		this.rekordAlt = alt.rekordAlt;
 		this.zuegeGesamt = alt.rekordAlt;
-		this.s = alt.s;
-		
+		this.s = null;	//temporär null gestetz
+
 	}
-	
+
 	public Stats() {
-		
 	}
-	
+
 	void Statszuruecknehmen(Spielfeld k) {
 		this.punkteGesamt -= s.getPunkteDifferenz();
-		this.hoechstesFeldInsgesamt =  this.hoechstesAlt;
+		this.hoechstesFeldInsgesamt = this.hoechstesAlt;
 		this.rekord = this.rekordAlt;
-		this.zuegeGesamt -= 1; 
-			
-		
-	} 
-	
+		this.zuegeGesamt -= 1;
+
+	}
+
 	void updateSpielfeld(Spielfeld s) {
 		this.s = s;
 	}
-	
-	
+
 	void punkteGesamt() { // PRO RUNDE AUFRUFEN
 
 		punkteGesamt += s.getPunkteDifferenz();
@@ -73,7 +70,7 @@ public class Stats  {
 
 	int getRekord() {
 
-		if (rekord < s.getPunkte()) {	//Wenn Punkte groesser als Rekord
+		if (rekord < s.getPunkte()) { // Wenn Punkte groesser als Rekord
 
 			rekord = s.getPunkte();
 
@@ -82,23 +79,21 @@ public class Stats  {
 		return rekord;
 
 	}
-	
+
 	int getDurchschnittsPunkte() {
-		return  (int)(punkteGesamt/(runden));
+		return (int) (punkteGesamt / (runden));
 	}
-	
-	
+
 	void saveAlt() { // Vor Update der insgesamt Hoechsten
-		
+
 		hoechstesAlt = hoechstesFeldInsgesamt;
 		rekordAlt = rekord;
 
 	}
-	
-	
+
 	void feldHoch() {
 
-		if (hoechstesFeldInsgesamt < s.getHoechstesFeld()) {	//Wenn groesseres Feld existiert
+		if (hoechstesFeldInsgesamt < s.getHoechstesFeld()) { // Wenn groesseres Feld existiert
 
 			hoechstesFeldInsgesamt = s.getHoechstesFeld();
 
@@ -128,30 +123,29 @@ public class Stats  {
 		return runden;
 
 	}
-	
+
 	int getZuegeMomentan() {
-		
+
 		return s.getZuege();
-		
+
 	}
-	
-	void zuegeGesamt(){
-		
+
+	void zuegeGesamt() {
+
 		zuegeGesamt += 1;
-		
+
 	}
-	
+
 	int getZuegeGesamt() {
-		
+
 		return zuegeGesamt;
-		
+
 	}
 
-	
-	void gewonneneRunden() { 
+	void gewonneneRunden() {
 
-		gewonnen += (s.gewonnen()) ? 1	: 0;	
-		
+		gewonnen += (s.gewonnen()) ? 1 : 0;
+
 	}
 
 	int getGewonnen() {
@@ -159,7 +153,6 @@ public class Stats  {
 		return gewonnen;
 
 	}
-
 
 	void winLoseRatio() {
 
@@ -175,25 +168,24 @@ public class Stats  {
 
 	void update() { // Update pro Zug
 		saveAlt();
-		
+
 		zuegeGesamt();
 		punkteGesamt();
 		feldHoch();
-		
-		if(s.gewonnen() && !gewonneneRunde) {
+
+		if (s.gewonnen() && !gewonneneRunde) {
 			gewonneneRunden();
 			winLoseRatio();
 			gewonneneRunde = true;
 		}
-		
 
 	}
 
 	void updateEnde() { // Update am Ende der Runde
 		runden();
 		winLoseRatio();
-		gewonneneRunde = false;	//neue Runde
-		
+		gewonneneRunde = false; // neue Runde
+
 	}
 
 }
