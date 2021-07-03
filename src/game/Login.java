@@ -30,10 +30,16 @@ public class Login extends JPanel implements ActionListener {
 	static JButton confirmButton = new JButton("bestaetigen");
 
 	static String accountString[] = accounts();
-	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(accountString);
+	static JComboBox<String> accountAuswahlliste = new JComboBox<String>(accountString);
 
 	static String groesseString[] = { "Feldgroesse auswaehlen", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8" };
 	static JComboBox<Object> groesseComboBox = new JComboBox<Object>(groesseString);
+	
+	public Login() {
+		
+		accountAuswahlliste.setEditable(true);
+		
+	}
 
 	public static void loginGui() {
 		
@@ -149,13 +155,20 @@ public class Login extends JPanel implements ActionListener {
 				n.st.update();
 				JSONVerwalter.speichern(n);
 
-				accountString = accounts();
-				accountAuswahlliste =  new JComboBox<Object>(accountString); // Updaten der Combobox
 				
-				gbc.gridy = 1;
-				gbc.gridwidth = 1;
-				background.add(accountAuswahlliste, gbc);
-
+				accountAuswahlliste.setModel(new DefaultComboBoxModel(accountString));
+				//DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) accountAuswahlliste.getModel();
+				accountAuswahlliste.removeAllItems();
+				
+				 
+				 accountString = accounts();
+				 
+				 for(int i = 0; i < accountString.length; i++) {
+					 
+				accountAuswahlliste.addItem(accountString[i]);
+				
+				 }
+				
 				confirmButton.setVisible(false);
 				textFeld.setVisible(false);
 				loginButton.setVisible(true);
