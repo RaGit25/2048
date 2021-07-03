@@ -10,6 +10,11 @@ import javax.swing.*;
 
 public class Login extends JPanel implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	static JFrame loginFrame = new JFrame("login");
 
 	static ImageIcon bkgicon = new ImageIcon("Login-bkg.PNG");

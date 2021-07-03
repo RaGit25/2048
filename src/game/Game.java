@@ -12,6 +12,11 @@ import javax.swing.border.LineBorder;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	static Account a =  null;	/*new Account("keinAccount", 4)*/;
 
 	static Boolean statsAktiv = false;

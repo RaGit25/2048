@@ -1,12 +1,9 @@
 package game;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Stats implements Serializable {
+public class Stats  {
 
-	private static final long serialVersionUID = -2406862490360728879L;
 	public int punkteGesamt = 0; // anzahl aller Punkte, die ein Spieler gesammelt hat
 	public  int runden = 1;		//Man startet in Runde eins
 	public int gewonnen = 0; // gewonnene Runden
