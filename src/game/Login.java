@@ -16,17 +16,15 @@ public class Login extends JPanel implements ActionListener {
 
 	static JFrame loginFrame = new JFrame("login");
 
-	static ImageIcon[] bkgicon = new ImageIcon[7];
+	static ImageIcon bkg1 = new ImageIcon("bilder/bkg1.jpg");
+	static ImageIcon bkg2 = new ImageIcon("bilder/bkg2.jpg");
+	static ImageIcon bkg3 = new ImageIcon("bilder/bkg3.jpg");
+	static ImageIcon bkg4 = new ImageIcon("bilder/bkg4.jpg");
+	static ImageIcon bkg5 = new ImageIcon("bilder/bkg5.jpg");
+	static ImageIcon bkg6 = new ImageIcon("bilder/bkg6.jpg");
+	static ImageIcon bkg7 = new ImageIcon("bilder/bkg7.PNG");
 
-	static ImageIcon bkg1 =  new ImageIcon("bilder/bkg1.jpg");
-	static ImageIcon bkg2 =  new ImageIcon("bilder/bkg2.jpg");
-	static ImageIcon bkg3 =  new ImageIcon("bilder/bkg3.jpg");
-	static ImageIcon bkg4 =  new ImageIcon("bilder/bkg4.jpg");
-	static ImageIcon bkg5 =  new ImageIcon("bilder/bkg5.jpg");
-	static ImageIcon bkg6 =  new ImageIcon("bilder/bkg6.jpg");
-	static ImageIcon bkg7 =  new ImageIcon("bilder/bkg7.PNG");
-
-
+	static ImageIcon[] bkgicon = { bkg1, bkg2, bkg3, bkg4, bkg5, bkg6, bkg7 };
 
 	static ImageIcon titleicon = new ImageIcon("bilder/2048.png");
 	static JLabel title = new JLabel(
@@ -45,7 +43,8 @@ public class Login extends JPanel implements ActionListener {
 	static String groesseString[] = { "Feldgroesse auswaehlen", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8" };
 	static JComboBox<Object> groesseComboBox = new JComboBox<Object>(groesseString);
 
-
+	static JLabel background = new JLabel(new ImageIcon(
+			bkgicon[(int) (Math.random() * 7)].getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
 
 	public Login() {
 
@@ -53,19 +52,7 @@ public class Login extends JPanel implements ActionListener {
 
 	}
 
-
 	public static void loginGui() {
-
-		bkgicon[0] = bkg1;
-		bkgicon[1] = bkg2;
-		bkgicon[2] = bkg3;
-		bkgicon[3] = bkg4;
-		bkgicon[4] = bkg5;
-		bkgicon[5] = bkg6;
-		bkgicon[6] = bkg7;
-		JLabel background = new JLabel(
-				new ImageIcon(bkgicon[(int)(Math.random()*7)].getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
-
 
 		loginFrame.setSize(600, 300);
 		loginFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
@@ -108,11 +95,11 @@ public class Login extends JPanel implements ActionListener {
 		gbc.gridx = 0;
 		gbc.gridwidth = 2;
 		background.add(loadGame, gbc);
-		
+
 		background.add(textFeld); // fuer die Kontoerstellung benoetigten Elemente
-		textFeld.addFocusListener(new FocusAdapter() {	//Man soll immer den gesmten Text ausw�hlen
-			public void focusGained(FocusEvent e) {	
-				textFeld.selectAll();		//Damit man direkt �berschreibt
+		textFeld.addFocusListener(new FocusAdapter() { // Man soll immer den gesmten Text ausw�hlen
+			public void focusGained(FocusEvent e) {
+				textFeld.selectAll(); // Damit man direkt �berschreibt
 			}
 		});
 		background.add(confirmButton);
@@ -126,7 +113,7 @@ public class Login extends JPanel implements ActionListener {
 		// Soll einen vorhandenen Account, der ausgewaehlt wurde, erkennen
 		// und eine neu ausgewaehlte Feldgroesse einstellen und das Spiel starten
 
-		loginButton.addActionListener((ActionEvent e) -> { 										// auf "einloggen" wird geclickt
+		loginButton.addActionListener((ActionEvent e) -> { // auf "einloggen" wird geclickt
 			if (groesseComboBox.getSelectedIndex() != 0 && accountAuswahlliste.getSelectedIndex() != 0) {
 
 				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
@@ -141,7 +128,7 @@ public class Login extends JPanel implements ActionListener {
 
 		// Soll einen ausgewaehlten Account erkennen und den Spielstand laden
 
-		loadGame.addActionListener((ActionEvent e) -> { 											// auf "spiel laden" wird geclickt
+		loadGame.addActionListener((ActionEvent e) -> { // auf "spiel laden" wird geclickt
 			if (accountAuswahlliste.getSelectedIndex() != 0) {
 
 				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
@@ -150,7 +137,7 @@ public class Login extends JPanel implements ActionListener {
 			}
 		});
 
-		plusButton.addActionListener((ActionEvent e) -> { 												// auf "+" wird geclickt
+		plusButton.addActionListener((ActionEvent e) -> { // auf "+" wird geclickt
 			loginButton.setVisible(false); // Elemente vom login werden unsichtbar gemacht
 			plusButton.setVisible(false);
 			accountAuswahlliste.setVisible(false);
@@ -168,11 +155,10 @@ public class Login extends JPanel implements ActionListener {
 		// und zur JComboBox "accountAuswahlliste" diesen Account hinzufuegen
 		// und ein Spiel mit der ausgewaehlten Feldgroesse starten
 
-		confirmButton.addActionListener((ActionEvent e) -> { 									// auf "bestaetigen" wird geclickt
+		confirmButton.addActionListener((ActionEvent e) -> { // auf "bestaetigen" wird geclickt
 
 			if (nameVerfuegbar(textFeld.getText()) && groesseComboBox.getSelectedIndex() != 0) {
-				
-								
+
 				Account n = new Account(textFeld.getText(), groesseComboBox.getSelectedIndex() + 2);
 				n.s.blockErstellen();
 				n.s.blockErstellen();
@@ -180,20 +166,19 @@ public class Login extends JPanel implements ActionListener {
 				n.st.update();
 				JSONVerwalter.speichern(n);
 
-				
 				accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
-				//DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) accountAuswahlliste.getModel();
+				// DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>)
+				// accountAuswahlliste.getModel();
 				accountAuswahlliste.removeAllItems();
-				
-				 
-				 accountString = accounts();
-				 
-				 for(int i = 0; i < accountString.length; i++) {
-					 
-				accountAuswahlliste.addItem(accountString[i]);
-				
-				 }
-				
+
+				accountString = accounts();
+
+				for (int i = 0; i < accountString.length; i++) {
+
+					accountAuswahlliste.addItem(accountString[i]);
+
+				}
+
 				confirmButton.setVisible(false);
 				textFeld.setVisible(false);
 				loginButton.setVisible(true);
@@ -217,8 +202,8 @@ public class Login extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 	}
-	
-	public static boolean  nameVerfuegbar(String name) {
+
+	public static boolean nameVerfuegbar(String name) {
 		for (int j = 0; j < accountString.length; j++) {
 			if (accountString[j].equals(name)) {
 				return false;
@@ -246,7 +231,7 @@ public class Login extends JPanel implements ActionListener {
 
 			accounts[j + 1] = acc.get(j); // �bertragung der Liste
 
-			accounts[j+1] = acc.get(j);	//�bertragung der Liste
+			accounts[j + 1] = acc.get(j); // �bertragung der Liste
 
 		}
 
