@@ -4,27 +4,52 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Stats  {
 
-	public int punkteGesamt = 0; // anzahl aller Punkte, die ein Spieler gesammelt hat
-	public  int runden = 1;		//Man startet in Runde eins
-	public int gewonnen = 0; // gewonnene Runden
-	public Boolean gewonneneRunde = false; 	//Dieses Feld hat schon gewonnen
-	public double winLoseRatio = 0;
-	public int hoechstesFeldInsgesamt = 0;
-	public int hoechstesAlt = 0;		//Speichert das hoechste Feld des Klons
-	public int rekord = 0;
-	public int rekordAlt = 0;			//Speichert den Rekord des Klons
-	public int zuegeGesamt = -1;
+	public int punkteGesamt; // anzahl aller Punkte, die ein Spieler gesammelt hat
+	public  int runden;		//Man startet in Runde eins
+	public int gewonnen; // gewonnene Runden
+	public Boolean gewonneneRunde; 	//Dieses Feld hat schon gewonnen
+	public double winLoseRatio;
+	public int hoechstesFeldInsgesamt;
+	public int hoechstesAlt;		//Speichert das hoechste Feld des Klons
+	public int rekord;
+	public int rekordAlt;			//Speichert den Rekord des Klons
+	public int zuegeGesamt;
 	
 	@JsonIgnore
 	public Spielfeld s;	//Referenzattribut setzen
 	
-	
-	public Stats() {
+	public Stats(Spielfeld s) {
+		this.punkteGesamt = 0;
+		this.runden = 1;
+		this.gewonnen = 0;
+		this.gewonneneRunde = false;
+		this.winLoseRatio = 0;
+		this.hoechstesFeldInsgesamt = 0;
+		this.hoechstesAlt = 0;
+		this.rekord = 0;
+		this.rekordAlt = 0;
+		this.zuegeGesamt = -1;
+		this.s = s;
 		
 	}
 	
-	public Stats(Spielfeld s) {
-		this.s = s;	//Setzen einer Objektreferenz
+	public Stats(Stats alt) {
+		this.punkteGesamt = alt.punkteGesamt;
+		this.runden = alt.runden;
+		this.gewonnen = alt.gewonnen;
+		this.gewonneneRunde = alt.gewonneneRunde;
+		this.winLoseRatio = alt.winLoseRatio;
+		this.hoechstesFeldInsgesamt = alt.hoechstesFeldInsgesamt;
+		this.hoechstesAlt = alt.hoechstesAlt;
+		this.rekord = alt.rekord;
+		this.rekordAlt = alt.rekordAlt;
+		this.zuegeGesamt = alt.rekordAlt;
+		this.s = alt.s;
+		
+	}
+	
+	public Stats() {
+		
 	}
 	
 	void Statszuruecknehmen(Spielfeld k) {

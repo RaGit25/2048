@@ -156,7 +156,7 @@ public class Login extends JPanel implements ActionListener {
 				JSONVerwalter.speichern(n);
 
 				
-				accountAuswahlliste.setModel(new DefaultComboBoxModel(accountString));
+				accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
 				//DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) accountAuswahlliste.getModel();
 				accountAuswahlliste.removeAllItems();
 				
