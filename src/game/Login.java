@@ -170,8 +170,9 @@ public class Login extends JPanel implements ActionListener {
 
 		confirmButton.addActionListener((ActionEvent e) -> { 									// auf "bestaetigen" wird geclickt
 
-			if (textFeld.getText() != "namen eingeben" && groesseComboBox.getSelectedIndex() != 0) {
-
+			if (nameVerfuegbar(textFeld.getText()) && groesseComboBox.getSelectedIndex() != 0) {
+				
+								
 				Account n = new Account(textFeld.getText(), groesseComboBox.getSelectedIndex() + 2);
 				n.s.blockErstellen();
 				n.s.blockErstellen();
@@ -180,7 +181,7 @@ public class Login extends JPanel implements ActionListener {
 				JSONVerwalter.speichern(n);
 
 				
-				accountAuswahlliste.setModel(new DefaultComboBoxModel(accountString));
+				accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
 				//DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) accountAuswahlliste.getModel();
 				accountAuswahlliste.removeAllItems();
 				
@@ -215,6 +216,15 @@ public class Login extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 
+	}
+	
+	public static boolean  nameVerfuegbar(String name) {
+		for (int j = 0; j < accountString.length; j++) {
+			if (accountString[j].equals(name)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private static String[] accounts() {
