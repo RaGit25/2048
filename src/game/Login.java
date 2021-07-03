@@ -10,9 +10,14 @@ import javax.swing.*;
 
 public class Login extends JPanel implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	static JFrame loginFrame = new JFrame("login");
 
-	static ImageIcon bkgicon = new ImageIcon("Login-bkg.PNG");
+	static ImageIcon bkgicon = new ImageIcon("Login-bkg"+".png");	//Muss man aus dem Package bilder holen
 	static JLabel background = new JLabel(
 			new ImageIcon(bkgicon.getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
 	static ImageIcon titleicon = new ImageIcon("2048.png");
