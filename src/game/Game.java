@@ -580,7 +580,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public static void neuesSpiel() {
 
-		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // unnoetig, weil live update von Rekord
+	//	rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // unnoetig, weil live update von Rekord
 		a.st.updateEnde();
 		a.s = new Spielfeld(a.s.getBreite());
 		a.st.updateSpielfeld(a.s);

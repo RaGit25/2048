@@ -10,9 +10,7 @@ import javax.swing.*;
 
 public class Login extends JPanel implements ActionListener {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	static JFrame loginFrame = new JFrame("login");
@@ -28,16 +26,22 @@ public class Login extends JPanel implements ActionListener {
 
 	static JButton loginButton = new JButton("Neues Spiel");
 	static JButton loadGame = new JButton("Spiel laden");
-	static JButton plusButton = new JButton("+");
+	static JButton plusButton = new JButton("Neuer Account");
 	static JButton confirmButton = new JButton("bestaetigen");
 
 	//static List<String> accountStringList = accounts();
-	static String accountString[] = account();
-	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(accountString);
+	 static String accountString[] = account();
+	 static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(accountString);
 
 	static String groesseString[] = { "Feldgroesse auswaehlen", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8" };
 	static JComboBox<Object> groesseComboBox = new JComboBox<Object>(groesseString);
 
+	public Login() {
+		
+		//accountAuswahlliste.setEditable(true);
+		
+	}
+	
 	public static void loginGui() {
 
 		loginFrame.setSize(600, 300);
@@ -96,7 +100,10 @@ public class Login extends JPanel implements ActionListener {
 
 		loginButton.addActionListener((ActionEvent e) -> { // auf "einloggen" wird geclickt
 			if (groesseComboBox.getSelectedIndex() != 0 && accountAuswahlliste.getSelectedIndex() != 0) {
+				
 				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
+				Game.a.s.breite = groesseComboBox.getSelectedIndex() + 2;
+				Game.neuesSpiel();
 				Game.gameGui();
 				loginFrame.dispose(); // das Loginfenster schliesst sich
 			}
@@ -110,7 +117,6 @@ public class Login extends JPanel implements ActionListener {
 			if (accountAuswahlliste.getSelectedIndex() != 0) {
 
 				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
-
 				Game.gameGui();
 				loginFrame.dispose(); // das Loginfenster schliesst sich
 			}
@@ -145,14 +151,28 @@ public class Login extends JPanel implements ActionListener {
 				n.st.update();
 				JSONVerwalter.speichern(n);
 
-				Game.setAccount(n);
-
-				Game.gameGui();
-				loginFrame.dispose();
+				confirmButton.setVisible(false);
+				textFeld.setVisible(false);
+				loginButton.setVisible(true);
+				plusButton.setVisible(true);
+				accountAuswahlliste.setVisible(true);
+				title.setVisible(true);
+				loadGame.setVisible(true);
+				//Game.gameGui();
+				//loginFrame.dispose();
 			}
 		});
 
 	}
+	
+	/*	Account n = new Account(textFeld.getText(), groesseComboBox.getSelectedIndex() + 2);
+	n.s.blockErstellen();
+	n.s.blockErstellen();
+	n.klonen();
+	n.st.update();
+	JSONVerwalter.speichern(n);
+
+	Game.setAccount(n);*/
 
 	
 	public void actionPerformed(ActionEvent e) {
