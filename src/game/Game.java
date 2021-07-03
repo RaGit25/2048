@@ -564,8 +564,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		a.st.update();
 		JSONVerwalter.speichern(a);	//Speichern der Json
 		labelNeuladen();
-		//rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
-		//punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
 		hilfe.setVisible(false);
 	}
 

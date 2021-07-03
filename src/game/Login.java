@@ -3,19 +3,19 @@ package game;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
 
-
 public class Login extends JPanel implements ActionListener {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	static JFrame loginFrame = new JFrame("login");
 
-	static ImageIcon bkgicon = new ImageIcon("Login-bkg"+".png");	//Muss man aus dem Package bilder holen
+	static ImageIcon bkgicon = new ImageIcon("bilder/" + "Login-bkg" + ".png"); // Kommt aus dem Ordner Bilder
 	static JLabel background = new JLabel(
 			new ImageIcon(bkgicon.getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
 	static ImageIcon titleicon = new ImageIcon("2048.png");
@@ -29,21 +29,14 @@ public class Login extends JPanel implements ActionListener {
 	static JButton plusButton = new JButton("Neuer Account");
 	static JButton confirmButton = new JButton("bestaetigen");
 
-	//static List<String> accountStringList = accounts();
-	 static String accountString[] = account();
-	 static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(accountString);
+	static String accountString[] = accounts();
+	static JComboBox<Object> accountAuswahlliste = new JComboBox<Object>(accountString);
 
 	static String groesseString[] = { "Feldgroesse auswaehlen", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8" };
 	static JComboBox<Object> groesseComboBox = new JComboBox<Object>(groesseString);
 
-	public Login() {
-		
-		//accountAuswahlliste.setEditable(true);
-		
-	}
-	
 	public static void loginGui() {
-
+		
 		loginFrame.setSize(600, 300);
 		loginFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fenster schliesst sich und code wird beendet wenn
@@ -85,8 +78,13 @@ public class Login extends JPanel implements ActionListener {
 		gbc.gridx = 0;
 		gbc.gridwidth = 2;
 		background.add(loadGame, gbc);
-
+		
 		background.add(textFeld); // fuer die Kontoerstellung benoetigten Elemente
+		textFeld.addFocusListener(new FocusAdapter() {	//Man soll immer den gesmten Text auswählen
+			public void focusGained(FocusEvent e) {	
+				textFeld.selectAll();		//Damit man direkt überschreibt
+			}
+		});
 		background.add(confirmButton);
 		textFeld.setVisible(false); // unsichtbar gemacht da hier noch nicht gebraucht
 		confirmButton.setVisible(false);
@@ -100,7 +98,7 @@ public class Login extends JPanel implements ActionListener {
 
 		loginButton.addActionListener((ActionEvent e) -> { // auf "einloggen" wird geclickt
 			if (groesseComboBox.getSelectedIndex() != 0 && accountAuswahlliste.getSelectedIndex() != 0) {
-				
+
 				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
 				Game.a.s.breite = groesseComboBox.getSelectedIndex() + 2;
 				Game.neuesSpiel();
@@ -151,6 +149,13 @@ public class Login extends JPanel implements ActionListener {
 				n.st.update();
 				JSONVerwalter.speichern(n);
 
+				accountString = accounts();
+				accountAuswahlliste =  new JComboBox<Object>(accountString); // Updaten der Combobox
+				
+				gbc.gridy = 1;
+				gbc.gridwidth = 1;
+				background.add(accountAuswahlliste, gbc);
+
 				confirmButton.setVisible(false);
 				textFeld.setVisible(false);
 				loginButton.setVisible(true);
@@ -158,32 +163,27 @@ public class Login extends JPanel implements ActionListener {
 				accountAuswahlliste.setVisible(true);
 				title.setVisible(true);
 				loadGame.setVisible(true);
-				//Game.gameGui();
-				//loginFrame.dispose();
 			}
 		});
 
 	}
-	
-	/*	Account n = new Account(textFeld.getText(), groesseComboBox.getSelectedIndex() + 2);
-	n.s.blockErstellen();
-	n.s.blockErstellen();
-	n.klonen();
-	n.st.update();
-	JSONVerwalter.speichern(n);
 
-	Game.setAccount(n);*/
+	/*
+	 * Account n = new Account(textFeld.getText(),
+	 * groesseComboBox.getSelectedIndex() + 2); n.s.blockErstellen();
+	 * n.s.blockErstellen(); n.klonen(); n.st.update(); JSONVerwalter.speichern(n);
+	 * 
+	 * Game.setAccount(n);
+	 */
 
-	
 	public void actionPerformed(ActionEvent e) {
 
 	}
 
-		
-	private static String[] account() {
+	private static String[] accounts() {
 		File f = new File("./"); // Im gleichen Ordner starten
 		File[] fileArray = f.listFiles(); // Erstellen eines Feldes mit allen Dateien
-		
+
 		ArrayList<String> acc = new ArrayList<String>();
 		for (int i = 0; i < fileArray.length; i++) {
 			if (fileArray[i].getPath().contains(".json")) { // Wenn die Datei .json enthält
@@ -192,13 +192,13 @@ public class Login extends JPanel implements ActionListener {
 				acc.add(name);
 			}
 		}
-				
-		String[] accounts = new String[(acc.size())+1];	//Erstellen einer String-Liste
-		accounts[0] = "Konto auswahlen";		//Erster Eintrag
+
+		String[] accounts = new String[(acc.size()) + 1]; // Erstellen einer String-Liste
+		accounts[0] = "Konto auswahlen"; // Erster Eintrag
 		for (int j = 0; j < (acc.size()); j++) {
-			accounts[j+1] = acc.get(j);	//Übertragung der Liste
+			accounts[j + 1] = acc.get(j); // Übertragung der Liste
 		}
-		
+
 		return accounts;
 	}
 
