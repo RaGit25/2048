@@ -34,7 +34,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>game.Game</mainClass>
+							<mainClass>game.Login</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

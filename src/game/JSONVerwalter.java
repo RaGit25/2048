@@ -49,6 +49,6 @@ public class JSONVerwalter {
 			e.printStackTrace();
 		}
 		
-		return obj;
+		return new Account(obj);
 	}
 }
