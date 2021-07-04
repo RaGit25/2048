@@ -8,6 +8,8 @@ import java.awt.event.FocusEvent;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.applet.*;
 
 public class Login extends JPanel implements ActionListener {
@@ -36,6 +38,10 @@ public class Login extends JPanel implements ActionListener {
 	static JButton loadGame = new JButton("Spiel laden");
 	static JButton plusButton = new JButton("Neuer Account");
 	static JButton confirmButton = new JButton("bestaetigen");
+	static JButton zurueck = new JButton("Zurueck zum Hauptmenue");
+
+	static JLabel warnung = new JLabel();
+	static JLabel warnung2 = new JLabel();
 
 	static String accountString[] = accounts();
 	static JComboBox<String> accountAuswahlliste = new JComboBox<String>(accountString);
@@ -48,7 +54,58 @@ public class Login extends JPanel implements ActionListener {
 
 	public Login() {
 
-		accountAuswahlliste.setEditable(true);
+		warnung.setText("");
+		warnung.setFont(new Font("Arial", Font.PLAIN, 15));
+		warnung.setForeground(Color.red);
+		warnung2.setText("");
+		warnung2.setFont(new Font("Arial", Font.PLAIN, 11));
+		warnung2.setForeground(Color.red);
+
+	}
+
+	public static void checkForWarnings() {
+
+		if (accountAuswahlliste.getSelectedIndex() == 0 && groesseComboBox.getSelectedIndex() == 0) {
+
+			warnung.setText("Waehle einen Account und eine Feldgroesse aus");
+
+		}
+
+		else if (accountAuswahlliste.getSelectedIndex() == 0) {
+
+			warnung.setText("Waehle einen Account aus");
+
+		}
+
+		else if (groesseComboBox.getSelectedIndex() == 0) {
+
+			warnung.setText("Waehle eine Feldgroesse aus");
+
+		} else {
+
+			warnung.setText("");
+
+		}
+
+	}
+
+	public static void checkForWarningsNewAcc() {
+
+		if (!nameVerfuegbar(textFeld.getText())) {
+
+			warnung2.setText("Dieser Accountname ist bereits vergeben");
+
+		}
+
+		else if (textFeld.getText().length() > 60) {
+
+			warnung2.setText("<html>Der Accountname darf <br> nicht laenger als 60 Zeichen sein</html>");
+
+		} else {
+
+			warnung2.setText("");
+
+		}
 
 	}
 
@@ -96,13 +153,56 @@ public class Login extends JPanel implements ActionListener {
 		gbc.gridwidth = 2;
 		background.add(loadGame, gbc);
 
-		background.add(textFeld); // fuer die Kontoerstellung benoetigten Elemente
-		textFeld.addFocusListener(new FocusAdapter() { // Man soll immer den gesmten Text ausw�hlen
+		gbc.gridy = 5;
+		gbc.gridx = 0;
+
+		background.add(warnung, gbc);
+
+		gbc.gridy = 3;
+		gbc.gridx = 1;
+
+		background.add(warnung2, gbc);
+
+		gbc.gridy = 1;
+		gbc.gridx = 0;
+		gbc.gridwidth = 1;
+		
+		background.add(textFeld, gbc); // fuer die Kontoerstellung benoetigten Elemente
+		
+		gbc.gridy = 1;
+		gbc.gridx = 1;
+		
+
+		background.add(confirmButton, gbc);
+		
+		gbc.gridy = 2;
+		gbc.gridx = 0;
+		gbc.gridwidth = 2;
+		
+		background.add(zurueck, gbc);
+		
+		zurueck.addActionListener((ActionEvent e) -> {
+			
+			confirmButton.setVisible(false);
+			textFeld.setVisible(false);
+			loginButton.setVisible(true);
+			plusButton.setVisible(true);
+			accountAuswahlliste.setVisible(true);
+			title.setVisible(true);
+			loadGame.setVisible(true);
+			groesseComboBox.setVisible(true);
+			warnung2.setVisible(false);
+			zurueck.setVisible(false);
+			
+		});
+		
+		textFeld.addFocusListener(new FocusAdapter() { // Man soll immer den gesamten Text auswaehlen
 			public void focusGained(FocusEvent e) {
-				textFeld.selectAll(); // Damit man direkt �berschreibt
+				textFeld.selectAll(); // Damit man direkt ueberschreibt
 			}
 		});
-		background.add(confirmButton);
+
+		
 		textFeld.setVisible(false); // unsichtbar gemacht da hier noch nicht gebraucht
 		confirmButton.setVisible(false);
 
@@ -122,6 +222,8 @@ public class Login extends JPanel implements ActionListener {
 				Game.gameGui();
 				loginFrame.dispose(); // das Loginfenster schliesst sich
 			}
+
+			checkForWarnings();
 		});
 
 		// ---------Spiel laden--------
@@ -135,6 +237,9 @@ public class Login extends JPanel implements ActionListener {
 				Game.gameGui();
 				loginFrame.dispose(); // das Loginfenster schliesst sich
 			}
+
+			checkForWarnings();
+
 		});
 
 		plusButton.addActionListener((ActionEvent e) -> { // auf "+" wird geclickt
@@ -147,6 +252,12 @@ public class Login extends JPanel implements ActionListener {
 			textFeld.setText("namen eingeben");
 			textFeld.setVisible(true); // Elemente von der Kontoerstellung werden sichtbar gemacht
 			confirmButton.setVisible(true);
+			groesseComboBox.setVisible(false);
+			warnung.setText("");
+			warnung2.setText("");
+			warnung2.setVisible(true);
+			zurueck.setVisible(true);
+
 		});
 
 		// --------Neuer Account-------
@@ -157,9 +268,9 @@ public class Login extends JPanel implements ActionListener {
 
 		confirmButton.addActionListener((ActionEvent e) -> { // auf "bestaetigen" wird geclickt
 
-			if (nameVerfuegbar(textFeld.getText()) && groesseComboBox.getSelectedIndex() != 0) {
+			if (nameVerfuegbar(textFeld.getText()) && textFeld.getText().length() <= 60) {
 
-				Account n = new Account(textFeld.getText(), groesseComboBox.getSelectedIndex() + 2);
+				Account n = new Account(textFeld.getText(), 4); // Standardgroesse 4
 				n.s.blockErstellen();
 				n.s.blockErstellen();
 				n.klonen();
@@ -167,8 +278,7 @@ public class Login extends JPanel implements ActionListener {
 				JSONVerwalter.speichern(n);
 
 				accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
-				// DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>)
-				// accountAuswahlliste.getModel();
+
 				accountAuswahlliste.removeAllItems();
 
 				accountString = accounts();
@@ -177,7 +287,13 @@ public class Login extends JPanel implements ActionListener {
 
 					accountAuswahlliste.addItem(accountString[i]);
 
+					if (accountString[i].equals(textFeld.getText())) {
+						accountAuswahlliste.setSelectedIndex(i);
+					}
+
 				}
+
+				groesseComboBox.setSelectedIndex(2);
 
 				confirmButton.setVisible(false);
 				textFeld.setVisible(false);
@@ -186,18 +302,23 @@ public class Login extends JPanel implements ActionListener {
 				accountAuswahlliste.setVisible(true);
 				title.setVisible(true);
 				loadGame.setVisible(true);
+				groesseComboBox.setVisible(true);
+				warnung2.setVisible(false);
 			}
+
+			checkForWarningsNewAcc();
+
+		});
+
+		accountAuswahlliste.addActionListener((ActionEvent e) -> {
+
+			Account a = new Account(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
+
+			groesseComboBox.setSelectedIndex(a.s.getBreite() - 2);  //waehlt die Spielgroesse des Accounts aus
+			
 		});
 
 	}
-
-	/*
-	 * Account n = new Account(textFeld.getText(),
-	 * groesseComboBox.getSelectedIndex() + 2); n.s.blockErstellen();
-	 * n.s.blockErstellen(); n.klonen(); n.st.update(); JSONVerwalter.speichern(n);
-	 * 
-	 * Game.setAccount(n);
-	 */
 
 	public void actionPerformed(ActionEvent e) {
 
@@ -240,7 +361,7 @@ public class Login extends JPanel implements ActionListener {
 
 	public static void main(String[] args) {
 		Login l = new Login();
-		Login.loginGui();
+		l.loginGui();
 
 	}
 }
