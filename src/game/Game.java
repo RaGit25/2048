@@ -301,19 +301,19 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			g.drawString("Hoechstes erreichtes Feld:", 70, 160);
 
-			if (a.s.getHoechstesFeld() == 2048) {
+			if (a.st.getFeldHoch() == 2048) {
 
 				g.setColor(new Color(237, 194, 46));
 
-			} else if (a.s.getHoechstesFeld() == 4096) {
+			} else if (a.st.getFeldHoch() == 4096) {
 
 				g.setColor(new Color(224, 110, 112));
 
-			} else if (a.s.getHoechstesFeld() == 8192) {
+			} else if (a.st.getFeldHoch() == 8192) {
 
 				g.setColor(new Color(220, 88, 94));
 
-			} else if (a.s.getHoechstesFeld() >= 16384) {
+			} else if (a.st.getFeldHoch() >= 16384) {
 
 				g.setColor(new Color(225, 79, 73));
 
@@ -614,7 +614,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		if (a.s.hoechstesFeld == 2048) {
 
-			titel.setForeground(Color.red);
+			titel.setForeground(new Color(252, 130, 20));
 
 		} else if (a.s.hoechstesFeld == 4096) {
 
