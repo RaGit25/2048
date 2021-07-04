@@ -16,38 +16,80 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	static Account a;
 
-	static Boolean statsAktiv = false;
+	static Boolean statsAktiv;
 
 	static Game game = new Game();
 
-	static JFrame gameFrame = new JFrame("2048");
+	static JFrame gameFrame;
 
-	static JPanel centerPanel = new JPanel(); // Mehrere Panels benoetigt (fuer den Layoutmanager)
-	static JPanel panel1 = new JPanel();
-	static JPanel panel2 = new JPanel();
-	static JPanel panel3 = new JPanel();
-	static JPanel panel4 = new JPanel();
+	static JPanel centerPanel;
+	static JPanel panel1;
+	static JPanel panel2;
+	static JPanel panel3;
+	static JPanel panel4;
 
-	static LineBorder border = new LineBorder(new Color(237, 194, 46), 2, true);
-	static LineBorder border1 = new LineBorder(new Color(236, 228, 219), 2, true);
-	static LineBorder border2 = new LineBorder(Color.gray, 2, true);
+	static LineBorder border;
+	static LineBorder border1;
+	static LineBorder border2;
 
-	static JLabel punkte = new JLabel();
-	static JLabel rekord = new JLabel();
-	static JLabel hilfe = new JLabel();
+	static JLabel punkte;
+	static JLabel rekord;
+	static JLabel hilfe;
 
-	static JLabel titel = new JLabel();
+	static JLabel titel;
 
-	static JButton restart = new JButton(); // restart Button oben links im Spiel
-	static JButton zurueck = new JButton();
-	static JButton tipp = new JButton();
-	static JButton stats = new JButton();
+	static JButton restart;
+	static JButton zurueck;
+	static JButton tipp;
+	static JButton stats;
 
-	static JButton exit = new JButton();
+	static JButton exit;
 
-	Game() {
+	public Game() {
+
+		statsAktiv = false;
+
+		a = null;
 
 		setPreferredSize(new Dimension(850, 1000)); // macht das Spielfeld im Panel "centerPanel" sichtbar
+
+		gameFrame = new JFrame("2048");
+		centerPanel = new JPanel(); // Mehrere Panels benoetigt (fuer den Layoutmanager)
+		panel1 = new JPanel();
+		panel2 = new JPanel();
+		panel3 = new JPanel();
+		panel4 = new JPanel();
+		border = new LineBorder(new Color(237, 194, 46), 2, true);
+		border1 = new LineBorder(new Color(236, 228, 219), 2, true);
+		border2 = new LineBorder(Color.gray, 2, true);
+		punkte = new JLabel();
+		rekord = new JLabel();
+		hilfe = new JLabel();
+		titel = new JLabel();
+		restart = new JButton(); // restart Button oben links im Spiel
+		zurueck = new JButton();
+		tipp = new JButton();
+		stats = new JButton();
+		exit = new JButton();
+		
+		gameFrame.setLayout(new BorderLayout()); // BorderLayout = 1 panel in der Mitte und 4 aussenrum
+
+		gameFrame.add(centerPanel, BorderLayout.CENTER);
+		gameFrame.add(panel1, BorderLayout.NORTH);
+		gameFrame.add(panel2, BorderLayout.EAST);
+		gameFrame.add(panel3, BorderLayout.WEST);
+		gameFrame.add(panel4, BorderLayout.SOUTH);
+
+		panel1.add(punkte);
+		panel1.add(rekord);
+		panel1.add(titel);
+		panel1.add(restart);
+		panel1.add(zurueck);
+		panel1.add(tipp);
+		panel1.add(hilfe);
+		panel1.add(stats);
+		panel4.add(exit);
+		centerPanel.add(this); // sichtbarmachen der Felder
 
 	}
 
@@ -58,11 +100,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public static void gameGui() { // das Spielfenster
 
-		gameFrame.setLayout(new BorderLayout()); // BorderLayout = 1 panel in der Mitte und 4 aussenrum
-
+	
 		centerPanel.setBackground(Color.gray);
 		centerPanel.setPreferredSize(new Dimension(100, 100)); // groesssse d. panels in d. mitte
-		centerPanel.add(new Game()); // sichtbarmachen der Felder
 
 		// festlegen d. groessen d. anderen panels
 		panel1.setPreferredSize(new Dimension(100, 180));
@@ -73,7 +113,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		// punktzahl
 		punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
 		punkte.setForeground(Color.white);
-		panel1.add(punkte);
 		panel1.setLayout(null);
 		punkte.setBounds(425, 25, 150, 80);
 		punkte.setFont(new Font("Arial", Font.BOLD, 30));
@@ -85,7 +124,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// rekord
 		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // rekord fehlt noch, weil keine Speicherung
-		panel1.add(rekord);
 		rekord.setForeground(Color.white);
 		rekord.setLayout(null);
 		rekord.setBounds(600, 25, 150, 80);
@@ -98,7 +136,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// Titel
 		titel.setText("2048");
-		panel1.add(titel);
 		titel.setBounds(35, 25, 210, 80);
 		titel.setFont(new Font("Arial", Font.BOLD, 70));
 		titel.setBackground(new Color(237, 194, 46));
@@ -110,7 +147,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		titel.setOpaque(true);
 
 		// restart button
-		panel1.add(restart);
 		restart.setText("Neues Spiel");
 		restart.setFont(new Font("Arial", Font.BOLD, 23));
 		restart.setBounds(600, 120, 150, 50);
@@ -122,16 +158,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		restart.setBackground(new Color(236, 228, 219));
 		restart.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
-			if (!statsAktiv) {
-
 				neuesSpiel();
-
-			}
 
 		});
 
 		// zurueck button
-		panel1.add(zurueck);
 		zurueck.setBounds(425, 120, 100, 50);
 		zurueck.setText("Zurueck");
 		zurueck.setFont(new Font("Arial", Font.BOLD, 22));
@@ -143,7 +174,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		zurueck.setBackground(new Color(236, 228, 219));
 		zurueck.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
-			if (!statsAktiv && !a.s.gameOver()) {
+			if (!a.s.gameOver()) {
 
 				a.zuruecknehmen();
 				// rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
@@ -156,7 +187,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		});
 
 		// tipp button
-		panel1.add(tipp);
 		tipp.setBounds(528, 120, 50, 50);
 		tipp.setText("?");
 		tipp.setFont(new Font("Arial", Font.BOLD, 35));
@@ -164,7 +194,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		tipp.setFocusable(false);
 		tipp.setBackground(new Color(236, 228, 219));
 		tipp.setBorder(border1);
-		panel1.add(hilfe);
 		hilfe.setBounds(260, 100, 200, 100);
 		hilfe.setFont(new Font("Arial", Font.PLAIN, 30));
 		hilfe.setForeground(Color.green);
@@ -172,7 +201,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		tipp.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
-			if (!statsAktiv && !a.s.gameOver()) {
+			if (!a.s.gameOver()) {
 
 				Autoplay au = new Autoplay();
 
@@ -185,7 +214,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		});
 
 		// stats button
-		panel1.add(stats);
 		stats.setBounds(35, 120, 210, 50);
 		stats.setBorder(BorderFactory.createEtchedBorder());
 		stats.setFocusable(false);
@@ -220,7 +248,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		});
 
 		// exit button
-		panel4.add(exit);
 		panel4.setLayout(null);
 		exit.setFont(new Font("Arial", Font.BOLD, 15));
 		exit.setText("Zum Login");
@@ -230,19 +257,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		exit.setFocusable(false);
 		exit.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
+			statsAktiv = false; 
 			gameFrame.dispose();
-			Login l = new Login();
-			l.loginGui(); // Static mit Klassennamen aufrufen
+			Login.l.loginGui(); // Static mit Klassennamen aufrufen
 
 		});
-
-		// borderlayout: position der einzelnen panels (north = oben, center = mitte,
-		// usw.)
-		gameFrame.add(centerPanel, BorderLayout.CENTER);
-		gameFrame.add(panel1, BorderLayout.NORTH);
-		gameFrame.add(panel2, BorderLayout.EAST);
-		gameFrame.add(panel3, BorderLayout.WEST);
-		gameFrame.add(panel4, BorderLayout.SOUTH);
 
 		gameFrame.setSize(800, 1000);
 		gameFrame.setVisible(true);
@@ -263,7 +282,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		g2.setColor(Color.gray);
 		g.setColor(Color.black);
 
-		if (statsAktiv == true) {
+		if (statsAktiv) {
 
 			g.setFont(new Font("Arial", Font.BOLD, 40));
 			g.drawString("Statistiken", 80, 40);
@@ -636,9 +655,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	}
 
-	/*
-	 * public static void main(String[] args) {
-	 * gameGui();
-	 * }
-	 */
+	public static void main(String[] args) {
+		
+		
+	}
+
 }

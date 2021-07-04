@@ -12,123 +12,95 @@ import javax.swing.*;
 public class Login extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	static Login l = new Login();
-		
-	static JFrame loginFrame = new JFrame("login");
 
-	static ImageIcon bkg1 = new ImageIcon("bilder/bkg1.jpg");
-	static ImageIcon bkg2 = new ImageIcon("bilder/bkg2.jpg");
-	static ImageIcon bkg3 = new ImageIcon("bilder/bkg3.jpg");
-	static ImageIcon bkg4 = new ImageIcon("bilder/bkg4.jpg");
-	static ImageIcon bkg5 = new ImageIcon("bilder/bkg5.jpg");
-	static ImageIcon bkg6 = new ImageIcon("bilder/bkg6.jpg");
-	static ImageIcon bkg7 = new ImageIcon("bilder/bkg7.PNG");
+	static JFrame loginFrame;
 
-	static ImageIcon[] bkgicon = { bkg1, bkg2, bkg3, bkg4, bkg5, bkg6, bkg7 };
+	static ImageIcon bkg1;
+	static ImageIcon bkg2;
+	static ImageIcon bkg3;
+	static ImageIcon bkg4;
+	static ImageIcon bkg5;
+	static ImageIcon bkg6;
+	static ImageIcon bkg7;
 
-	static ImageIcon titleicon = new ImageIcon("bilder/2048.png");
-	static JLabel title = new JLabel(
-			new ImageIcon(titleicon.getImage().getScaledInstance(150, 75, Image.SCALE_DEFAULT)));
+	static ImageIcon[] bkgicon;
 
-	static JTextField textFeld = new JTextField("Namen eingeben");
+	static ImageIcon titleicon;
+	static JLabel title;
+
+	static JTextField textFeld;
 
 	static Boolean darfListenerAktivSein;
 
-	static JButton loginButton = new JButton("Neues Spiel erstellen");
-	static JButton loadGame = new JButton("Spielstand laden");
-	static JButton plusButton = new JButton("Neuer Account");
-	static JButton confirmButton = new JButton("Erstellen");
-	static JButton zurueck = new JButton("Zurueck zur Accountauswahl");
+	static JButton loginButton;
+	static JButton loadGame;
+	static JButton plusButton;
+	static JButton confirmButton;
+	static JButton zurueck;
 
-	static JLabel warnung = new JLabel();
-	static JLabel warnung2 = new JLabel();
+	static JLabel warnung;
+	static JLabel warnung2;
 
-	static String accountString[] = accounts();
-	static JComboBox<String> accountAuswahlliste = new JComboBox<String>(accountString);
+	static String[] accountString;
+	static JComboBox<String> accountAuswahlliste;
 
-	static String groesseString[] = { "Feldgroesse auswaehlen", "3x3", "4x4", "5x5", "6x6", "7x7", "8x8" };
-	static JComboBox<Object> groesseComboBox = new JComboBox<Object>(groesseString);
+	static String[] groesseString;
+	static JComboBox<Object> groesseComboBox;
 
-	static JLabel background = new JLabel(new ImageIcon(
-			bkgicon[(int) (Math.random() * 7)].getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
+	static JLabel background;
 
 	public Login() {
+		
+		loginFrame = new JFrame("login");
 
-	
-	}
+		warnung = new JLabel();
+		warnung2 = new JLabel();
+		
+		loginButton = new JButton("Neues Spiel erstellen");
+		loadGame = new JButton("Spielstand laden");
+		plusButton = new JButton("Neuer Account");
+		confirmButton = new JButton("Erstellen");
+		zurueck = new JButton("Zurueck zur Accountauswahl");
+		
+		accountString = accounts();
+		accountAuswahlliste = new JComboBox<String>(accountString);
+		groesseString = new String[7];
+		groesseString[0] = "Feldgroesse auswaehlen";
+		groesseString[1] = "3x3";
+		groesseString[2] = "4x4";
+		groesseString[3] = "5x5";
+		groesseString[4] = "6x6";
+		groesseString[5] = "7x7";
+		groesseString[6] = "8x8";
+		groesseComboBox = new JComboBox<Object>(groesseString);
 
-	public static void checkForWarnings() {
+		
 
-		if (accountAuswahlliste.getSelectedIndex() == 0 && groesseComboBox.getSelectedIndex() == 0) {
+		textFeld = new JTextField("Namen eingeben");
+		titleicon = new ImageIcon("bilder/2048.png");
 
-			warnung.setText("Waehle einen Account und eine Feldgroesse aus");
+		title = new JLabel(new ImageIcon(titleicon.getImage().getScaledInstance(150, 75, Image.SCALE_DEFAULT)));
 
-		}
+		bkg1 = new ImageIcon("bilder/bkg1.jpg");
+		bkg2 = new ImageIcon("bilder/bkg2.jpg");
+		bkg3 = new ImageIcon("bilder/bkg3.jpg");
+		bkg4 = new ImageIcon("bilder/bkg4.jpg");
+		bkg5 = new ImageIcon("bilder/bkg5.jpg");
+		bkg6 = new ImageIcon("bilder/bkg6.jpg");
+		bkg7 = new ImageIcon("bilder/bkg7.PNG");
 
-		else if (accountAuswahlliste.getSelectedIndex() == 0) {
-
-			warnung.setText("Waehle einen Account aus");
-
-		}
-
-		else if (groesseComboBox.getSelectedIndex() == 0) {
-
-			warnung.setText("Waehle eine Feldgroesse aus");
-
-		} else {
-
-			warnung.setText("");
-
-		}
-
-	}
-
-	public static void checkForWarningsNewAcc() {
-
-		if (!nameVerfuegbar(textFeld.getText())) {
-			
-			textFeld.setText("Namen eingeben");
-			warnung2.setText("Dieser Accountname ist bereits vergeben");
-
-		}
-
-		else if (textFeld.getText().length() > 60) {
-			
-			textFeld.setText("Namen eingeben");
-			warnung2.setText("<html>Der Accountname darf <br> nicht laenger als 60 Zeichen sein</html>");
-
-		} else if (!zeichenErlaubt()) {
-			
-			textFeld.setText("Namen eingeben");
-			warnung2.setText("<html>Sonderzeichen oder Leerzeichen<br> sind nicht erlaubt</html>");
-
-		} else {
-
-			warnung2.setText("");
-
-		}
-
-	}
-
-	public void loginGui() {
-
-		warnung.setText("");
-		warnung.setFont(new Font("Arial", Font.PLAIN, 11));
-		warnung.setForeground(Color.red);
-		warnung2.setText("");
-		warnung2.setFont(new Font("Arial", Font.PLAIN, 11));
-		warnung2.setForeground(Color.red);
-		darfListenerAktivSein = true;
-		zurueck.setVisible(false);
-
-		loginFrame.setSize(600, 300);
-		loginFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
-		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fenster schliesst sich und code wird beendet wenn
-		// man auf X das drueckt
-		loginFrame.setResizable(false); // fenstergroesse nicht veraenderbar
-
-		loginFrame.add(background);
+		bkgicon = new ImageIcon[7];
+		bkgicon[0] = bkg1;
+		bkgicon[1] = bkg2;
+		bkgicon[2] = bkg3;
+		bkgicon[3] = bkg4;
+		bkgicon[4] = bkg5;
+		bkgicon[5] = bkg6;
+		bkgicon[6] = bkg7;
+		background = new JLabel(new ImageIcon(
+				bkgicon[(int) (Math.random() * 7)].getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
 
 		GridBagLayout layout = new GridBagLayout(); // Layoutmanager
 		GridBagConstraints gbc = new GridBagConstraints(); //
@@ -191,6 +163,27 @@ public class Login extends JPanel implements ActionListener {
 
 		background.add(zurueck, gbc);
 
+		loginFrame.setSize(600, 300);
+		loginFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
+		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fenster schliesst sich und code wird beendet wenn
+		// man auf X das drueckt
+		loginFrame.setResizable(false); // fenstergroesse nicht veraenderbar
+
+		loginFrame.add(background);
+
+	}
+
+	public void loginGui() {
+		
+		warnung.setText("");
+		warnung.setFont(new Font("Arial", Font.PLAIN, 11));
+		warnung.setForeground(Color.red);
+		warnung2.setText("");
+		warnung2.setFont(new Font("Arial", Font.PLAIN, 11));
+		warnung2.setForeground(Color.red);
+		darfListenerAktivSein = true;
+		zurueck.setVisible(false);
+
 		zurueck.addActionListener((ActionEvent e) -> {
 
 			confirmButton.setVisible(false);
@@ -225,9 +218,11 @@ public class Login extends JPanel implements ActionListener {
 		loginButton.addActionListener((ActionEvent e) -> { // auf "einloggen" wird geclickt
 			if (groesseComboBox.getSelectedIndex() != 0 && accountAuswahlliste.getSelectedIndex() != 0) {
 
+				
 				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
 				Game.a.s.breite = groesseComboBox.getSelectedIndex() + 2;
 				Game.neuesSpiel();
+				Game.statsAktiv = false;
 				Game.gameGui();
 				loginFrame.dispose(); // das Loginfenster schliesst sich
 			}
@@ -240,7 +235,7 @@ public class Login extends JPanel implements ActionListener {
 		// Soll einen ausgewaehlten Account erkennen und den Spielstand laden
 
 		loadGame.addActionListener((ActionEvent e) -> { // auf "spiel laden" wird geclickt
-			if (accountAuswahlliste.getSelectedIndex() != 0 ) {
+			if (accountAuswahlliste.getSelectedIndex() != 0) {
 
 				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
 				Game.gameGui();
@@ -316,8 +311,9 @@ public class Login extends JPanel implements ActionListener {
 				loadGame.setVisible(true);
 				groesseComboBox.setVisible(true);
 				warnung2.setVisible(false);
+				zurueck.setVisible(false);
 			}
-			
+
 			checkForWarningsNewAcc();
 
 		});
@@ -335,6 +331,59 @@ public class Login extends JPanel implements ActionListener {
 
 	}
 
+	public static void checkForWarnings() {
+
+		if (accountAuswahlliste.getSelectedIndex() == 0 && groesseComboBox.getSelectedIndex() == 0) {
+
+			warnung.setText("Waehle einen Account und eine Feldgroesse aus");
+
+		}
+
+		else if (accountAuswahlliste.getSelectedIndex() == 0) {
+
+			warnung.setText("Waehle einen Account aus");
+
+		}
+
+		else if (groesseComboBox.getSelectedIndex() == 0) {
+
+			warnung.setText("Waehle eine Feldgroesse aus");
+
+		} else {
+
+			warnung.setText("");
+
+		}
+
+	}
+
+	public static void checkForWarningsNewAcc() {
+
+		if (!nameVerfuegbar(textFeld.getText())) {
+
+			textFeld.setText("Namen eingeben");
+			warnung2.setText("Dieser Accountname ist bereits vergeben");
+
+		}
+
+		else if (textFeld.getText().length() > 60) {
+
+			textFeld.setText("Namen eingeben");
+			warnung2.setText("<html>Der Accountname darf <br> nicht laenger als 60 Zeichen sein</html>");
+
+		} else if (!zeichenErlaubt()) {
+
+			textFeld.setText("Namen eingeben");
+			warnung2.setText("<html>Sonderzeichen oder Leerzeichen<br> sind nicht erlaubt</html>");
+
+		} else {
+
+			warnung2.setText("");
+
+		}
+
+	}
+
 	// ~#%&*:<>?/\{|}
 
 	public static Boolean zeichenErlaubt() {
@@ -347,7 +396,7 @@ public class Login extends JPanel implements ActionListener {
 				|| textFeld.getText().indexOf("(") != -1 || textFeld.getText().indexOf(")") != -1
 				|| textFeld.getText().indexOf("{") != -1 || textFeld.getText().indexOf("}") != -1
 				|| textFeld.getText().indexOf("|") != -1 || textFeld.getText().indexOf("/") != -1
-				|| textFeld.getText().indexOf("\\") != -1|| textFeld.getText().indexOf(" ") != -1
+				|| textFeld.getText().indexOf("\\") != -1 || textFeld.getText().indexOf(" ") != -1
 				|| textFeld.getText().indexOf("\"") != -1) {
 
 			return false;
@@ -398,12 +447,10 @@ public class Login extends JPanel implements ActionListener {
 
 		return accounts;
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		l.loginGui();
 
 	}
 }
-
-	

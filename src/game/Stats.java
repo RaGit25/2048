@@ -28,7 +28,7 @@ public class Stats {
 		this.hoechstesAlt = 0;
 		this.rekord = 0;
 		this.rekordAlt = 0;
-		this.zuegeGesamt = -1;
+		this.zuegeGesamt = 0;
 		this.s = s;
 
 	}
