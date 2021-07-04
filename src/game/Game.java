@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.event.AncestorListener;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
@@ -156,6 +157,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		restart.setBorder(border1);
 		restart.setFocusable(false);
 		restart.setBackground(new Color(236, 228, 219));
+		for( ActionListener a : restart.getActionListeners() ) {	//Entfernt alle Actionlistner
+	        restart.removeActionListener( a );
+	    }
 		restart.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 				neuesSpiel();
@@ -172,6 +176,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		zurueck.setBorder(border1);
 		zurueck.setFocusable(false);
 		zurueck.setBackground(new Color(236, 228, 219));
+		for( ActionListener a : zurueck.getActionListeners() ) {	//Entfernt alle Actionlistner
+	        zurueck.removeActionListener( a );
+	    }
 		zurueck.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 			if (!a.s.gameOver()) {
@@ -198,7 +205,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		hilfe.setFont(new Font("Arial", Font.PLAIN, 30));
 		hilfe.setForeground(Color.green);
 		hilfe.setVisible(false);
-
+		for( ActionListener a : tipp.getActionListeners() ) {	//Entfernt alle Actionlistner
+	        tipp.removeActionListener( a );
+	    }
 		tipp.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 			if (!a.s.gameOver()) {
@@ -221,8 +230,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		stats.setBorder(border1);
 		stats.setText("Statistiken");
 		stats.setFont(new Font("Arial", Font.BOLD, 25));
+		for( ActionListener a : stats.getActionListeners() ) {	//Entfernt alle Actionlistner
+	        stats.removeActionListener( a );
+	    }
 		stats.addActionListener((ActionEvent e) -> {
-
 			if (!statsAktiv) {
 
 				restart.setVisible(false);
@@ -255,6 +266,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		exit.setBackground(new Color(236, 228, 219));
 		exit.setBorder(border1);
 		exit.setFocusable(false);
+		for( ActionListener a : exit.getActionListeners() ) {	//Entfernt alle Actionlistner
+	        exit.removeActionListener( a );
+	    }
 		exit.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 			statsAktiv = false; 

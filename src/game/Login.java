@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -183,7 +184,9 @@ public class Login extends JPanel implements ActionListener {
 		warnung2.setForeground(Color.red);
 		darfListenerAktivSein = true;
 		zurueck.setVisible(false);
-
+		for( ActionListener a : zurueck.getActionListeners() ) {	//Entfernt alle Actionlistner
+			zurueck.removeActionListener( a );
+	    }
 		zurueck.addActionListener((ActionEvent e) -> {
 
 			confirmButton.setVisible(false);
@@ -198,7 +201,9 @@ public class Login extends JPanel implements ActionListener {
 			zurueck.setVisible(false);
 
 		});
-
+		for( FocusListener f : textFeld.getFocusListeners() ) {	//Entfernt alle Actionlistner
+			textFeld.removeFocusListener( f );
+	    }
 		textFeld.addFocusListener(new FocusAdapter() { // Man soll immer den gesamten Text auswaehlen
 			public void focusGained(FocusEvent e) {
 				textFeld.selectAll(); // Damit man direkt ueberschreibt
@@ -214,7 +219,9 @@ public class Login extends JPanel implements ActionListener {
 
 		// Soll einen vorhandenen Account, der ausgewaehlt wurde, erkennen
 		// und eine neu ausgewaehlte Feldgroesse einstellen und das Spiel starten
-
+		for( ActionListener a : loginButton.getActionListeners() ) {	//Entfernt alle Actionlistner
+			loginButton.removeActionListener( a );
+	    }
 		loginButton.addActionListener((ActionEvent e) -> { // auf "einloggen" wird geclickt
 			if (groesseComboBox.getSelectedIndex() != 0 && accountAuswahlliste.getSelectedIndex() != 0) {
 
@@ -233,7 +240,9 @@ public class Login extends JPanel implements ActionListener {
 		// ---------Spiel laden--------
 
 		// Soll einen ausgewaehlten Account erkennen und den Spielstand laden
-
+		for( ActionListener a : loadGame.getActionListeners() ) {	//Entfernt alle Actionlistner
+			loadGame.removeActionListener( a );
+	    }		
 		loadGame.addActionListener((ActionEvent e) -> { // auf "spiel laden" wird geclickt
 			if (accountAuswahlliste.getSelectedIndex() != 0) {
 
@@ -245,7 +254,9 @@ public class Login extends JPanel implements ActionListener {
 			checkForWarnings();
 
 		});
-
+		for( ActionListener a : plusButton.getActionListeners() ) {	//Entfernt alle Actionlistner
+			plusButton.removeActionListener( a );
+	    }
 		plusButton.addActionListener((ActionEvent e) -> { // auf "+" wird geclickt
 			loginButton.setVisible(false); // Elemente vom login werden unsichtbar gemacht
 			plusButton.setVisible(false);
@@ -269,7 +280,9 @@ public class Login extends JPanel implements ActionListener {
 		// Soll einen neuen Account mit dem Namen erstellen, der eingegeben wurde
 		// und zur JComboBox "accountAuswahlliste" diesen Account hinzufuegen
 		// und ein Spiel mit der ausgewaehlten Feldgroesse starten
-
+		for( ActionListener a : confirmButton.getActionListeners() ) {	//Entfernt alle Actionlistner
+			confirmButton.removeActionListener( a );
+	    }
 		confirmButton.addActionListener((ActionEvent e) -> { // auf "bestaetigen" wird geclickt
 
 			if (nameVerfuegbar(textFeld.getText()) && textFeld.getText().length() <= 60 && zeichenErlaubt()) {
@@ -317,7 +330,9 @@ public class Login extends JPanel implements ActionListener {
 			checkForWarningsNewAcc();
 
 		});
-
+		for( ActionListener a : accountAuswahlliste.getActionListeners() ) {	//Entfernt alle Actionlistner
+			accountAuswahlliste.removeActionListener( a );
+	    }
 		accountAuswahlliste.addActionListener((ActionEvent e) -> {
 
 			if (darfListenerAktivSein && accountAuswahlliste.getSelectedIndex() != 0) {
