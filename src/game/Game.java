@@ -12,9 +12,7 @@ import javax.swing.border.LineBorder;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
-	/**
-	 * 
-	 */
+	static Login l = new Login();
 	private static final long serialVersionUID = 1L;
 
 	static Account a =  null;	/*new Account("keinAccount", 4)*/;
@@ -241,7 +239,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		exit.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 			gameFrame.dispose();
-			Login.loginGui();	//Static mit Klassennamen aufrufen
+			l.loginGui();	//Static mit Klassennamen aufrufen
 
 		});
 
@@ -646,12 +644,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	}
 
-	// GUI und zwei bloecke werden erstellt
-
-	public static void main(String[] args) {
-
-		Login.loginGui();
-
-	}
+	
 
 }
