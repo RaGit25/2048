@@ -14,9 +14,10 @@ class Spielfeld {
 	public int zusammenschuebe;
 	public Boolean veraendert;
 	public Boolean hinzufuegen;
-	
-	Spielfeld(){}
-	
+
+	Spielfeld() {
+	}
+
 	Spielfeld(int g) {
 		breite = g;
 		feld = new Block[breite][breite]; // Initialisierung des Feldes
@@ -91,25 +92,21 @@ class Spielfeld {
 	}
 
 	public Block[][] getFeld() {
-
 		return this.feld;
 	}
 
 	public int getPunkte() {
-
 		return this.punkte;
 	}
 
 	public int getHoechstesFeld() {
-
 		return this.hoechstesFeld;
 	}
-	
+
 	public int getZuege() {
 		return this.zuege;
 	}
-	
-	@JsonIgnore
+
 	public int getPunkteDifferenz() {
 		return this.punkteDifferenz;
 	}
@@ -118,16 +115,16 @@ class Spielfeld {
 	public int getZusammenschuebe() {
 		return this.zusammenschuebe;
 	}
-	
+
 	@JsonIgnore
 	public Boolean getVeraendert() {
 		return veraendert;
 	}
-	
+
 	public Boolean getHinzufuegen() {
 		return hinzufuegen;
 	}
-	
+
 	@JsonIgnore
 	public int getAnzahl() { // Gibt die Anzahl der vollen Felder
 		int a = 0;
@@ -267,7 +264,7 @@ class Spielfeld {
 			}
 			break;
 		}
-		if (veraendert && hinzufuegen) {	//Wenn das Feld sich veraendert hat und es nicht unterdrueckt wird
+		if (veraendert && hinzufuegen) { // Wenn das Feld sich veraendert hat und es nicht unterdrueckt wird
 			blockErstellen();
 		} else {
 			zuege--;
@@ -357,15 +354,17 @@ class Spielfeld {
 				blockErstellen();
 			}
 		}
-		//ausdrucken();
+		// ausdrucken();
 	}
 
 	// Zur Fehlerbehebung
-	/*public void ausdrucken() { for (int k = 0; k < 5; k++) {
-	  System.out.println(); } System.out.println("-----------------------"); for
-	  (int i = 0; i < breite; i++) { for (int j = 0; j < breite; j++) { if
-	  (feld[i][j].getWert() == 0) System.out.print("| |"); else
-	  System.out.print("|" + feld[i][j].getWert() + "|"); } System.out.println(); }
-	  System.out.println("-----------------------"); System.out.println("Zuege:" +
-	  zuege); }*/
+	/*
+	 * public void ausdrucken() { for (int k = 0; k < 5; k++) {
+	 * System.out.println(); } System.out.println("-----------------------"); for
+	 * (int i = 0; i < breite; i++) { for (int j = 0; j < breite; j++) { if
+	 * (feld[i][j].getWert() == 0) System.out.print("| |"); else
+	 * System.out.print("|" + feld[i][j].getWert() + "|"); } System.out.println(); }
+	 * System.out.println("-----------------------"); System.out.println("Zuege:" +
+	 * zuege); }
+	 */
 }

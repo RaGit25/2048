@@ -9,18 +9,18 @@ import java.text.DecimalFormat;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.event.AncestorListener;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
 	static Account a;
-
+	static Autoplay auto;
+	
 	static Boolean statsAktiv;
 
 	static Game game = new Game();
-
+	
 	static JFrame gameFrame;
 
 	static JPanel centerPanel;
@@ -48,13 +48,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public Game() {
 
-		statsAktiv = false;
-
 		a = null;
-
+		auto = new Autoplay();
+		
+		statsAktiv = false;
+		
 		setPreferredSize(new Dimension(850, 1000)); // macht das Spielfeld im Panel "centerPanel" sichtbar
 
-		gameFrame = new JFrame("2048");
+		gameFrame = new JFrame();
 		centerPanel = new JPanel(); // Mehrere Panels benoetigt (fuer den Layoutmanager)
 		panel1 = new JPanel();
 		panel2 = new JPanel();
@@ -97,6 +98,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	public static void setAccount(Account n) {
 		Game.a = n;
 		a.st.updateSpielfeld(a.s);
+		gameFrame.setTitle("2048 - "+a.getName());
 	}
 
 	public static void gameGui() { // das Spielfenster
@@ -124,7 +126,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		punkte.setOpaque(true);
 
 		// rekord
-		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // rekord fehlt noch, weil keine Speicherung
+		rekord.setText("<html>Rekord <br>" + a.st.setRekord() + "</html>");
 		rekord.setForeground(Color.white);
 		rekord.setLayout(null);
 		rekord.setBounds(600, 25, 150, 80);
@@ -151,9 +153,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		restart.setText("Neues Spiel");
 		restart.setFont(new Font("Arial", Font.BOLD, 23));
 		restart.setBounds(600, 120, 150, 50);
-		// ImageIcon icon = new ImageIcon("restart.png"); // bild mit den 2 pfeilen,
-		// siehe Dateien d. Projekts
-		// restart.setIcon(icon);
 		restart.setBorder(border1);
 		restart.setFocusable(false);
 		restart.setBackground(new Color(236, 228, 219));
@@ -163,6 +162,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		restart.addActionListener((ActionEvent e) -> { // wenn man auf den button drueckt
 
 				neuesSpiel();
+				labelNeuladen();
 
 		});
 
@@ -170,9 +170,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		zurueck.setBounds(425, 120, 100, 50);
 		zurueck.setText("Zurueck");
 		zurueck.setFont(new Font("Arial", Font.BOLD, 22));
-		// ImageIcon icon1 = new ImageIcon("back.png"); // bild mit den 1 pfeil, siehe
-		// Dateien d. Projekts
-		// zurueck.setIcon(icon1);
 		zurueck.setBorder(border1);
 		zurueck.setFocusable(false);
 		zurueck.setBackground(new Color(236, 228, 219));
@@ -184,8 +181,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			if (!a.s.gameOver()) {
 
 				a.zuruecknehmen();
-				// rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>");
-				// punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
 				centerPanel.repaint();
 				labelNeuladen();
 
@@ -212,9 +207,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			if (!a.s.gameOver()) {
 
-				Autoplay au = new Autoplay();
-
-				String tipp = au.naechsterZug(a.s);
+				String tipp = auto.naechsterZug(a.s);
 				hilfe.setText("Tipp: " + tipp);
 				hilfe.setVisible(true);
 
@@ -351,7 +344,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			g.drawString(" " + a.st.getDurchschnittsPunkte(), 550, 320);
 
 			g.drawString("Anzahl der ausgefuehrten Zuege:", 70, 360);
-			g.drawString(" " + a.st.getZuegeMomentan(), 550, 360);
+			g.drawString(" " + a.s.getZuege(), 550, 360);
 
 			g.drawString("Anzahl aller ausgefuehrten Zuege:", 70, 400);
 			g.drawString(" " + a.st.getZuegeGesamt(), 550, 400);
@@ -454,9 +447,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				labelNeuladen();
 
 				// Startet neue Runden bis Spielende
-				/*
-				 * if (!a.s.gewonnen()) { neuesSpiel(); }
-				 */
+			 	//if (!a.s.gewonnen()) { neuesSpiel(); }
 
 			}
 
@@ -556,22 +547,19 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		} else if (e.getKeyChar() == 'z' && !statsAktiv) {
 
 			a.klonen();
-			Autoplay au = new Autoplay();
-			a.s.welcheRichtung(au.zufaelligeRichtung());
+			a.s.welcheRichtung(auto.zufaelligeRichtung());
 			gameFrame.repaint();
 
 		} else if (e.getKeyChar() == 'r' && !statsAktiv) {
 
 			a.klonen();
-			Autoplay au = new Autoplay();
-			a.s.welcheRichtung(au.naechsterZug(a.s));
+			a.s.welcheRichtung(auto.naechsterZug(a.s));
 			gameFrame.repaint();
 
 		} else if (e.getKeyChar() == 'c' && !statsAktiv) {
 
 			a.klonen();
-			Autoplay au = new Autoplay();
-			a.s.welcheRichtung(au.muster(a.s));
+			a.s.welcheRichtung(auto.muster(a.s));
 			gameFrame.repaint();
 
 		} else if (e.getKeyChar() == 'l' && !statsAktiv) { // load
@@ -585,13 +573,19 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		}
 
-		a.st.update();
-		JSONVerwalter.speichern(a); // Speichern der Json
+		if(a.s.getVeraendert()) {		//Nur bei Veraenderung soll sich was aendern
+			a.st.update();
+			punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>"); // Updaten der Punktzahl
+			rekord.setText("<html>Rekord <br>" + a.st.setRekord() + "</html>"); // Updaten des Rekords
+			JSONVerwalter.speichern(a); // Speichern der Json
+			labelNeuladen();	
+		}
 		labelNeuladen();
 		hilfe.setVisible(false);
+		
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {	// macht nichts, muss aber da sein
 	}
 
 	public void keyReleased(KeyEvent e) { // macht nichts, muss aber da sein
@@ -602,24 +596,21 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	public static void neuesSpiel() {
 
-		// rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); //
-		// unnoetig, weil live update von Rekord
 		a.st.updateEnde();
 		a.s = new Spielfeld(a.s.getBreite());
-		a.st.updateSpielfeld(a.s);
 		a.s.blockErstellen();
 		a.s.blockErstellen();
 		a.klonen();
 		JSONVerwalter.speichern(a);
-		// punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
 		centerPanel.repaint();
 		labelNeuladen();
 	}
 
 	public static void labelNeuladen() {
-
+		
+		a.st.updateSpielfeld(a.s);	//Sicherstellen
 		punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>"); // Updaten der Punktzahl
-		rekord.setText("<html>Rekord <br>" + a.st.getRekord() + "</html>"); // Updaten des Rekords
+		rekord.setText("<html>Rekord <br>" + a.st.setRekord() + "</html>"); // Updaten des Rekords
 
 		if (a.s.hoechstesFeld == 2048) {
 
@@ -668,10 +659,4 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		}
 
 	}
-
-	public static void main(String[] args) {
-		
-		
-	}
-
 }

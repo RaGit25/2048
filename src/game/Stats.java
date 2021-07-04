@@ -63,26 +63,27 @@ public class Stats {
 		this.s = s;
 	}
 
-	void punkteGesamt() { // PRO RUNDE AUFRUFEN
-
-		punkteGesamt += s.getPunkteDifferenz();
-	}
-
 	int getRekord() {
-
-		if (rekord < s.getPunkte()) { // Wenn Punkte groesser als Rekord
-
-			rekord = s.getPunkte();
-
-		}
 
 		return rekord;
 
 	}
+	
+	int setRekord() {
 
+		if (s.getPunkte() > rekord  ) { // Wenn Punkte groesser als Rekord
+
+			rekord = s.getPunkte();
+
+		}
+		return rekord;
+	}
+
+	@JsonIgnore
 	int getDurchschnittsPunkte() {
 		return (int) (punkteGesamt / (runden));
 	}
+	
 
 	void saveAlt() { // Vor Update der insgesamt Hoechsten
 
@@ -106,6 +107,11 @@ public class Stats {
 		return hoechstesFeldInsgesamt;
 	}
 
+	void setPunkteGesamt() { // PRO RUNDE AUFRUFEN
+
+		punkteGesamt += s.getPunkteDifferenz();
+	}
+	
 	int getPunkteGesamt() {
 
 		return punkteGesamt;
@@ -121,12 +127,6 @@ public class Stats {
 	int getRunden() {
 
 		return runden;
-
-	}
-
-	int getZuegeMomentan() {
-
-		return s.getZuege();
 
 	}
 
@@ -169,8 +169,9 @@ public class Stats {
 	void update() { // Update pro Zug
 		saveAlt();
 
+		setRekord();
 		zuegeGesamt();
-		punkteGesamt();
+		setPunkteGesamt();
 		feldHoch();
 
 		if (s.gewonnen() && !gewonneneRunde) {

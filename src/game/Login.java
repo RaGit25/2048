@@ -54,7 +54,7 @@ public class Login extends JPanel implements ActionListener {
 
 	public Login() {
 		
-		loginFrame = new JFrame("login");
+		loginFrame = new JFrame("2048 - Login");
 
 		warnung = new JLabel();
 		warnung2 = new JLabel();
