@@ -14,7 +14,7 @@ public class Login extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	static Login l = new Login();
-	
+		
 	static JFrame loginFrame = new JFrame("login");
 
 	static ImageIcon bkg1 = new ImageIcon("bilder/bkg1.jpg");
@@ -31,15 +31,15 @@ public class Login extends JPanel implements ActionListener {
 	static JLabel title = new JLabel(
 			new ImageIcon(titleicon.getImage().getScaledInstance(150, 75, Image.SCALE_DEFAULT)));
 
-	static JTextField textFeld = new JTextField("namen eingeben");
+	static JTextField textFeld = new JTextField("Namen eingeben");
 
 	static Boolean darfListenerAktivSein;
 
-	static JButton loginButton = new JButton("Neues Spiel");
-	static JButton loadGame = new JButton("Spiel laden");
+	static JButton loginButton = new JButton("Neues Spiel erstellen");
+	static JButton loadGame = new JButton("Spielstand laden");
 	static JButton plusButton = new JButton("Neuer Account");
-	static JButton confirmButton = new JButton("bestaetigen");
-	static JButton zurueck = new JButton("Zurueck zum Hauptmenue");
+	static JButton confirmButton = new JButton("Erstellen");
+	static JButton zurueck = new JButton("Zurueck zur Accountauswahl");
 
 	static JLabel warnung = new JLabel();
 	static JLabel warnung2 = new JLabel();
@@ -87,17 +87,20 @@ public class Login extends JPanel implements ActionListener {
 	public static void checkForWarningsNewAcc() {
 
 		if (!nameVerfuegbar(textFeld.getText())) {
-
+			
+			textFeld.setText("Namen eingeben");
 			warnung2.setText("Dieser Accountname ist bereits vergeben");
 
 		}
 
 		else if (textFeld.getText().length() > 60) {
-
+			
+			textFeld.setText("Namen eingeben");
 			warnung2.setText("<html>Der Accountname darf <br> nicht laenger als 60 Zeichen sein</html>");
 
 		} else if (!zeichenErlaubt()) {
-
+			
+			textFeld.setText("Namen eingeben");
 			warnung2.setText("<html>Sonderzeichen oder Leerzeichen<br> sind nicht erlaubt</html>");
 
 		} else {
@@ -294,9 +297,9 @@ public class Login extends JPanel implements ActionListener {
 
 					accountAuswahlliste.addItem(accountString[i]);
 
-					// if (accountString[i].equals(textFeld.getText())) {
-					// accountAuswahlliste.setSelectedIndex(i);
-					// }
+					if (accountString[i].equals(textFeld.getText())) {
+						accountAuswahlliste.setSelectedIndex(i);
+					}
 
 				}
 
@@ -314,7 +317,7 @@ public class Login extends JPanel implements ActionListener {
 				groesseComboBox.setVisible(true);
 				warnung2.setVisible(false);
 			}
-
+			
 			checkForWarningsNewAcc();
 
 		});
@@ -344,7 +347,8 @@ public class Login extends JPanel implements ActionListener {
 				|| textFeld.getText().indexOf("(") != -1 || textFeld.getText().indexOf(")") != -1
 				|| textFeld.getText().indexOf("{") != -1 || textFeld.getText().indexOf("}") != -1
 				|| textFeld.getText().indexOf("|") != -1 || textFeld.getText().indexOf("/") != -1
-				|| textFeld.getText().indexOf("'\'") != -1 || textFeld.getText().indexOf(" ") != -1) {
+				|| textFeld.getText().indexOf("\\") != -1|| textFeld.getText().indexOf(" ") != -1
+				|| textFeld.getText().indexOf("\"") != -1) {
 
 			return false;
 
@@ -366,7 +370,7 @@ public class Login extends JPanel implements ActionListener {
 				return false;
 			}
 		}
-		return true;
+		return (name.equals("Namen eingeben")) ? false : true;
 	}
 
 	private static String[] accounts() {
@@ -394,10 +398,12 @@ public class Login extends JPanel implements ActionListener {
 
 		return accounts;
 	}
-
+	
 	public static void main(String[] args) {
 		
 		l.loginGui();
 
 	}
 }
+
+	
