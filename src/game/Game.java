@@ -14,38 +14,49 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	static Account a;
-	static Autoplay auto;
-	
-	static Boolean statsAktiv;
+	static Account a;               // Objekt der Klasse Account
+	static Autoplay auto;           // Objekt der Klasse Autoplay
+	 
+	static Boolean statsAktiv;      // Benoetigt für den Statistiken Button, siehe ActionListener stats und paintComponent()
 
-	static Game game = new Game();
+	static Game game = new Game();  // Objekt der Klasse Game, u.a. fuer den KeyListener benoetigt
 	
-	static JFrame gameFrame;
+	static JFrame gameFrame;        // Spielfenster
 
+	
+	/* Die vier JPanels, bzw. "Teile" des Spielfensters
+	 * 
+	 * centerPanel = Beinhaltet das Spielfeld und ist dunkelgrau gefaerbt, sozusagen der Hintergrund
+	 * 
+	 * panel1 = Panel ueber dem Spielfeld
+	 * panel2/3 = Panel links/rechts neben dem Spielfeld
+	 * panel4 = Panel unter dem Spielfeld
+	 * 
+	 */
+	
 	static JPanel centerPanel;
 	static JPanel panel1;
 	static JPanel panel2;
 	static JPanel panel3;
 	static JPanel panel4;
 
-	static LineBorder border;
-	static LineBorder border1;
-	static LineBorder border2;
+	static LineBorder border;      // Rand der Punkte-, Rekordanzeige
+	static LineBorder border1;     // Rand der Buttons
+	static LineBorder border2;     // Rand fuer den Zurueckbutton, wenn er grau ist
 
-	static JLabel punkte;
-	static JLabel rekord;
-	static JLabel hilfe;
+	static JLabel punkte;          // Punktzahl oben rechts
+	static JLabel rekord;          // Rekord oben rechts
+	static JLabel hilfe;           // Wird angezeigt, wenn man auf den Tippbutton drueckt
+	static JLabel titel;           // Titel oben links
 
-	static JLabel titel;
+	static JButton restart;        // Button "Neues Spiel"
+	static JButton zurueck;        // Button "Zurueck"
+	static JButton tipp;           // Button "?" , aktiviert JLabel "hilfe"
+	static JButton stats;          // Button "Statistiken"
+	static JButton exit;           // Button "Zum Login"
 
-	static JButton restart;
-	static JButton zurueck;
-	static JButton tipp;
-	static JButton stats;
-
-	static JButton exit;
-
+	// Initialisieren aller Attribute, Objekte. Wird nur einmal aufgerufen
+	
 	public Game() {
 
 		a = null;
@@ -56,7 +67,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		setPreferredSize(new Dimension(850, 1000)); // macht das Spielfeld im Panel "centerPanel" sichtbar
 
 		gameFrame = new JFrame();
-		centerPanel = new JPanel(); // Mehrere Panels benoetigt (fuer den Layoutmanager)
+		centerPanel = new JPanel();
 		panel1 = new JPanel();
 		panel2 = new JPanel();
 		panel3 = new JPanel();
@@ -68,13 +79,15 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		rekord = new JLabel();
 		hilfe = new JLabel();
 		titel = new JLabel();
-		restart = new JButton(); // restart Button oben links im Spiel
+		restart = new JButton();
 		zurueck = new JButton();
 		tipp = new JButton();
 		stats = new JButton();
 		exit = new JButton();
 		
-		gameFrame.setLayout(new BorderLayout()); // BorderLayout = 1 panel in der Mitte und 4 aussenrum
+		// BorderLayout = 5 Panels, Positionen siehe oben
+		
+		gameFrame.setLayout(new BorderLayout());   
 
 		gameFrame.add(centerPanel, BorderLayout.CENTER);
 		gameFrame.add(panel1, BorderLayout.NORTH);
@@ -82,6 +95,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		gameFrame.add(panel3, BorderLayout.WEST);
 		gameFrame.add(panel4, BorderLayout.SOUTH);
 
+		//Einmaliges Hinzufuegen aller Objekte zu den Panels
+		
 		panel1.add(punkte);
 		panel1.add(rekord);
 		panel1.add(titel);
@@ -91,10 +106,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		panel1.add(hilfe);
 		panel1.add(stats);
 		panel4.add(exit);
-		centerPanel.add(this); // sichtbarmachen der Felder
+		centerPanel.add(this);               // sichtbarmachen der Felder, added das Objekt Game
 
 	}
 
+	// Wird in Klasse Login verwendet
+	
 	public static void setAccount(Account n) {
 		Game.a = n;
 		a.st.updateSpielfeld(a.s);
@@ -105,15 +122,17 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	
 		centerPanel.setBackground(Color.gray);
-		centerPanel.setPreferredSize(new Dimension(100, 100)); // groesssse d. panels in d. mitte
+		centerPanel.setPreferredSize(new Dimension(100, 100));
 
 		// festlegen d. groessen d. anderen panels
+		
 		panel1.setPreferredSize(new Dimension(100, 180));
 		panel4.setPreferredSize(new Dimension(100, 60));
 		panel2.setPreferredSize(new Dimension(30, 30));
 		panel3.setPreferredSize(new Dimension(30, 30));
 
 		// punktzahl
+		
 		punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>");
 		punkte.setForeground(Color.white);
 		panel1.setLayout(null);
@@ -126,6 +145,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		punkte.setOpaque(true);
 
 		// rekord
+		
 		rekord.setText("<html>Rekord <br>" + a.st.setRekord() + "</html>");
 		rekord.setForeground(Color.white);
 		rekord.setLayout(null);
@@ -138,6 +158,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		rekord.setOpaque(true);
 
 		// Titel
+		
 		titel.setText("2048");
 		titel.setBounds(35, 25, 210, 80);
 		titel.setFont(new Font("Arial", Font.BOLD, 70));
@@ -150,6 +171,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		titel.setOpaque(true);
 
 		// restart button
+		
 		restart.setText("Neues Spiel");
 		restart.setFont(new Font("Arial", Font.BOLD, 23));
 		restart.setBounds(600, 120, 150, 50);
@@ -167,6 +189,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		});
 
 		// zurueck button
+		
 		zurueck.setBounds(425, 120, 100, 50);
 		zurueck.setText("Zurueck");
 		zurueck.setFont(new Font("Arial", Font.BOLD, 22));
@@ -189,10 +212,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		});
 
 		// tipp button
+		
 		tipp.setBounds(528, 120, 50, 50);
 		tipp.setText("?");
 		tipp.setFont(new Font("Arial", Font.BOLD, 35));
-		tipp.setBorder(BorderFactory.createEtchedBorder());
 		tipp.setFocusable(false);
 		tipp.setBackground(new Color(236, 228, 219));
 		tipp.setBorder(border1);
@@ -216,8 +239,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		});
 
 		// stats button
+		
 		stats.setBounds(35, 120, 210, 50);
-		stats.setBorder(BorderFactory.createEtchedBorder());
 		stats.setFocusable(false);
 		stats.setBackground(new Color(236, 228, 219));
 		stats.setBorder(border1);
@@ -252,6 +275,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		});
 
 		// exit button
+		
 		panel4.setLayout(null);
 		exit.setFont(new Font("Arial", Font.BOLD, 15));
 		exit.setText("Zum Login");
@@ -272,22 +296,25 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		gameFrame.setSize(800, 1000);
 		gameFrame.setVisible(true);
-		gameFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
+		gameFrame.setLocationRelativeTo(null);                    // wird in der MItte d. Bildschirms geoeffnet
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fenster schliesst sich und code wird beendet wenn
-																	// man auf X das drueckt
-		gameFrame.setResizable(false); // fenstergroesse nicht veraenderbar
-		gameFrame.removeKeyListener(game);
-		gameFrame.addKeyListener(game);
+															      // man auf X das drueckt
+		gameFrame.setResizable(false);                            // fenstergroesse nicht veraenderbar
+		gameFrame.removeKeyListener(game);                        // Da gameGui() oft aufgerufen wird, wird der Keylistener
+		gameFrame.addKeyListener(game);                           // entfernt und hinzugefuegt, damit es nur einen gibt
 
 	}
 
 	// paint wird bei jedem Zug mit repaint() aufgerufen.
-	// erstellt im Prinzip alles, was der Spieler sieht auf zwei Methoden aufgeteilt
+	// erstellt im Prinzip alles, was der Spieler sieht, auf zwei Methoden aufgeteilt
 
 	public void paintComponent(Graphics g) {
+		
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.gray);
 		g.setColor(Color.black);
+		
+		// Fuer den Fall, wenn der Statistiken Button gedrueckt wird
 
 		if (statsAktiv) {
 
@@ -295,10 +322,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			g.drawString("Statistiken", 80, 40);
 			g.setFont(new Font("Arial", Font.PLAIN, 30));
 			g.setColor(Color.white);
-
+			
+			// Alle einzelnen Statistiken
+			
 			g.drawString("Anzahl aller gesammelten Punkte:", 70, 120);
 			g.drawString(" " + a.st.getPunkteGesamt(), 550, 120);
 
+			// Farbe wird je nach dem hoechsten Feld ab 2048 geaendert, kleines Detail
+			
 			g.drawString("Hoechstes erreichtes Feld:", 70, 160);
 
 			if (a.st.getFeldHoch() == 2048) {
@@ -330,6 +361,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			g.drawString(" " + a.st.getGewonnen(), 550, 240);
 
 			g.drawString("Anteil der Runden mit 2048:", 70, 280);
+			
+			// Wenn man jedes Spiel 2048 erreicht sind die 100% gold, kleines Detail
 
 			if (a.st.getwinLoseRatio() == 1.0) {
 				g.setColor(new Color(237, 194, 46));
@@ -348,18 +381,22 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			g.drawString("Anzahl aller ausgefuehrten Zuege:", 70, 400);
 			g.drawString(" " + a.st.getZuegeGesamt(), 550, 400);
+			
+			// Der Fall, wenn man spielt
 
 		} else {
+			
+			// Erstellen der Eingabeparameter fuer felder(), da verschiedene Feldgroessen entsprechend angepasst werden muessen
 
-			int breite = 0;
-			int schrift = 0;
-			int abstand = 0;
-			int schriftX = 0;
-			int schriftY = 0;
-			int r = 0;
-			int v = 0;
+			int breite = 0;            // hoehe, breite eines Feldes
+			int schrift = 0;           // Schriftgroesse der Zahl im Feld
+			int abstand = 0;           // Abstand der Felder zueinander
+			int schriftX = 0;          // Position der Zahl X
+			int schriftY = 0;          // Y
+			int r = 0;                 // Parameter r, v, e veraendern je nach Feldgroesse und Zahl die Position 
+			int v = 0;                 // der Zahl minimal, damit sie in der Mitte sind
 			int e = 0;
-			int schriftAenderung = 0;
+			int schriftAenderung = 0;  // Aenderung der Schriftgroesse je nach Zahl
 
 			if (a.s.getBreite() == 3) {
 
@@ -446,7 +483,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				g.drawString("Druecke 'enter' um neu zu starten.", 200, 390);
 				labelNeuladen();
 
-				// Startet neue Runden bis Spielende
+				// Startet neue Runden bis Spielende, nur fuers Testen
+				
 			 	//if (!a.s.gewonnen()) { neuesSpiel(); }
 
 			}
@@ -472,7 +510,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		if (wert > 0) { // je nach Wert wird das Feld gefaerbt
 			g2.setColor(block.getFarbe());
 
-			g2.fillRoundRect(x, y, breite, breite, 10, 10); // graue, leere Felder
+			g2.fillRoundRect(x, y, breite, breite, 10, 10);
 
 			g2.setColor(Color.darkGray);
 
@@ -510,6 +548,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 	}
 
+	// Der KeyListener ruft welcheRichtung() je nach Eingabe auf und klont das Spielfeld
+	
 	public void keyPressed(KeyEvent e) {
 
 		if ((e.getKeyChar() == 'w' || e.getKeyCode() == KeyEvent.VK_UP) && !statsAktiv) {
@@ -562,12 +602,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			a.s.welcheRichtung(auto.muster(a.s));
 			gameFrame.repaint();
 
-		} else if (e.getKeyChar() == 'l' && !statsAktiv) { // load
-
-			setAccount(JSONVerwalter.laden("test")); // Neuladen des TestAccounts
-			gameFrame.repaint();
-
-		} else if (e.getKeyCode() == KeyEvent.VK_ENTER && a.s.gameOver()) {
+		}  else if (e.getKeyCode() == KeyEvent.VK_ENTER && a.s.gameOver()) {
 
 			neuesSpiel();
 
@@ -585,15 +620,17 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		
 	}
 
-	public void actionPerformed(ActionEvent e) {	// macht nichts, muss aber da sein
+	public void actionPerformed(ActionEvent e) {	// macht nichts, muss aber da sein weil Interface
 	}
 
-	public void keyReleased(KeyEvent e) { // macht nichts, muss aber da sein
+	public void keyReleased(KeyEvent e) { // macht nichts, muss aber da sein weil Interface
 	}
 
-	public void keyTyped(KeyEvent e) { // macht nichts, muss aber da sein
-	}
+	public void keyTyped(KeyEvent e) { // macht nichts, muss aber da sein weil Interface
+	} 
 
+	// wird beim Starten eines neues Spiels aufgerufen
+	
 	public static void neuesSpiel() {
 
 		a.st.updateEnde();
@@ -606,12 +643,16 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		labelNeuladen();
 	}
 
+	// Fuer die Punktzahl, rekorde und kleine Details
+	
 	public static void labelNeuladen() {
 		
 		a.st.updateSpielfeld(a.s);	//Sicherstellen
 		punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>"); // Updaten der Punktzahl
 		rekord.setText("<html>Rekord <br>" + a.st.setRekord() + "</html>"); // Updaten des Rekords
 
+		// Farbe des Titels aendert sich je nach hoechstem Feld ab 2048
+		
 		if (a.s.hoechstesFeld == 2048) {
 
 			titel.setForeground(new Color(252, 130, 20));
@@ -634,6 +675,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		}
 
+		 // zurueck button wird grau, wenn er nichts aendert
+		
 		if (a.s.equals(a.klon)) {
 
 			zurueck.setBackground(Color.gray);

@@ -545,9 +545,9 @@ public class Login extends JPanel implements ActionListener {
 		accounts[0] = "Konto auswaehlen"; // Erster Eintrag
 		for (int j = 0; j < (acc.size()); j++) {
 
-			accounts[j + 1] = acc.get(j); // �bertragung der Liste
+			accounts[j + 1] = acc.get(j); // Uebertragung der Liste
 
-			accounts[j + 1] = acc.get(j); // �bertragung der Liste
+			accounts[j + 1] = acc.get(j); // Uebertragung der Liste
 
 		}
 

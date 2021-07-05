@@ -51,6 +51,8 @@ public class Stats {
 	public Stats() {
 	}
 
+	// wenn zurueckgemacht wird
+	
 	void Statszuruecknehmen(Spielfeld k) {
 		this.punkteGesamt -= s.getPunkteDifferenz();
 		this.hoechstesFeldInsgesamt = this.hoechstesAlt;
