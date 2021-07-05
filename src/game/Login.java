@@ -148,6 +148,11 @@ public class Login extends JPanel implements ActionListener {
 		gbc.gridx = 0;
 		gbc.gridwidth = 2;
 		background.add(accountEntfernen, gbc);
+		
+		gbc.gridy = 6;
+		gbc.gridx = 0;
+		gbc.gridwidth = 2;
+		background.add(removeLabel, gbc);
 
 		gbc.gridy = 6;
 		gbc.gridx = 0;
@@ -196,7 +201,7 @@ public class Login extends JPanel implements ActionListener {
 		warnung2.setForeground(Color.red);
 		removeLabel.setText("");
 		removeLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-		removeLabel.setForeground(Color.red);
+		removeLabel.setForeground(Color.black);
 		darfListenerAktivSein = true;
 		zurueck.setVisible(false);
 		for( ActionListener a : zurueck.getActionListeners() ) {	//Entfernt alle Actionlistner
@@ -394,6 +399,7 @@ public class Login extends JPanel implements ActionListener {
 					
 					accountEntfernen.setText("Abbrechen");
 					loginFrame.setTitle("2048 - Account entfernen");
+					removeLabel.setText("<html>Waehle den Account aus,<br> der entfernt werden soll</html>");
 					
 					plusButton.setVisible(false);
 					groesseComboBox.setVisible(false);
@@ -408,6 +414,7 @@ public class Login extends JPanel implements ActionListener {
 					
 					accountEntfernen.setText("Account entfernen");
 					loginFrame.setTitle("2048 - Login");
+					removeLabel.setText("");
 					
 					plusButton.setVisible(true);
 					groesseComboBox.setVisible(true);
@@ -535,7 +542,7 @@ public class Login extends JPanel implements ActionListener {
 		}
 
 		String[] accounts = new String[(acc.size()) + 1]; // Erstellen einer String-Liste
-		accounts[0] = "Konto auswahlen"; // Erster Eintrag
+		accounts[0] = "Konto auswaehlen"; // Erster Eintrag
 		for (int j = 0; j < (acc.size()); j++) {
 
 			accounts[j + 1] = acc.get(j); // �bertragung der Liste
