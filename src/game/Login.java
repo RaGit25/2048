@@ -42,6 +42,7 @@ public class Login extends JPanel implements ActionListener {
 	static JButton confirmButton;
 	static JButton zurueck;
 	static JButton accountEntfernen;
+	static JButton confirmDelete;
 
 	static JLabel warnung;
 	static JLabel warnung2;
@@ -71,6 +72,7 @@ public class Login extends JPanel implements ActionListener {
 		confirmButton = new JButton("Erstellen");
 		zurueck = new JButton("Zurueck zur Accountauswahl");
 		accountEntfernen = new JButton("Account entfernen");
+		confirmDelete = new JButton("Bestaetigen");
 		
 		accountString = accounts();
 		accountAuswahlliste = new JComboBox<String>(accountString);
@@ -152,6 +154,11 @@ public class Login extends JPanel implements ActionListener {
 		gbc.gridy = 6;
 		gbc.gridx = 0;
 		gbc.gridwidth = 2;
+		background.add(confirmDelete, gbc);
+		
+		gbc.gridy = 7;
+		gbc.gridx = 0;
+		gbc.gridwidth = 2;
 		background.add(removeLabel, gbc);
 
 		gbc.gridy = 6;
@@ -204,6 +211,7 @@ public class Login extends JPanel implements ActionListener {
 		removeLabel.setForeground(Color.black);
 		darfListenerAktivSein = true;
 		zurueck.setVisible(false);
+		confirmDelete.setVisible(false);
 		for( ActionListener a : zurueck.getActionListeners() ) {	//Entfernt alle Actionlistner
 			zurueck.removeActionListener( a );
 	    }
@@ -368,29 +376,20 @@ public class Login extends JPanel implements ActionListener {
 				groesseComboBox.setSelectedIndex(a.s.getBreite() - 2); // waehlt die Spielgroesse des Accounts aus
 				
 				if(removingActionActive && darfListenerAktivSein && accountAuswahlliste.getSelectedIndex() != 0) {
+				
+					confirmDelete.setVisible(true);
+					removeLabel.setText("<html>Druecke auf Bestaetigen,<br> um den Account<br> zu entfernen </html>");
 					
-					File file = new File("./"+ JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]).name + ".json");
 					
-					if(file.exists()) {
-						
-						file.delete();
-						
-						accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
-						accountAuswahlliste.removeAllItems();
-
-						accountString = accounts();
-						
-						for (int i = 0; i < accountString.length; i++) {
-
-							accountAuswahlliste.addItem(accountString[i]);
-							
-						}
-						
-					}
-					
-				}
-
+				} 
 			}
+			
+			if(removingActionActive && darfListenerAktivSein && accountAuswahlliste.getSelectedIndex() == 0) {
+				
+				removeLabel.setText("<html>Waehle den Account aus,<br> der entfernt werden soll</html>");
+				confirmDelete.setVisible(false);
+			}
+			
 		});
 		
 		for( ActionListener a : accountEntfernen.getActionListeners() ) {	//Entfernt alle Actionlistner
@@ -409,6 +408,7 @@ public class Login extends JPanel implements ActionListener {
 					loadGame.setVisible(false);
 					loginButton.setVisible(false);
 					title.setVisible(false);
+					accountAuswahlliste.setSelectedIndex(0);
 					
 					
 					removingActionActive = true;
@@ -424,12 +424,65 @@ public class Login extends JPanel implements ActionListener {
 					loadGame.setVisible(true);
 					loginButton.setVisible(true);
 					title.setVisible(true);
+					confirmDelete.setVisible(false);
 					
 					removingActionActive = false;
 					
-				}
+				} 
 
 			
+		});
+		
+		for( ActionListener a : confirmDelete.getActionListeners() ) {	//Entfernt alle Actionlistner
+			confirmDelete.removeActionListener( a );
+	    }
+		confirmDelete.addActionListener((ActionEvent e) -> {
+			
+			if (darfListenerAktivSein) {
+
+			File file = new File("./"+ JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]).name + ".json");
+			
+			if(file.exists()) {
+				
+				file.delete();
+				
+				darfListenerAktivSein = false;
+				
+				accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
+				accountAuswahlliste.removeAllItems();
+
+				accountString = accounts();
+				
+				for (int i = 0; i < accountString.length; i++) {
+
+					accountAuswahlliste.addItem(accountString[i]);
+					
+				}
+				
+			}
+			
+		confirmDelete.setVisible(false);
+		removeLabel.setText("<html>Waehle den Account aus,<br> der entfernt werden soll</html>");
+		darfListenerAktivSein = true;
+		
+		if(accountString.length == 1) {
+			
+			accountEntfernen.setText("Account entfernen");
+			loginFrame.setTitle("2048 - Login");
+			removeLabel.setText("");
+			
+			plusButton.setVisible(true);
+			groesseComboBox.setVisible(true);
+			loadGame.setVisible(true);
+			loginButton.setVisible(true);
+			title.setVisible(true);
+			
+			removingActionActive = false;
+			
+		}
+		
+			}
+
 		});
 
 	}
