@@ -393,6 +393,9 @@ public class Login extends JPanel implements ActionListener {
 			}
 		});
 		
+		for( ActionListener a : accountEntfernen.getActionListeners() ) {	//Entfernt alle Actionlistner
+			accountEntfernen.removeActionListener( a );
+	    }
 		accountEntfernen.addActionListener((ActionEvent e) -> {
 
 				if(!removingActionActive) {
@@ -483,8 +486,6 @@ public class Login extends JPanel implements ActionListener {
 		}
 
 	}
-
-	// ~#%&*:<>?/\{|}
 
 	public static Boolean zeichenErlaubt() {
 
