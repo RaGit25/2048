@@ -34,15 +34,18 @@ public class Login extends JPanel implements ActionListener {
 	static JTextField textFeld;
 
 	static Boolean darfListenerAktivSein;
+	static Boolean removingActionActive;
 
 	static JButton loginButton;
 	static JButton loadGame;
 	static JButton plusButton;
 	static JButton confirmButton;
 	static JButton zurueck;
+	static JButton accountEntfernen;
 
 	static JLabel warnung;
 	static JLabel warnung2;
+	static JLabel removeLabel;
 
 	static String[] accountString;
 	static JComboBox<String> accountAuswahlliste;
@@ -58,12 +61,16 @@ public class Login extends JPanel implements ActionListener {
 
 		warnung = new JLabel();
 		warnung2 = new JLabel();
+		removeLabel = new JLabel();
+		
+		removingActionActive = false;
 		
 		loginButton = new JButton("Neues Spiel erstellen");
 		loadGame = new JButton("Spielstand laden");
 		plusButton = new JButton("Neuer Account");
 		confirmButton = new JButton("Erstellen");
 		zurueck = new JButton("Zurueck zur Accountauswahl");
+		accountEntfernen = new JButton("Account entfernen");
 		
 		accountString = accounts();
 		accountAuswahlliste = new JComboBox<String>(accountString);
@@ -136,8 +143,13 @@ public class Login extends JPanel implements ActionListener {
 		gbc.gridx = 0;
 		gbc.gridwidth = 2;
 		background.add(loadGame, gbc);
-
+		
 		gbc.gridy = 5;
+		gbc.gridx = 0;
+		gbc.gridwidth = 2;
+		background.add(accountEntfernen, gbc);
+
+		gbc.gridy = 6;
 		gbc.gridx = 0;
 
 		background.add(warnung, gbc);
@@ -182,6 +194,9 @@ public class Login extends JPanel implements ActionListener {
 		warnung2.setText("");
 		warnung2.setFont(new Font("Arial", Font.PLAIN, 11));
 		warnung2.setForeground(Color.red);
+		removeLabel.setText("");
+		removeLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+		removeLabel.setForeground(Color.red);
 		darfListenerAktivSein = true;
 		zurueck.setVisible(false);
 		for( ActionListener a : zurueck.getActionListeners() ) {	//Entfernt alle Actionlistner
@@ -199,6 +214,8 @@ public class Login extends JPanel implements ActionListener {
 			groesseComboBox.setVisible(true);
 			warnung2.setVisible(false);
 			zurueck.setVisible(false);
+			accountEntfernen.setVisible(true);
+			loginFrame.setTitle("2048 - Login");
 
 		});
 		for( FocusListener f : textFeld.getFocusListeners() ) {	//Entfernt alle Actionlistner
@@ -258,12 +275,12 @@ public class Login extends JPanel implements ActionListener {
 			plusButton.removeActionListener( a );
 	    }
 		plusButton.addActionListener((ActionEvent e) -> { // auf "+" wird geclickt
+			
 			loginButton.setVisible(false); // Elemente vom login werden unsichtbar gemacht
 			plusButton.setVisible(false);
 			accountAuswahlliste.setVisible(false);
 			loadGame.setVisible(false);
 			title.setVisible(false);
-
 			textFeld.setText("namen eingeben");
 			textFeld.setVisible(true); // Elemente von der Kontoerstellung werden sichtbar gemacht
 			confirmButton.setVisible(true);
@@ -272,6 +289,8 @@ public class Login extends JPanel implements ActionListener {
 			warnung2.setText("");
 			warnung2.setVisible(true);
 			zurueck.setVisible(true);
+			accountEntfernen.setVisible(false);
+			loginFrame.setTitle("2048 - Account erstellen");
 
 		});
 
@@ -325,6 +344,8 @@ public class Login extends JPanel implements ActionListener {
 				groesseComboBox.setVisible(true);
 				warnung2.setVisible(false);
 				zurueck.setVisible(false);
+				accountEntfernen.setVisible(true);
+				loginFrame.setTitle("2048 - Login");
 			}
 
 			checkForWarningsNewAcc();
@@ -340,8 +361,65 @@ public class Login extends JPanel implements ActionListener {
 				Account a = new Account(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
 
 				groesseComboBox.setSelectedIndex(a.s.getBreite() - 2); // waehlt die Spielgroesse des Accounts aus
+				
+				if(removingActionActive && darfListenerAktivSein && accountAuswahlliste.getSelectedIndex() != 0) {
+					
+					File file = new File("./"+ JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]).name + ".json");
+					
+					if(file.exists()) {
+						
+						file.delete();
+						
+						accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
+						accountAuswahlliste.removeAllItems();
+
+						accountString = accounts();
+						
+						for (int i = 0; i < accountString.length; i++) {
+
+							accountAuswahlliste.addItem(accountString[i]);
+							
+						}
+						
+					}
+					
+				}
 
 			}
+		});
+		
+		accountEntfernen.addActionListener((ActionEvent e) -> {
+
+				if(!removingActionActive) {
+					
+					accountEntfernen.setText("Abbrechen");
+					loginFrame.setTitle("2048 - Account entfernen");
+					
+					plusButton.setVisible(false);
+					groesseComboBox.setVisible(false);
+					loadGame.setVisible(false);
+					loginButton.setVisible(false);
+					title.setVisible(false);
+					
+					
+					removingActionActive = true;
+					
+				} else {
+					
+					accountEntfernen.setText("Account entfernen");
+					loginFrame.setTitle("2048 - Login");
+					
+					plusButton.setVisible(true);
+					groesseComboBox.setVisible(true);
+					loadGame.setVisible(true);
+					loginButton.setVisible(true);
+					title.setVisible(true);
+					
+					removingActionActive = false;
+					
+				}
+
+			
 		});
 
 	}
@@ -412,7 +490,13 @@ public class Login extends JPanel implements ActionListener {
 				|| textFeld.getText().indexOf("{") != -1 || textFeld.getText().indexOf("}") != -1
 				|| textFeld.getText().indexOf("|") != -1 || textFeld.getText().indexOf("/") != -1
 				|| textFeld.getText().indexOf("\\") != -1 || textFeld.getText().indexOf(" ") != -1
-				|| textFeld.getText().indexOf("\"") != -1) {
+				|| textFeld.getText().indexOf("\"") != -1 || textFeld.getText().indexOf("!") != -1
+				|| textFeld.getText().indexOf("-") != -1 || textFeld.getText().indexOf("_") != -1
+				|| textFeld.getText().indexOf(";") != -1 || textFeld.getText().indexOf("+") != -1
+				|| textFeld.getText().indexOf("´") != -1 || textFeld.getText().indexOf("=") != -1
+				|| textFeld.getText().indexOf("€") != -1 || textFeld.getText().indexOf("$") != -1
+				|| textFeld.getText().indexOf("§") != -1 || textFeld.getText().indexOf("^") != -1
+				|| textFeld.getText().indexOf("°") != -1) {
 
 			return false;
 
