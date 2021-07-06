@@ -41,9 +41,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JPanel panel3;
 	static JPanel panel4;
 
-	static LineBorder border;      // Rand der Punkte-, Rekordanzeige
-	static LineBorder border1;     // Rand der Buttons
+	//static LineBorder border;      // Rand der Punkte-, Rekordanzeige
+	static LineBorder border1;     // Rand der roten Buttons
 	static LineBorder border2;     // Rand fuer den Zurueckbutton, wenn er grau ist
+	static LineBorder border3;     // Rand fuer schwarze Buttons
 
 	static JLabel punkte;          // Punktzahl oben rechts
 	static JLabel rekord;          // Rekord oben rechts
@@ -75,9 +76,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		panel2 = new JPanel();
 		panel3 = new JPanel();
 		panel4 = new JPanel();
-		border = new LineBorder(new Color(237, 194, 46), 2, true);
-		border1 = new LineBorder(new Color(236, 228, 219), 2, true);
+		//border = new LineBorder(new Color(230, 104, 73), 2, true);
+		border1 = new LineBorder(new Color(230, 104, 73), 2, true);
 		border2 = new LineBorder(Color.gray, 2, true);
+		border3 = new LineBorder(new Color(60, 58, 52), 2, true);
 		punkte = new JLabel();
 		rekord = new JLabel();
 		hilfe = new JLabel();
@@ -309,7 +311,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				zurueck.setVisible(false);
 				tipp.setVisible(false);
 				stats.setVisible(false);
-				clrLayout.setFont(new Font("Arial", Font.BOLD, 22));
+				clrLayout.setFont(new Font("Arial", Font.BOLD, 18));
 				clrLayout.setText("Zurueck zum Spiel");
 				clrAktiv = true;
 
@@ -339,7 +341,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		exit.setBackground(new Color(60, 58, 52));
 		exit.setForeground(Color.white);
 		exit.setOpaque(true);
-		exit.setBorder(border1);
+		exit.setBorder(border3);
 		exit.setFocusable(false);
 		for( ActionListener a : exit.getActionListeners() ) {	//Entfernt alle Actionlistner
 	        exit.removeActionListener( a );
@@ -621,7 +623,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	
 	public void keyPressed(KeyEvent e) {
 
-		if ((e.getKeyChar() == 'w' || e.getKeyCode() == KeyEvent.VK_UP) && !statsAktiv) {
+		if ((e.getKeyChar() == 'w' || e.getKeyCode() == KeyEvent.VK_UP) && !statsAktiv && !clrAktiv) {
 
 			if (a.s.verschiebbar("oben")) {
 				a.klonen();
@@ -629,7 +631,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				centerPanel.repaint();
 			}
 
-		} else if ((e.getKeyChar() == 's' || e.getKeyCode() == KeyEvent.VK_DOWN) && !statsAktiv) {
+		} else if ((e.getKeyChar() == 's' || e.getKeyCode() == KeyEvent.VK_DOWN) && !statsAktiv && !clrAktiv) {
 
 			if (a.s.verschiebbar("unten")) {
 				a.klonen();
@@ -637,7 +639,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				centerPanel.repaint();
 			}
 
-		} else if ((e.getKeyChar() == 'a' || e.getKeyCode() == KeyEvent.VK_LEFT) && !statsAktiv) {
+		} else if ((e.getKeyChar() == 'a' || e.getKeyCode() == KeyEvent.VK_LEFT) && !statsAktiv && !clrAktiv) {
 
 			if (a.s.verschiebbar("links")) {
 				a.klonen();
@@ -645,7 +647,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				centerPanel.repaint();
 			}
 
-		} else if ((e.getKeyChar() == 'd' || e.getKeyCode() == KeyEvent.VK_RIGHT) && !statsAktiv) {
+		} else if ((e.getKeyChar() == 'd' || e.getKeyCode() == KeyEvent.VK_RIGHT) && !statsAktiv && !clrAktiv) {
 
 			if (a.s.verschiebbar("rechts")) {
 				a.klonen();
@@ -653,19 +655,19 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				centerPanel.repaint();
 			}
 
-		} else if (e.getKeyChar() == 'z' && !statsAktiv) {
+		} else if (e.getKeyChar() == 'z' && !statsAktiv && !clrAktiv) {
 
 			a.klonen();
 			a.s.welcheRichtung(auto.zufaelligeRichtung());
 			gameFrame.repaint();
 
-		} else if (e.getKeyChar() == 'r' && !statsAktiv) {
+		} else if (e.getKeyChar() == 'r' && !statsAktiv && !clrAktiv) {
 
 			a.klonen();
 			a.s.welcheRichtung(auto.naechsterZug(a.s));
 			gameFrame.repaint();
 
-		} else if (e.getKeyChar() == 'c' && !statsAktiv) {
+		} else if (e.getKeyChar() == 'c' && !statsAktiv && !clrAktiv) {
 
 			a.klonen();
 			a.s.welcheRichtung(auto.muster(a.s));
@@ -753,7 +755,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		} else {
 
-			zurueck.setBackground(new Color(236, 228, 219));
+			zurueck.setBackground(new Color(230, 104, 73));
 			zurueck.setBorder(border1);
 
 		}
