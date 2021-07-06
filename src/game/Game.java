@@ -60,7 +60,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	public Game() {
 
 		a = null;
-		auto = new Autoplay();
+		auto = new Autoplay(8,9,1.5,1.45);
 		
 		statsAktiv = false;
 		
@@ -635,6 +635,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		a.st.updateEnde();
 		a.s = new Spielfeld(a.s.getBreite());
+		a.st.updateSpielfeld(a.s);
 		a.s.blockErstellen();
 		a.s.blockErstellen();
 		a.klonen();
