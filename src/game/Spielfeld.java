@@ -116,6 +116,7 @@ class Spielfeld {
 		return this.zusammenschuebe;
 	}
 
+	@JsonIgnore
 	public Boolean getVeraendert() {
 		return veraendert;
 	}

@@ -4,23 +4,19 @@ public class Autoplay {
 	int anzahl;
 	String[] richtungen;
 
-	int e; // Gewichtung Eckfeld
-	int a; // Abstufungsschritte der Felder
-	double l; // Gewichtung leere Felder
-	double p; // Gewichtung passende naechste Runde
+	int e = 3; // Gewichtung Eckfeld
+	int a = 4; // Abstufungsschritte der Felder
+	//int g = 10;	//Grenze ab wann ein ein Feld als leer zählt
+	double l = 1; // Gewichtung leere Felder
+	double p = 0.75; // Gewichtung passende naechste Runde
 
-	public Autoplay(int e, int a, double l, double p) {
+	public Autoplay() {
 		anzahl = 4;
 		richtungen = new String[anzahl];
 		richtungen[0] = "oben";
 		richtungen[1] = "rechts";
 		richtungen[2] = "unten";
 		richtungen[3] = "links";
-		
-		this.e = e;
-		this.a = a;
-		this.l = l;
-		this.p = p;
 	}
 
 	public String zufaelligeRichtung() {
