@@ -57,7 +57,7 @@ public class Autoplay {
 			if (scores[i] > max) {
 				max = scores[i];
 				pos = i;
-			} else if ((scores[i] == max) && 1 == (int) (Math.random()) * 2) {
+			} else if ((scores[i] == max) && Math.random() > 0.5) {
 				max = scores[i];
 				pos = i;
 			}
@@ -123,7 +123,7 @@ public class Autoplay {
 					c--;
 				}
 				punkte += (abs) * gruppe;
-				abs = ((abs - a) > 0) ? abs - a :-f.getHoechstesFeld();
+				abs = ((abs - a) > 0) ? abs - a : 0;
 			}
 
 			break;

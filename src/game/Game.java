@@ -17,8 +17,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static Account a;               // Objekt der Klasse Account
 	static Autoplay auto;           // Objekt der Klasse Autoplay
 	 
-	static Boolean statsAktiv;      // Benoetigt für den Statistiken Button, siehe ActionListener stats und paintComponent()
-	static Boolean clrAktiv;      // Benoetigt für den Design Button, siehe ActionListener clrLayout und paintComponent()
+	static Boolean statsAktiv;      // Benoetigt fuer den Statistiken Button, siehe ActionListener stats und paintComponent()
+	static Boolean clrAktiv;      // Benoetigt fuer den Design Button, siehe ActionListener clrLayout und paintComponent()
 
 	static Game game = new Game();  // Objekt der Klasse Game, u.a. fuer den KeyListener benoetigt
 	
@@ -41,7 +41,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JPanel panel3;
 	static JPanel panel4;
 
-	//static LineBorder border;      // Rand der Punkte-, Rekordanzeige
+	//static LineBorder border;    // Rand der Punkte-, Rekordanzeige
 	static LineBorder border1;     // Rand der roten Buttons
 	static LineBorder border2;     // Rand fuer den Zurueckbutton, wenn er grau ist
 	static LineBorder border3;     // Rand fuer schwarze Buttons
@@ -703,8 +703,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			a.st.update();
 			punkte.setText("<html>Punkte <br>" + a.s.getPunkte() + "</html>"); // Updaten der Punktzahl
 			rekord.setText("<html>Rekord <br>" + a.st.setRekord() + "</html>"); // Updaten des Rekords
-			JSONVerwalter.speichern(a); // Speichern der Json
-			labelNeuladen();	
+			JSONVerwalter.speichern(a); // Speichern der Json	
 		}
 		labelNeuladen();
 		hilfe.setVisible(false);
