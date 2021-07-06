@@ -467,7 +467,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			int r = 0;                 // Parameter r, v, e veraendern je nach Feldgroesse und Zahl die Position 
 			int v = 0;                 // der Zahl minimal, damit sie in der Mitte sind
 			int e = 0;
+			int f = 0;                 // Parameter f fuer eine fuenfstellige Zahl
 			int schriftAenderung = 0;  // Aenderung der Schriftgroesse je nach Zahl
+			int schriftAenderung2 = 0; // Aenderung der Schriftgroesse fuer eine fuenfstellige Zahl
 
 			if (a.s.getBreite() == 3) {
 
@@ -487,6 +489,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				abstand = 175;
 				schriftX = 55;
 				schriftY = 105;
+				schriftAenderung2 = 10;
+				f = -4;
 
 			} else if (a.s.getBreite() == 5) {
 
@@ -497,6 +501,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				schriftY = 82;
 				v = 5;
 				e = 7;
+				f = 5;
+				schriftAenderung2 = 8;
 
 			} else if (a.s.getBreite() == 6) {
 
@@ -508,6 +514,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				v = 10;
 				e = 17;
 				r = 4;
+				f = 18;
+				schriftAenderung2 = 10;
 
 			} else if (a.s.getBreite() == 7) {
 
@@ -519,6 +527,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				v = 20;
 				e = 32;
 				r = 10;
+				f = 22;
+				
 
 			} else if (a.s.getBreite() == 8) {
 
@@ -530,6 +540,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				v = 27;
 				e = 27;
 				r = 10;
+				f = 26;
+				schriftAenderung2 = -5;
 				schriftAenderung = 10;
 
 			}
@@ -539,7 +551,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				for (int j = 0; j < a.s.getBreite(); j++) {
 
 					felder(g, a.s.getFeld()[i][j], j * abstand + 85, i * abstand + 15, breite, schrift, schriftX,
-							schriftY, v, e, r, schriftAenderung);
+							schriftY, v, e, r, f, schriftAenderung, schriftAenderung2);
 
 				}
 
@@ -566,7 +578,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	// kuemmert sich um das Faerben der Felder
 
 	public void felder(Graphics g, Block block, int x, int y, int breite, int schrift, int schriftX, int schriftY,
-			int v, int e, int r, int s) {
+			int v, int e, int r, int f, int s, int s2) {
 
 		int wert = block.getWert();
 
@@ -612,6 +624,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				g.setColor(Color.white);
 				g.setFont(new Font("Arial", Font.BOLD, schrift - 20 + s));
 				g.drawString("" + wert, x + schriftX - 45 + e, y + schriftY);
+
+			}
+			
+			else if (wert < 100000) {
+
+				g.setColor(Color.white);
+				g.setFont(new Font("Arial", Font.BOLD, schrift - 20 - s2));
+				g.drawString("" + wert, x + schriftX - 45 + f, y + schriftY);
 
 			}
 

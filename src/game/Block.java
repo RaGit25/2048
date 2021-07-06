@@ -140,6 +140,10 @@ class Block {
 		} else if (this.getWert() == 16384) {
 
 			farbe = new Color(225, 79, 73);
+			
+		} else if (this.getWert() == 32768) {
+
+			farbe = new Color(225, 79, 73);
 		}
 	}
 
