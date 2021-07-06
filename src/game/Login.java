@@ -26,54 +26,55 @@ public class Login extends JPanel implements ActionListener {
 	static ImageIcon bkg6;
 	static ImageIcon bkg7;
 
-	static ImageIcon[] bkgicon;
+	static ImageIcon[] bkgicon;	//Feld mit allen Bildern
 
-	static ImageIcon titleicon;
-	static JLabel title;
+	static ImageIcon titleicon;	//Bild mit 2048
+	static JLabel title;	//Darstellen des Bildes
 
 	static JTextField textFeld;
 
-	static Boolean darfListenerAktivSein;
-	static Boolean removingActionActive;
+	static Boolean darfListenerAktivSein;	//erlaubt Actionlistener bei der Accountauswahlliste
+	static Boolean removingActionActive;	//man ist am Account loesche
 
-	static JButton loginButton;
-	static JButton loadGame;
-	static JButton plusButton;
-	static JButton confirmButton;
-	static JButton zurueck;
-	static JButton accountEntfernen;
-	static JButton confirmDelete;
+	//Buttons sichtbar im Fenstr
+	static JButton loginButton;	// Button "Neues Spiel erstellen"
+	static JButton spielLaden;	// Button "Spielstand laden"
+	static JButton plusButton;	// Button "Neuer Account"
+	static JButton confirmButton;	// Button "Erstellen"
+	static JButton zurueck;	// Button "Zurueck zur Accountauswahl"
+	static JButton accountEntfernen;	// Button "Account entfernen"
+	static JButton confirmDelete;	// Button "Bestaetigen"
 
-	static JLabel warnung;
-	static JLabel warnung2;
-	static JLabel removeLabel;
+	static JLabel warnung;	//im Hauptmenue
+	static JLabel warnung2;	//bei Accounterstellung
+	static JLabel removeLabel;	//Erklaerung beim Loeschen
 
-	static String[] accountString;
-	static JComboBox<String> accountAuswahlliste;
+	static String[] accountString;		//Liste mit allen moeglichen Accounts
+	static JComboBox<String> accountAuswahlliste;	//Erstellen der grafischen Auswahlliste
 
-	static String[] groesseString;
-	static JComboBox<Object> groesseComboBox;
+	static String[] groesseString;		//Liste mit allen moeglichen Groessen
+	static JComboBox<Object> groesseComboBox;	//Erstellen der grafischen Auswahlliste
 
 	static JLabel background;
 
 	public Login() {
-		
+
 		loginFrame = new JFrame("2048 - Login");
 
 		warnung = new JLabel();
 		warnung2 = new JLabel();
 		removeLabel = new JLabel();
-		
+
 		removingActionActive = false;
-		
+
 		loginButton = new JButton("Neues Spiel erstellen");
-		loadGame = new JButton("Spielstand laden");
+		spielLaden = new JButton("Spielstand laden");
 		plusButton = new JButton("Neuer Account");
 		confirmButton = new JButton("Erstellen");
 		zurueck = new JButton("Zurueck zur Accountauswahl");
 		accountEntfernen = new JButton("Account entfernen");
 		confirmDelete = new JButton("Bestaetigen");
-		
+
 		accountString = accounts();
 		accountAuswahlliste = new JComboBox<String>(accountString);
 		groesseString = new String[7];
@@ -85,8 +86,6 @@ public class Login extends JPanel implements ActionListener {
 		groesseString[5] = "7x7";
 		groesseString[6] = "8x8";
 		groesseComboBox = new JComboBox<Object>(groesseString);
-
-		
 
 		textFeld = new JTextField("Namen eingeben");
 		titleicon = new ImageIcon("bilder/2048.png");
@@ -110,19 +109,20 @@ public class Login extends JPanel implements ActionListener {
 		bkgicon[5] = bkg6;
 		bkgicon[6] = bkg7;
 		background = new JLabel(new ImageIcon(
+				//Ein zufaelliges Hintergrundbild wird ausgewahlt
 				bkgicon[(int) (Math.random() * 7)].getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
 
 		GridBagLayout layout = new GridBagLayout(); // Layoutmanager
-		GridBagConstraints gbc = new GridBagConstraints(); //
+		GridBagConstraints gbc = new GridBagConstraints(); // Positionierung im Layout
 		gbc.fill = GridBagConstraints.CENTER;
 		background.setLayout(layout); //
 
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 
-		gbc.gridy = 0;
-		gbc.gridx = 0;
-		gbc.gridwidth = 2;
-		background.add(title, gbc);
+		gbc.gridy = 0; // relative Koordinaten im Layoutmanager
+		gbc.gridx = 0; // relative Koordinaten im Layoutmanager
+		gbc.gridwidth = 2; // Setzen der Breite
+		background.add(title, gbc); // Hinzufuegen des neuen Elements
 
 		gbc.gridy = 1;
 		gbc.gridwidth = 1;
@@ -132,10 +132,10 @@ public class Login extends JPanel implements ActionListener {
 		gbc.gridx = 1;
 		background.add(plusButton, gbc);
 
-		gbc.gridy = 3; // relative Koordinaten im Layoutmanager
+		gbc.gridy = 3;
 		gbc.gridx = 0;
 		gbc.gridwidth = 2;
-		background.add(loginButton, gbc); // "einloggen" Knopf mit layoutmanager
+		background.add(loginButton, gbc);
 
 		gbc.gridy = 2;
 		gbc.gridx = 0;
@@ -144,18 +144,18 @@ public class Login extends JPanel implements ActionListener {
 		gbc.gridy = 4;
 		gbc.gridx = 0;
 		gbc.gridwidth = 2;
-		background.add(loadGame, gbc);
-		
+		background.add(spielLaden, gbc);
+
 		gbc.gridy = 5;
 		gbc.gridx = 0;
 		gbc.gridwidth = 2;
 		background.add(accountEntfernen, gbc);
-		
+
 		gbc.gridy = 6;
 		gbc.gridx = 0;
 		gbc.gridwidth = 2;
 		background.add(confirmDelete, gbc);
-		
+
 		gbc.gridy = 7;
 		gbc.gridx = 0;
 		gbc.gridwidth = 2;
@@ -188,18 +188,18 @@ public class Login extends JPanel implements ActionListener {
 
 		background.add(zurueck, gbc);
 
-		loginFrame.setSize(600, 300);
+		loginFrame.setSize(600, 300);	//Setzen der Groesse
 		loginFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fenster schliesst sich und code wird beendet wenn
 		// man auf X das drueckt
 		loginFrame.setResizable(false); // fenstergroesse nicht veraenderbar
 
-		loginFrame.add(background);
+		loginFrame.add(background);	//Hinzufuegen des Hintergrunds zur Grafik
 
 	}
 
-	public void loginGui() {
-		
+	public void loginGui() {	//"Zeichnet" das Menue
+
 		warnung.setText("");
 		warnung.setFont(new Font("Arial", Font.PLAIN, 11));
 		warnung.setForeground(Color.red);
@@ -212,10 +212,10 @@ public class Login extends JPanel implements ActionListener {
 		darfListenerAktivSein = true;
 		zurueck.setVisible(false);
 		confirmDelete.setVisible(false);
-		for( ActionListener a : zurueck.getActionListeners() ) {	//Entfernt alle Actionlistner
-			zurueck.removeActionListener( a );
-	    }
-		zurueck.addActionListener((ActionEvent e) -> {
+		for (ActionListener a : zurueck.getActionListeners()) { // Entfernt alle Actionlistner
+			zurueck.removeActionListener(a);
+		}
+		zurueck.addActionListener((ActionEvent e) -> { // Zurueckgehen zum Hauptmenue
 
 			confirmButton.setVisible(false);
 			textFeld.setVisible(false);
@@ -223,7 +223,7 @@ public class Login extends JPanel implements ActionListener {
 			plusButton.setVisible(true);
 			accountAuswahlliste.setVisible(true);
 			title.setVisible(true);
-			loadGame.setVisible(true);
+			spielLaden.setVisible(true);
 			groesseComboBox.setVisible(true);
 			warnung2.setVisible(false);
 			zurueck.setVisible(false);
@@ -231,12 +231,12 @@ public class Login extends JPanel implements ActionListener {
 			loginFrame.setTitle("2048 - Login");
 
 		});
-		for( FocusListener f : textFeld.getFocusListeners() ) {	//Entfernt alle Actionlistner
-			textFeld.removeFocusListener( f );
-	    }
+		for (FocusListener f : textFeld.getFocusListeners()) { // Entfernt alle Actionlistner
+			textFeld.removeFocusListener(f);
+		}
 		textFeld.addFocusListener(new FocusAdapter() { // Man soll immer den gesamten Text auswaehlen
 			public void focusGained(FocusEvent e) {
-				textFeld.selectAll(); // Damit man direkt ueberschreibt
+				textFeld.selectAll(); // den man direkt ueberschreiben kann
 			}
 		});
 
@@ -249,13 +249,12 @@ public class Login extends JPanel implements ActionListener {
 
 		// Soll einen vorhandenen Account, der ausgewaehlt wurde, erkennen
 		// und eine neu ausgewaehlte Feldgroesse einstellen und das Spiel starten
-		for( ActionListener a : loginButton.getActionListeners() ) {	//Entfernt alle Actionlistner
-			loginButton.removeActionListener( a );
-	    }
+		for (ActionListener a : loginButton.getActionListeners()) { // Entfernt alle Actionlistner
+			loginButton.removeActionListener(a);
+		}
 		loginButton.addActionListener((ActionEvent e) -> { // auf "einloggen" wird geclickt
 			if (groesseComboBox.getSelectedIndex() != 0 && accountAuswahlliste.getSelectedIndex() != 0) {
 
-				
 				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
 				Game.a.s.breite = groesseComboBox.getSelectedIndex() + 2;
 				Game.neuesSpiel();
@@ -270,10 +269,10 @@ public class Login extends JPanel implements ActionListener {
 		// ---------Spiel laden--------
 
 		// Soll einen ausgewaehlten Account erkennen und den Spielstand laden
-		for( ActionListener a : loadGame.getActionListeners() ) {	//Entfernt alle Actionlistner
-			loadGame.removeActionListener( a );
-	    }		
-		loadGame.addActionListener((ActionEvent e) -> { // auf "spiel laden" wird geclickt
+		for (ActionListener a : spielLaden.getActionListeners()) { // Entfernt alle Actionlistner
+			spielLaden.removeActionListener(a);
+		}
+		spielLaden.addActionListener((ActionEvent e) -> { // auf "spiel laden" wird geclickt
 			if (accountAuswahlliste.getSelectedIndex() != 0) {
 
 				Game.setAccount(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
@@ -284,15 +283,15 @@ public class Login extends JPanel implements ActionListener {
 			checkForWarnings();
 
 		});
-		for( ActionListener a : plusButton.getActionListeners() ) {	//Entfernt alle Actionlistner
-			plusButton.removeActionListener( a );
-	    }
+		for (ActionListener a : plusButton.getActionListeners()) { // Entfernt alle Actionlistner
+			plusButton.removeActionListener(a);
+		}
 		plusButton.addActionListener((ActionEvent e) -> { // auf "+" wird geclickt
-			
+
 			loginButton.setVisible(false); // Elemente vom login werden unsichtbar gemacht
 			plusButton.setVisible(false);
 			accountAuswahlliste.setVisible(false);
-			loadGame.setVisible(false);
+			spielLaden.setVisible(false);
 			title.setVisible(false);
 			textFeld.setText("namen eingeben");
 			textFeld.setVisible(true); // Elemente von der Kontoerstellung werden sichtbar gemacht
@@ -312,9 +311,9 @@ public class Login extends JPanel implements ActionListener {
 		// Soll einen neuen Account mit dem Namen erstellen, der eingegeben wurde
 		// und zur JComboBox "accountAuswahlliste" diesen Account hinzufuegen
 		// und ein Spiel mit der ausgewaehlten Feldgroesse starten
-		for( ActionListener a : confirmButton.getActionListeners() ) {	//Entfernt alle Actionlistner
-			confirmButton.removeActionListener( a );
-	    }
+		for (ActionListener a : confirmButton.getActionListeners()) { // Entfernt alle Actionlistner
+			confirmButton.removeActionListener(a);
+		}
 		confirmButton.addActionListener((ActionEvent e) -> { // auf "bestaetigen" wird geclickt
 
 			if (nameVerfuegbar(textFeld.getText()) && textFeld.getText().length() <= 60 && zeichenErlaubt()) {
@@ -322,14 +321,14 @@ public class Login extends JPanel implements ActionListener {
 				darfListenerAktivSein = false;
 
 				Account n = new Account(textFeld.getText(), 4); // Standardgroesse 4
-				n.s.blockErstellen();
+				n.s.blockErstellen();	//Erstellen der ersten Felder
 				n.s.blockErstellen();
 				n.klonen();
 				n.st.update();
 				JSONVerwalter.speichern(n);
 
 				accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
-				accountAuswahlliste.removeAllItems();
+				accountAuswahlliste.removeAllItems();	//Combobox wird geleert
 
 				accountString = accounts();
 
@@ -353,7 +352,7 @@ public class Login extends JPanel implements ActionListener {
 				plusButton.setVisible(true);
 				accountAuswahlliste.setVisible(true);
 				title.setVisible(true);
-				loadGame.setVisible(true);
+				spielLaden.setVisible(true);
 				groesseComboBox.setVisible(true);
 				warnung2.setVisible(false);
 				zurueck.setVisible(false);
@@ -364,9 +363,9 @@ public class Login extends JPanel implements ActionListener {
 			checkForWarningsNewAcc();
 
 		});
-		for( ActionListener a : accountAuswahlliste.getActionListeners() ) {	//Entfernt alle Actionlistner
-			accountAuswahlliste.removeActionListener( a );
-	    }
+		for (ActionListener a : accountAuswahlliste.getActionListeners()) { // Entfernt alle Actionlistner
+			accountAuswahlliste.removeActionListener(a);
+		}
 		accountAuswahlliste.addActionListener((ActionEvent e) -> {
 
 			if (darfListenerAktivSein && accountAuswahlliste.getSelectedIndex() != 0) {
@@ -374,113 +373,113 @@ public class Login extends JPanel implements ActionListener {
 				Account a = new Account(JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]));
 
 				groesseComboBox.setSelectedIndex(a.s.getBreite() - 2); // waehlt die Spielgroesse des Accounts aus
-				
-				if(removingActionActive && darfListenerAktivSein && accountAuswahlliste.getSelectedIndex() != 0) {
-				
+
+				if (removingActionActive && darfListenerAktivSein && accountAuswahlliste.getSelectedIndex() != 0) {
+
 					confirmDelete.setVisible(true);
 					removeLabel.setText("<html>Druecke auf Bestaetigen,<br> um den Account<br> zu entfernen </html>");
-					
-					
-				} 
+
+				}
 			}
-			
-			if(removingActionActive && darfListenerAktivSein && accountAuswahlliste.getSelectedIndex() == 0) {
-				
+
+			checkForWarnings(); // Updated die Warnungen
+
+			if (removingActionActive && darfListenerAktivSein && accountAuswahlliste.getSelectedIndex() == 0) {
+
 				removeLabel.setText("<html>Waehle den Account aus,<br> der entfernt werden soll</html>");
 				confirmDelete.setVisible(false);
 			}
-			
+
 		});
-		
-		for( ActionListener a : accountEntfernen.getActionListeners() ) {	//Entfernt alle Actionlistner
-			accountEntfernen.removeActionListener( a );
-	    }
+
+		for (ActionListener a : accountEntfernen.getActionListeners()) { // Entfernt alle Actionlistner
+			accountEntfernen.removeActionListener(a);
+		}
 		accountEntfernen.addActionListener((ActionEvent e) -> {
 
-				if(!removingActionActive) {
-					
-					accountEntfernen.setText("Abbrechen");
-					loginFrame.setTitle("2048 - Account entfernen");
-					removeLabel.setText("<html>Waehle den Account aus,<br> der entfernt werden soll</html>");
-					
-					plusButton.setVisible(false);
-					groesseComboBox.setVisible(false);
-					loadGame.setVisible(false);
-					loginButton.setVisible(false);
-					title.setVisible(false);
-					accountAuswahlliste.setSelectedIndex(0);
-					
-					
-					removingActionActive = true;
-					
-				} else {
-					
+			if (!removingActionActive) {
+
+				accountEntfernen.setText("Abbrechen");
+				loginFrame.setTitle("2048 - Account entfernen");
+				removeLabel.setText("<html>Waehle den Account aus,<br> der entfernt werden soll</html>");
+
+				plusButton.setVisible(false);
+				groesseComboBox.setVisible(false);
+				spielLaden.setVisible(false);
+				loginButton.setVisible(false);
+				title.setVisible(false);
+				accountAuswahlliste.setSelectedIndex(0);
+
+				removingActionActive = true;
+
+			} else {
+
+				accountEntfernen.setText("Account entfernen");
+				loginFrame.setTitle("2048 - Login");
+				removeLabel.setText("");
+
+				plusButton.setVisible(true);
+				groesseComboBox.setVisible(true);
+				spielLaden.setVisible(true);
+				loginButton.setVisible(true);
+				title.setVisible(true);
+				confirmDelete.setVisible(false);
+
+				removingActionActive = false;
+
+			}
+
+		});
+
+		for (ActionListener a : confirmDelete.getActionListeners()) { // Entfernt alle Actionlistner
+			confirmDelete.removeActionListener(a);
+		}
+		confirmDelete.addActionListener((ActionEvent e) -> {
+
+			if (darfListenerAktivSein) {
+
+				File file = new File("./"
+						+ JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]).name + ".json");
+
+				if (file.exists()) {
+
+					file.delete();
+
+					darfListenerAktivSein = false;
+
+					accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
+					accountAuswahlliste.removeAllItems();
+
+					accountString = accounts();
+
+					for (int i = 0; i < accountString.length; i++) {
+
+						accountAuswahlliste.addItem(accountString[i]);
+
+					}
+
+				}
+
+				confirmDelete.setVisible(false);
+				removeLabel.setText("<html>Waehle den Account aus,<br> der entfernt werden soll</html>");
+				darfListenerAktivSein = true;
+
+				if (accountString.length == 1) {
+
 					accountEntfernen.setText("Account entfernen");
 					loginFrame.setTitle("2048 - Login");
 					removeLabel.setText("");
-					
+
 					plusButton.setVisible(true);
 					groesseComboBox.setVisible(true);
-					loadGame.setVisible(true);
+					spielLaden.setVisible(true);
 					loginButton.setVisible(true);
 					title.setVisible(true);
-					confirmDelete.setVisible(false);
-					
+
 					removingActionActive = false;
-					
-				} 
 
-			
-		});
-		
-		for( ActionListener a : confirmDelete.getActionListeners() ) {	//Entfernt alle Actionlistner
-			confirmDelete.removeActionListener( a );
-	    }
-		confirmDelete.addActionListener((ActionEvent e) -> {
-			
-			if (darfListenerAktivSein) {
-
-			File file = new File("./"+ JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]).name + ".json");
-			
-			if(file.exists()) {
-				
-				file.delete();
-				
-				darfListenerAktivSein = false;
-				
-				accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
-				accountAuswahlliste.removeAllItems();
-
-				accountString = accounts();
-				
-				for (int i = 0; i < accountString.length; i++) {
-
-					accountAuswahlliste.addItem(accountString[i]);
-					
 				}
-				
-			}
-			
-		confirmDelete.setVisible(false);
-		removeLabel.setText("<html>Waehle den Account aus,<br> der entfernt werden soll</html>");
-		darfListenerAktivSein = true;
-		
-		if(accountString.length == 1) {
-			
-			accountEntfernen.setText("Account entfernen");
-			loginFrame.setTitle("2048 - Login");
-			removeLabel.setText("");
-			
-			plusButton.setVisible(true);
-			groesseComboBox.setVisible(true);
-			loadGame.setVisible(true);
-			loginButton.setVisible(true);
-			title.setVisible(true);
-			
-			removingActionActive = false;
-			
-		}
-		
+
 			}
 
 		});
@@ -514,6 +513,8 @@ public class Login extends JPanel implements ActionListener {
 	}
 
 	public static void checkForWarningsNewAcc() {
+		
+		// Wenn es eine Warnung gibt wird diese dargestellt und die Namenseingabe zurueckgesetzt
 
 		if (!nameVerfuegbar(textFeld.getText())) {
 
@@ -540,7 +541,7 @@ public class Login extends JPanel implements ActionListener {
 
 	}
 
-	public static Boolean zeichenErlaubt() {
+	public static Boolean zeichenErlaubt() {	//Schuetzt vor fehlerhaften Dateinamen
 
 		if (textFeld.getText().indexOf("~") != -1 || textFeld.getText().indexOf("#") != -1
 				|| textFeld.getText().indexOf("%") != -1 || textFeld.getText().indexOf("&") != -1
@@ -561,6 +562,10 @@ public class Login extends JPanel implements ActionListener {
 
 			return false;
 
+		} else if (textFeld.getText().isEmpty()) {
+
+			return false;
+
 		} else {
 
 			return true;
@@ -575,20 +580,20 @@ public class Login extends JPanel implements ActionListener {
 
 	public static boolean nameVerfuegbar(String name) {
 		for (int j = 0; j < accountString.length; j++) {
-			if (accountString[j].equals(name)) {
+			if (accountString[j].equals(name)) {	//Prueft Name schon vergeben ist
 				return false;
 			}
 		}
-		return (name.equals("Namen eingeben")) ? false : true;
+		return (name.equals("Namen eingeben")) ? false : true;	//Name muss außerdem geaendert sein
 	}
 
-	private static String[] accounts() {
+	private static String[] accounts() {	//Neuladen der gefundenen Accounts
 		File f = new File("./"); // Im gleichen Ordner starten
 		File[] fileArray = f.listFiles(); // Erstellen eines Feldes mit allen Dateien
 
 		ArrayList<String> acc = new ArrayList<String>();
 		for (int i = 0; i < fileArray.length; i++) {
-			if (fileArray[i].getPath().contains(".json")) { // Wenn die Datei .json enthï¿½lt
+			if (fileArray[i].getPath().contains(".json")) { // Wenn die Datei .json enthaelt
 				String name = fileArray[i].getPath();
 				name = name.substring(2, name.length() - 5); // Abschneiden des .json
 				acc.add(name);
@@ -598,8 +603,6 @@ public class Login extends JPanel implements ActionListener {
 		String[] accounts = new String[(acc.size()) + 1]; // Erstellen einer String-Liste
 		accounts[0] = "Konto auswaehlen"; // Erster Eintrag
 		for (int j = 0; j < (acc.size()); j++) {
-
-			accounts[j + 1] = acc.get(j); // Uebertragung der Liste
 
 			accounts[j + 1] = acc.get(j); // Uebertragung der Liste
 
