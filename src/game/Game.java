@@ -102,7 +102,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		clr1[1] = new Color(145,0,67);
 		clr1[2] = new Color(180,240,215);
 		clr1[3] = new Color(255,49,43);
-		clr1[4] = new Color(224, 71, 71, 255);
+		clr1[4] = new Color(224, 71, 71);
 
 		clr2 = new Color[5];
 		clr2[0] = new Color(60, 58, 52);
@@ -113,7 +113,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		clr3 = new Color[5];
 		clr3[0] = new Color(230, 104, 73);
-		clr3[1] = new Color(172,121,172, 124);
+		clr3[1] = new Color(172,121,172);
 		clr3[2] = new Color(172,206,230);
 		clr3[3] = new Color(255,116,103);
 		clr3[4] = new Color(141, 181, 134);
@@ -127,7 +127,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		clr5 = new Color[5];
 		clr5[0] = new Color(163, 148, 132);
-		clr5[1] = new Color(81, 63, 82, 148);
+		clr5[1] = new Color(81, 63, 82);
 		clr5[2] = new Color(180,231,240);
 		clr5[3] = new Color(128,57,51);
 		clr5[4] = new Color(72, 102, 75);
@@ -140,7 +140,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		clr6[4] = Color.white;
 
 		clr7 = new Color[5];
-		clr7[0] = new Color(224, 71, 71, 255);
+		clr7[0] = new Color(224, 71, 71);
 		clr7[1] = new Color(180,240,215);
 		clr7[2] = new Color(145, 87, 114);
 		clr7[3] = new Color(255,185,179);
