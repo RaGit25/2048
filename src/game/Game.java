@@ -127,7 +127,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		clr5 = new Color[5];
 		clr5[0] = new Color(163, 148, 132);
-		clr5[1] = new Color(81, 63, 82);
+		clr5[1] = new Color(77, 54, 78);
 		clr5[2] = new Color(180,231,240);
 		clr5[3] = new Color(128,57,51);
 		clr5[4] = new Color(72, 102, 75);
