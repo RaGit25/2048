@@ -33,7 +33,7 @@ public class Stats {
 
 	}
 
-	public Stats(Stats alt) {	//Copy-Constructor
+	public Stats(Stats alt) { // Copy-Constructor
 		this.punkteGesamt = alt.punkteGesamt;
 		this.runden = alt.runden;
 		this.gewonnen = alt.gewonnen;
@@ -44,7 +44,7 @@ public class Stats {
 		this.rekord = alt.rekord;
 		this.rekordAlt = alt.rekordAlt;
 		this.zuegeGesamt = alt.rekordAlt;
-		this.s = null;	//temporär null gestetz
+		this.s = null; // temporär null gestetz
 
 	}
 
@@ -52,7 +52,7 @@ public class Stats {
 	}
 
 	// wenn zurueckgemacht wird
-	
+
 	void Statszuruecknehmen(Spielfeld k) {
 		this.punkteGesamt -= s.getPunkteDifferenz();
 		this.hoechstesFeldInsgesamt = this.hoechstesAlt;
@@ -70,10 +70,10 @@ public class Stats {
 		return rekord;
 
 	}
-	
+
 	int setRekord() {
 
-		if (s.getPunkte() > rekord  ) { // Wenn Punkte groesser als Rekord
+		if (s.getPunkte() > rekord) { // Wenn Punkte groesser als Rekord
 
 			rekord = s.getPunkte();
 
@@ -85,7 +85,6 @@ public class Stats {
 	int getDurchschnittsPunkte() {
 		return (int) (punkteGesamt / (runden));
 	}
-	
 
 	void saveAlt() { // Vor Update der insgesamt Hoechsten
 
@@ -113,7 +112,7 @@ public class Stats {
 
 		punkteGesamt += s.getPunkteDifferenz();
 	}
-	
+
 	int getPunkteGesamt() {
 
 		return punkteGesamt;

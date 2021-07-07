@@ -7,9 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 class Block {
 	int wert;
 
+	// Möglichkeit für Animationen
 	int xalt;
 	int yalt;
-	
+
 	public Color farbe;
 	Boolean verschoben; // Spielmechanik: Verschobenes kann nicht erneut verbunden werden
 
@@ -21,13 +22,15 @@ class Block {
 
 		verschoben = false;
 	}
-	
-	Block(){}
+
+	Block() {
+	}
 
 	Block(Block alt) { // Copy-Constructor
 		this.wert = alt.wert;
 		this.farbe = alt.farbe;
 		this.verschoben = alt.verschoben;
+
 		this.xalt = alt.xalt;
 		this.yalt = alt.yalt;
 
@@ -38,7 +41,7 @@ class Block {
 		if (o instanceof Block) {
 			Block b = (Block) o;
 			return (this.wert == b.wert) && (this.xalt == b.xalt) && (this.yalt == b.yalt);
-			//Die anderen Attribute werden beim Vergleich ignoriert
+			// Die anderen Attribute werden beim Vergleich ignoriert
 		} else {
 			return false;
 		}
@@ -54,10 +57,12 @@ class Block {
 		this.wert = wert;
 	}
 
+	@JsonIgnore
 	public int getXalt() {
 		return xalt;
 	}
 
+	@JsonIgnore
 	public int getYalt() {
 		return yalt;
 	}
@@ -66,7 +71,7 @@ class Block {
 		this.xalt = x;
 		this.yalt = y;
 	}
-	
+
 	public Boolean getVerschoben() {
 		return verschoben;
 	}
@@ -75,14 +80,14 @@ class Block {
 		this.verschoben = verschoben;
 
 	}
-	
+
 	@JsonIgnore
 	public Color getFarbe() {
 
 		this.setFarbe();
 		return farbe;
 	}
-	
+
 	public void setFarbe() {
 
 		if (this.getWert() == 2) {
@@ -140,13 +145,11 @@ class Block {
 		} else if (this.getWert() == 16384) {
 
 			farbe = new Color(225, 79, 73);
-			
+
 		} else if (this.getWert() == 32768) {
 
 			farbe = new Color(225, 79, 73);
 		}
 	}
-
-	
 
 }
