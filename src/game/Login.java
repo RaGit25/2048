@@ -26,34 +26,34 @@ public class Login extends JPanel implements ActionListener {
 	static ImageIcon bkg6;
 	static ImageIcon bkg7;
 
-	static ImageIcon[] bkgicon;	//Feld mit allen Bildern
+	static ImageIcon[] bkgicon; // Feld mit allen Bildern
 
-	static ImageIcon titleicon;	//Bild mit 2048
-	static JLabel title;	//Darstellen des Bildes
+	static ImageIcon titleicon; // Bild mit 2048
+	static JLabel title; // Darstellen des Bildes
 
 	static JTextField textFeld;
 
-	static Boolean darfListenerAktivSein;	//erlaubt Actionlistener bei der Accountauswahlliste
-	static Boolean removingActionActive;	//man ist am Account loesche
+	static Boolean darfListenerAktivSein; // erlaubt Actionlistener bei der Accountauswahlliste
+	static Boolean removingActionActive; // man ist am Account loesche
 
-	//Buttons sichtbar im Fenstr
-	static JButton loginButton;	// Button "Neues Spiel erstellen"
-	static JButton spielLaden;	// Button "Spielstand laden"
-	static JButton plusButton;	// Button "Neuer Account"
-	static JButton confirmButton;	// Button "Erstellen"
-	static JButton zurueck;	// Button "Zurueck zur Accountauswahl"
-	static JButton accountEntfernen;	// Button "Account entfernen"
-	static JButton confirmDelete;	// Button "Bestaetigen"
+	// Buttons sichtbar im Fenstr
+	static JButton loginButton; // Button "Neues Spiel erstellen"
+	static JButton spielLaden; // Button "Spielstand laden"
+	static JButton plusButton; // Button "Neuer Account"
+	static JButton confirmButton; // Button "Erstellen"
+	static JButton zurueck; // Button "Zurueck zur Accountauswahl"
+	static JButton accountEntfernen; // Button "Account entfernen"
+	static JButton confirmDelete; // Button "Bestaetigen"
 
-	static JLabel warnung;	//im Hauptmenue
-	static JLabel warnung2;	//bei Accounterstellung
-	static JLabel removeLabel;	//Erklaerung beim Loeschen
+	static JLabel warnung; // im Hauptmenue
+	static JLabel warnung2; // bei Accounterstellung
+	static JLabel removeLabel; // Erklaerung beim Loeschen
 
-	static String[] accountString;		//Liste mit allen moeglichen Accounts
-	static JComboBox<String> accountAuswahlliste;	//Erstellen der grafischen Auswahlliste
+	static String[] accountString; // Liste mit allen moeglichen Accounts
+	static JComboBox<String> accountAuswahlliste; // Erstellen der grafischen Auswahlliste
 
-	static String[] groesseString;		//Liste mit allen moeglichen Groessen
-	static JComboBox<Object> groesseComboBox;	//Erstellen der grafischen Auswahlliste
+	static String[] groesseString; // Liste mit allen moeglichen Groessen
+	static JComboBox<Object> groesseComboBox; // Erstellen der grafischen Auswahlliste
 
 	static JLabel background;
 
@@ -109,7 +109,7 @@ public class Login extends JPanel implements ActionListener {
 		bkgicon[5] = bkg6;
 		bkgicon[6] = bkg7;
 		background = new JLabel(new ImageIcon(
-				//Ein zufaelliges Hintergrundbild wird ausgewahlt
+				// Ein zufaelliges Hintergrundbild wird ausgewahlt
 				bkgicon[(int) (Math.random() * 7)].getImage().getScaledInstance(600, 300, Image.SCALE_DEFAULT)));
 
 		GridBagLayout layout = new GridBagLayout(); // Layoutmanager
@@ -188,17 +188,17 @@ public class Login extends JPanel implements ActionListener {
 
 		background.add(zurueck, gbc);
 
-		loginFrame.setSize(600, 300);	//Setzen der Groesse
+		loginFrame.setSize(600, 300); // Setzen der Groesse
 		loginFrame.setLocationRelativeTo(null); // wird in der MItte d. Bildschirms geoeffnet
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fenster schliesst sich und code wird beendet wenn
 		// man auf X das drueckt
 		loginFrame.setResizable(false); // fenstergroesse nicht veraenderbar
 
-		loginFrame.add(background);	//Hinzufuegen des Hintergrunds zur Grafik
+		loginFrame.add(background); // Hinzufuegen des Hintergrunds zur Grafik
 
 	}
 
-	public void loginGui() {	//"Zeichnet" das Menue
+	public void loginGui() { // "Zeichnet" das Menue
 
 		warnung.setText("");
 		warnung.setFont(new Font("Arial", Font.PLAIN, 11));
@@ -321,14 +321,14 @@ public class Login extends JPanel implements ActionListener {
 				darfListenerAktivSein = false;
 
 				Account n = new Account(textFeld.getText(), 4); // Standardgroesse 4
-				n.s.blockErstellen();	//Erstellen der ersten Felder
+				n.s.blockErstellen(); // Erstellen der ersten Felder
 				n.s.blockErstellen();
 				n.klonen();
 				n.st.update();
 				JSONVerwalter.speichern(n);
 
 				accountAuswahlliste.setModel(new DefaultComboBoxModel<String>(accountString));
-				accountAuswahlliste.removeAllItems();	//Combobox wird geleert
+				accountAuswahlliste.removeAllItems(); // Combobox wird geleert
 
 				accountString = accounts();
 
@@ -382,7 +382,7 @@ public class Login extends JPanel implements ActionListener {
 				}
 			}
 
-			checkForWarnings(); // Updated die Warnungen
+			// checkForWarnings(); // Updated die Warnungen
 
 			if (removingActionActive && darfListenerAktivSein && accountAuswahlliste.getSelectedIndex() == 0) {
 
@@ -438,7 +438,7 @@ public class Login extends JPanel implements ActionListener {
 
 			if (darfListenerAktivSein) {
 
-				File file = new File("./"
+				File file = new File("./accounts/"
 						+ JSONVerwalter.laden(accountString[accountAuswahlliste.getSelectedIndex()]).name + ".json");
 
 				if (file.exists()) {
@@ -513,8 +513,9 @@ public class Login extends JPanel implements ActionListener {
 	}
 
 	public static void checkForWarningsNewAcc() {
-		
-		// Wenn es eine Warnung gibt wird diese dargestellt und die Namenseingabe zurueckgesetzt
+
+		// Wenn es eine Warnung gibt wird diese dargestellt
+		// und die Namenseingabe zurueckgesetzt
 
 		if (!nameVerfuegbar(textFeld.getText())) {
 
@@ -541,7 +542,7 @@ public class Login extends JPanel implements ActionListener {
 
 	}
 
-	public static Boolean zeichenErlaubt() {	//Schuetzt vor fehlerhaften Dateinamen
+	public static Boolean zeichenErlaubt() { // Schuetzt vor fehlerhaften Dateinamen
 
 		if (textFeld.getText().indexOf("~") != -1 || textFeld.getText().indexOf("#") != -1
 				|| textFeld.getText().indexOf("%") != -1 || textFeld.getText().indexOf("&") != -1
@@ -580,28 +581,29 @@ public class Login extends JPanel implements ActionListener {
 
 	public static boolean nameVerfuegbar(String name) {
 		for (int j = 0; j < accountString.length; j++) {
-			if (accountString[j].equals(name)) {	//Prueft Name schon vergeben ist
+			if (accountString[j].equals(name)) { // Prueft Name schon vergeben ist
 				return false;
 			}
 		}
-		return (name.equals("Namen eingeben")) ? false : true;	//Name muss außerdem geaendert sein
+		return (name.equals("Namen eingeben")) ? false : true; // Name muss außerdem geaendert sein
 	}
 
-	private static String[] accounts() {	//Neuladen der gefundenen Accounts
-		File f = new File("./"); // Im gleichen Ordner starten
+	private static String[] accounts() { // Neuladen der gefundenen Accounts
+		File f = new File(".\\accounts\\"); // Im gleichen Ordner starten
 		File[] fileArray = f.listFiles(); // Erstellen eines Feldes mit allen Dateien
 
 		ArrayList<String> acc = new ArrayList<String>();
 		for (int i = 0; i < fileArray.length; i++) {
 			if (fileArray[i].getPath().contains(".json")) { // Wenn die Datei .json enthaelt
 				String name = fileArray[i].getPath();
-				name = name.substring(2, name.length() - 5); // Abschneiden des .json
+				name = name.replace(".json", ""); // Abschneiden des .json
+				name = name.replace(".\\accounts\\", "");	//Abschneiden der Ordnerstrukur
 				acc.add(name);
 			}
 		}
 
 		String[] accounts = new String[(acc.size()) + 1]; // Erstellen einer String-Liste
-		accounts[0] = "Konto auswaehlen"; // Erster Eintrag
+		accounts[0] = "Konto auswaehlen"; // Erster Eintrag in der Liste
 		for (int j = 0; j < (acc.size()); j++) {
 
 			accounts[j + 1] = acc.get(j); // Uebertragung der Liste

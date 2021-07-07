@@ -110,7 +110,7 @@ class Spielfeld {
 	public int getPunkteDifferenz() {
 		return this.punkteDifferenz;
 	}
-	
+
 	@JsonIgnore
 	public int getZusammenschuebe() {
 		return this.zusammenschuebe;
