@@ -20,23 +20,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static Boolean statsAktiv;      // Benoetigt fuer den Statistiken Button, siehe ActionListener stats und paintComponent()
 	static Boolean clrAktiv;      // Benoetigt fuer den Design Button, siehe ActionListener clrLayout und paintComponent()
 
-	static Color[] clr1;	//Feld mit Farben
-	static Color[] clr2;	//Feld mit Farben
-	static Color[] clr3;	//Feld mit Farben
-	static Color[] clr4;	//Feld mit Farben
-	static Color[] clr5;	//Feld mit Farben
-	static Color[] clr6;	//Feld mit Farben
-	static Color[] clr7;	//Feld mit Farben
-	static int clrIndex;	//einheitlicher Index für Color Arrays
-
-	static JButton clrButton1;
-	static JButton clrButton2;
-	static JButton clrButton3;
-	static JButton clrButton4;
-	static JButton clrButton5;
-
-	static ImageIcon TEST;
-
 	static Game game = new Game();  // Objekt der Klasse Game, u.a. fuer den KeyListener benoetigt
 	
 	static JFrame gameFrame;        // Spielfenster
@@ -59,10 +42,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JPanel panel4;
 
 	//static LineBorder border;    // Rand der Punkte-, Rekordanzeige
-	static LineBorder border1[];     // Rand der roten Buttons
+	static LineBorder border1;     // Rand der roten Buttons
 	static LineBorder border2;     // Rand fuer den Zurueckbutton, wenn er grau ist
-	static LineBorder border3[];     // Rand fuer schwarze Buttons
-	static LineBorder border4[];	   // Rand fuer hellgraue Buttons
+	static LineBorder border3;     // Rand fuer schwarze Buttons
 
 	static JLabel punkte;          // Punktzahl oben rechts
 	static JLabel rekord;          // Rekord oben rechts
@@ -95,83 +77,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		panel3 = new JPanel();
 		panel4 = new JPanel();
 		//border = new LineBorder(new Color(230, 104, 73), 2, true);
-		clrIndex = 0;
-
-		clr1 = new Color[5];
-		clr1[0] = new Color(231, 204, 112);
-		clr1[1] = new Color(145,0,67);
-		clr1[2] = new Color(180,240,215);
-		clr1[3] = new Color(255,49,43);
-		clr1[4] = new Color(224, 71, 71, 255);
-
-		clr2 = new Color[5];
-		clr2[0] = new Color(60, 58, 52);
-		clr2[1] = new Color(97,37,87);
-		clr2[2] = new Color(172,230,189);
-		clr2[3] = new Color(204,92,82);
-		clr2[4] = new Color(175, 219, 154);
-
-		clr3 = new Color[5];
-		clr3[0] = new Color(230, 104, 73);
-		clr3[1] = new Color(172,121,172, 124);
-		clr3[2] = new Color(172,206,230);
-		clr3[3] = new Color(255,116,103);
-		clr3[4] = new Color(141, 181, 134);
-
-		clr4 = new Color[5];
-		clr4[0] = new Color(189, 176, 163);
-		clr4[1] = new Color(80,67,82);
-		clr4[2] = new Color(175,218,212);
-		clr4[3] = new Color(128,92,89);
-		clr4[4] = new Color(107, 148, 104);
-
-		clr5 = new Color[5];
-		clr5[0] = new Color(163, 148, 132);
-		clr5[1] = new Color(81, 63, 82, 148);
-		clr5[2] = new Color(180,231,240);
-		clr5[3] = new Color(128,57,51);
-		clr5[4] = new Color(72, 102, 75);
-
-		clr6 = new Color[5];
-		clr6[0] = Color.white;
-		clr6[1] = new Color(60, 58, 52);
-		clr6[2] = Color.white;
-		clr6[3] = new Color(255,185,179);
-		clr6[4] = Color.white;
-
-		clr7 = new Color[5];
-		clr7[0] = new Color(224, 71, 71, 255);
-		clr7[1] = new Color(180,240,215);
-		clr7[2] = new Color(145, 87, 114);
-		clr7[3] = new Color(255,185,179);
-		clr7[4] = new Color(231, 204, 112);
-
-
-		border1 = new LineBorder[5];
-		border3 = new LineBorder[5];
-		border4 = new LineBorder[5];
-
-		border1[0] = new LineBorder(clr3[0], 2, true);
-		border1[1] = new LineBorder(clr3[1], 2, true);
-		border1[2] = new LineBorder(clr3[2], 2, true);
-		border1[3] = new LineBorder(clr3[3], 2, true);
-		border1[4] = new LineBorder(clr3[4], 2, true);
-
+		border1 = new LineBorder(new Color(230, 104, 73), 2, true);
 		border2 = new LineBorder(Color.gray, 2, true);
-
-		border3[0] = new LineBorder(clr2[0], 2, true);
-		border3[1] = new LineBorder(clr2[1], 2, true);
-		border3[2] = new LineBorder(clr2[2], 2, true);
-		border3[3] = new LineBorder(clr2[3], 2, true);
-		border3[4] = new LineBorder(clr2[4], 2, true);
-
-		border4[0] = new LineBorder(clr4[0], 2, true);
-		border4[1] = new LineBorder(clr4[1], 2, true);
-		border4[2] = new LineBorder(clr4[2], 2, true);
-		border4[3] = new LineBorder(clr4[3], 2, true);
-		border4[4] = new LineBorder(clr4[4], 2, true);
-
-
+		border3 = new LineBorder(new Color(60, 58, 52), 2, true);
 		punkte = new JLabel();
 		rekord = new JLabel();
 		hilfe = new JLabel();
@@ -182,11 +90,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		stats = new JButton();
 		exit = new JButton();
 		clrLayout = new JButton();
-		clrButton1 = new JButton();
-		clrButton2 = new JButton();
-		clrButton3 = new JButton();
-		clrButton4 = new JButton();
-		clrButton5 = new JButton();
 		
 		// BorderLayout = 5 Panels, Positionen siehe oben
 		
@@ -208,13 +111,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		panel1.add(tipp);
 		panel1.add(hilfe);
 		panel1.add(stats);
-		panel4.add(clrLayout);
+		panel1.add(clrLayout);
 		panel4.add(exit);
-		centerPanel.add(this); // sichtbarmachen der Felder, added das Objekt Game
-		panel1.setBackground(clr6[clrIndex]);
-		panel2.setBackground(clr6[clrIndex]);
-		panel3.setBackground(clr6[clrIndex]);
-		panel4.setBackground(clr6[clrIndex]);
+		centerPanel.add(this);               // sichtbarmachen der Felder, added das Objekt Game
+
 	}
 
 	// Wird in Klasse Login verwendet
@@ -228,7 +128,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	public static void gameGui() { // das Spielfenster
 
 	
-		centerPanel.setBackground(clr5[clrIndex]);
+		centerPanel.setBackground(new Color(163, 148, 132));
 		centerPanel.setPreferredSize(new Dimension(100, 100));
 
 		// festlegen d. groessen d. anderen panels
@@ -248,7 +148,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		//punkte.setBorder(border);
 		punkte.setVerticalAlignment(JLabel.TOP);
 		punkte.setHorizontalAlignment(JLabel.CENTER);
-		punkte.setBackground(clr2[clrIndex]);
+		punkte.setBackground(new Color(60, 58, 52));
 		punkte.setOpaque(true);
 
 		// rekord
@@ -261,7 +161,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		//rekord.setBorder(border);
 		rekord.setVerticalAlignment(JLabel.TOP);
 		rekord.setHorizontalAlignment(JLabel.CENTER);
-		rekord.setBackground(clr2[clrIndex]);
+		rekord.setBackground(new Color(60, 58, 52));
 		rekord.setOpaque(true);
 
 		// Titel
@@ -269,7 +169,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		titel.setText("2048");
 		titel.setBounds(35, 25, 210, 80);
 		titel.setFont(new Font("Arial", Font.BOLD, 70));
-		titel.setBackground(clr1[clrIndex]);
+		titel.setBackground(new Color(231, 204, 112));
 		titel.setLayout(null);
 		//titel.setBorder(border);
 		titel.setVerticalAlignment(JLabel.TOP);
@@ -282,9 +182,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		restart.setText("Neues Spiel");
 		restart.setFont(new Font("Arial", Font.BOLD, 23));
 		restart.setBounds(600, 120, 150, 50);
-		restart.setBorder(border1[clrIndex]);
+		restart.setBorder(border1);
 		restart.setFocusable(false);
-		restart.setBackground(clr3[clrIndex]);
+		restart.setBackground(new Color(230, 104, 73));
 		restart.setForeground(Color.white);
 		restart.setOpaque(true);
 		for( ActionListener a : restart.getActionListeners() ) {	//Entfernt alle Actionlistner
@@ -302,9 +202,9 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		zurueck.setBounds(425, 120, 100, 50);
 		zurueck.setText("Zurueck");
 		zurueck.setFont(new Font("Arial", Font.BOLD, 22));
-		zurueck.setBorder(border1[clrIndex]);
+		zurueck.setBorder(border1);
 		zurueck.setFocusable(false);
-		zurueck.setBackground(clr3[clrIndex]);
+		zurueck.setBackground(new Color(230, 104, 73));
 		zurueck.setForeground(Color.white);
 		zurueck.setOpaque(true);
 		for( ActionListener a : zurueck.getActionListeners() ) {	//Entfernt alle Actionlistner
@@ -328,11 +228,11 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		tipp.setText("?");
 		tipp.setFont(new Font("Arial", Font.BOLD, 35));
 		tipp.setFocusable(false);
-		tipp.setBackground(clr3[clrIndex]);
+		tipp.setBackground(new Color(230, 104, 73));
 		tipp.setForeground(Color.white);
 		tipp.setOpaque(true);
-		tipp.setBorder(border1[clrIndex]);
-		hilfe.setBounds(260, 95, 200, 100);
+		tipp.setBorder(border1);
+		hilfe.setBounds(260, 35, 200, 100);
 		hilfe.setFont(new Font("Arial", Font.PLAIN, 30));
 		hilfe.setForeground(new Color(115, 109, 102));
 		hilfe.setVisible(false);
@@ -355,10 +255,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		
 		stats.setBounds(35, 120, 210, 50);
 		stats.setFocusable(false);
-		stats.setBackground(clr3[clrIndex]);
+		stats.setBackground(new Color(230, 104, 73));
 		stats.setForeground(Color.white);
 		stats.setOpaque(true);
-		stats.setBorder(border1[clrIndex]);
+		stats.setBorder(border1);
 		stats.setText("Statistiken");
 		stats.setFont(new Font("Arial", Font.BOLD, 25));
 		for( ActionListener a : stats.getActionListeners() ) {	//Entfernt alle Actionlistner
@@ -371,7 +271,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				zurueck.setVisible(false);
 				tipp.setVisible(false);
 				clrLayout.setVisible(false);
-				exit.setVisible(false);
 				stats.setFont(new Font("Arial", Font.BOLD, 22));
 				stats.setText("Zurueck zum Spiel");
 				statsAktiv = true;
@@ -382,7 +281,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				zurueck.setVisible(true);
 				tipp.setVisible(true);
 				clrLayout.setVisible(true);
-				exit.setVisible(true);
 				stats.setFont(new Font("Arial", Font.BOLD, 25));
 				stats.setText("Statistiken");
 				statsAktiv = false;
@@ -392,341 +290,40 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			centerPanel.repaint();
 
 		});
-        //Standard Design-Button
-		clrButton1.setText("Standard");
-		clrButton1.setLayout(null);
-		clrButton1.setFont(new Font("Arial", Font.BOLD, 40));
-		clrButton1.setBounds(20, 70, 700, 100);
-		clrButton1.setBorder(border4[clrIndex]);
-		clrButton1.setVisible(false);
-		clrButton1.setFocusable(false);
-		clrButton1.setBackground(clr4[clrIndex]);
-		clrButton1.setForeground(Color.white);
-		clrButton1.setOpaque(true);
-
-
-        //Darkmode Design-Button
-		clrButton2.setText("Nachtmodus");
-		clrButton2.setLayout(null);
-		clrButton2.setFont(new Font("Arial", Font.BOLD, 40));
-		clrButton2.setBounds(20, 200, 700, 100);
-		clrButton2.setBorder(border4[clrIndex]);
-		clrButton2.setVisible(false);
-		clrButton2.setFocusable(false);
-		clrButton2.setBackground(clr4[clrIndex]);
-		clrButton2.setForeground(Color.white);
-		clrButton2.setOpaque(true);
-
-
-		// Design-Button 3
-		clrButton3.setText("Arktisblau");
-		clrButton3.setLayout(null);
-		clrButton3.setFont(new Font("Arial", Font.BOLD, 40));
-		clrButton3.setBounds(20, 330, 700, 100);
-		clrButton3.setBorder(border4[clrIndex]);
-		clrButton3.setVisible(false);
-		clrButton3.setFocusable(false);
-		clrButton3.setBackground(clr4[clrIndex]);
-		clrButton3.setForeground(Color.white);
-		clrButton3.setOpaque(true);
-
-// Design-Button 4
-		clrButton4.setText("Erdbeere");
-		clrButton4.setLayout(null);
-		clrButton4.setFont(new Font("Arial", Font.BOLD, 40));
-		clrButton4.setBounds(20, 460, 700, 100);
-		clrButton4.setBorder(border4[clrIndex]);
-		clrButton4.setVisible(false);
-		clrButton4.setFocusable(false);
-		clrButton4.setBackground(clr4[clrIndex]);
-		clrButton4.setForeground(Color.white);
-		clrButton4.setOpaque(true);
-
-		// Design-Button 5
-		clrButton5.setText("Melone");
-		clrButton5.setLayout(null);
-		clrButton5.setFont(new Font("Arial", Font.BOLD, 40));
-		clrButton5.setBounds(20, 590, 700, 100);
-		clrButton5.setBorder(border4[clrIndex]);
-		clrButton5.setVisible(false);
-		clrButton5.setFocusable(false);
-		clrButton5.setBackground(clr4[clrIndex]);
-		clrButton5.setForeground(Color.white);
-		clrButton5.setOpaque(true);
 
 		// Design button
 
-		clrLayout.setBounds(575, 18, 175, 30);
+		clrLayout.setBounds(250, 120, 170, 50);
 		clrLayout.setFocusable(false);
-		clrLayout.setBackground(clr2[clrIndex]);
+		clrLayout.setBackground(new Color(230, 104, 73));
 		clrLayout.setForeground(Color.white);
 		clrLayout.setOpaque(true);
-		clrLayout.setBorder(border3[clrIndex]);
+		clrLayout.setBorder(border1);
 		clrLayout.setText("Design");
-		clrLayout.setFont(new Font("Arial", Font.BOLD, 15));
+		clrLayout.setFont(new Font("Arial", Font.BOLD, 25));
 		for( ActionListener a : clrLayout.getActionListeners() ) {	//Entfernt alle Actionlistner
 			clrLayout.removeActionListener( a );
 		}
 		clrLayout.addActionListener((ActionEvent e) -> {
 			if (!clrAktiv) {
 
-				centerPanel.setLayout(null);
-				centerPanel.repaint();
 				restart.setVisible(false);
 				zurueck.setVisible(false);
 				tipp.setVisible(false);
 				stats.setVisible(false);
-				clrButton1.setVisible(true);
-				clrButton2.setVisible(true);
-				clrButton3.setVisible(true);
-				clrButton4.setVisible(true);
-				clrButton5.setVisible(true);
-				clrLayout.setFont(new Font("Arial", Font.BOLD, 15));
+				clrLayout.setFont(new Font("Arial", Font.BOLD, 18));
 				clrLayout.setText("Zurueck zum Spiel");
 				clrAktiv = true;
-				centerPanel.add(clrButton1);
-				centerPanel.add(clrButton2);
-				centerPanel.add(clrButton3);
-				centerPanel.add(clrButton4);
-				centerPanel.add(clrButton5);
 
-				for( ActionListener a : clrButton5.getActionListeners() ) {	//Entfernt alle Actionlistner
-					clrButton5.removeActionListener( a );
-				}
-
-				clrButton5.addActionListener((ActionEvent E) -> { // wenn man auf den button drueckt
-
-					clrIndex = 4;
-					centerPanel.repaint();
-					panel1.setBackground(clr6[clrIndex]);
-					panel2.setBackground(clr6[clrIndex]);
-					panel3.setBackground(clr6[clrIndex]);
-					panel4.setBackground(clr6[clrIndex]);
-					punkte.setBackground(clr2[clrIndex]);
-					rekord.setBackground(clr2[clrIndex]);
-					titel.setBackground(clr1[clrIndex]);
-					restart.setBackground(clr3[clrIndex]);
-					zurueck.setBackground(clr3[clrIndex]);
-					tipp.setBackground(clr3[clrIndex]);
-					hilfe.setBackground(clr3[clrIndex]);
-					stats.setBackground(clr3[clrIndex]);
-					exit.setBackground(clr2[clrIndex]);
-					clrLayout.setBackground(clr2[clrIndex]);
-					centerPanel.setBackground(clr5[clrIndex]);
-					clrButton1.setBackground(clr4[clrIndex]);
-					clrButton2.setBackground(clr4[clrIndex]);
-					clrButton3.setBackground(clr4[clrIndex]);
-					clrButton4.setBackground(clr4[clrIndex]);
-					clrButton5.setBackground(clr4[clrIndex]);
-
-					restart.setBorder(border1[clrIndex]);
-					zurueck.setBorder(border1[clrIndex]);
-					tipp.setBorder(border1[clrIndex]);
-					stats.setBorder(border1[clrIndex]);
-					exit.setBorder(border3[clrIndex]);
-					clrLayout.setBorder(border3[clrIndex]);
-					clrButton1.setBorder(border4[clrIndex]);
-					clrButton2.setBorder(border4[clrIndex]);
-					clrButton3.setBorder(border4[clrIndex]);
-					clrButton4.setBorder(border4[clrIndex]);
-					clrButton5.setBorder(border4[clrIndex]);
-					labelNeuladen();
-				});
-
-				for( ActionListener a : clrButton4.getActionListeners() ) {	//Entfernt alle Actionlistner
-					clrButton4.removeActionListener( a );
-				}
-
-				clrButton4.addActionListener((ActionEvent E) -> { // wenn man auf den button drueckt
-
-					clrIndex = 3;
-					centerPanel.repaint();
-					panel1.setBackground(clr6[clrIndex]);
-					panel2.setBackground(clr6[clrIndex]);
-					panel3.setBackground(clr6[clrIndex]);
-					panel4.setBackground(clr6[clrIndex]);
-					punkte.setBackground(clr2[clrIndex]);
-					rekord.setBackground(clr2[clrIndex]);
-					titel.setBackground(clr1[clrIndex]);
-					restart.setBackground(clr3[clrIndex]);
-					zurueck.setBackground(clr3[clrIndex]);
-					tipp.setBackground(clr3[clrIndex]);
-					hilfe.setBackground(clr3[clrIndex]);
-					stats.setBackground(clr3[clrIndex]);
-					exit.setBackground(clr2[clrIndex]);
-					clrLayout.setBackground(clr2[clrIndex]);
-					centerPanel.setBackground(clr5[clrIndex]);
-					clrButton1.setBackground(clr4[clrIndex]);
-					clrButton2.setBackground(clr4[clrIndex]);
-					clrButton3.setBackground(clr4[clrIndex]);
-                    clrButton4.setBackground(clr4[clrIndex]);
-					clrButton5.setBackground(clr4[clrIndex]);
-
-					restart.setBorder(border1[clrIndex]);
-					zurueck.setBorder(border1[clrIndex]);
-					tipp.setBorder(border1[clrIndex]);
-					stats.setBorder(border1[clrIndex]);
-					exit.setBorder(border3[clrIndex]);
-					clrLayout.setBorder(border3[clrIndex]);
-					clrButton1.setBorder(border4[clrIndex]);
-					clrButton2.setBorder(border4[clrIndex]);
-					clrButton3.setBorder(border4[clrIndex]);
-					clrButton4.setBorder(border4[clrIndex]);
-					clrButton5.setBorder(border4[clrIndex]);
-					labelNeuladen();
-				});
-
-
-				for( ActionListener a : clrButton3.getActionListeners() ) {	//Entfernt alle Actionlistner
-					clrButton3.removeActionListener( a );
-				}
-
-				clrButton3.addActionListener((ActionEvent E) -> { // wenn man auf den button drueckt
-
-					clrIndex = 2;
-					centerPanel.repaint();
-					panel1.setBackground(clr6[clrIndex]);
-					panel2.setBackground(clr6[clrIndex]);
-					panel3.setBackground(clr6[clrIndex]);
-					panel4.setBackground(clr6[clrIndex]);
-					punkte.setBackground(clr2[clrIndex]);
-					rekord.setBackground(clr2[clrIndex]);
-					titel.setBackground(clr1[clrIndex]);
-					restart.setBackground(clr3[clrIndex]);
-					zurueck.setBackground(clr3[clrIndex]);
-					tipp.setBackground(clr3[clrIndex]);
-					hilfe.setBackground(clr3[clrIndex]);
-					stats.setBackground(clr3[clrIndex]);
-					exit.setBackground(clr2[clrIndex]);
-					clrLayout.setBackground(clr2[clrIndex]);
-					centerPanel.setBackground(clr5[clrIndex]);
-					clrButton1.setBackground(clr4[clrIndex]);
-					clrButton2.setBackground(clr4[clrIndex]);
-					clrButton3.setBackground(clr4[clrIndex]);
-					clrButton4.setBackground(clr4[clrIndex]);
-					clrButton5.setBackground(clr4[clrIndex]);
-
-					restart.setBorder(border1[clrIndex]);
-					zurueck.setBorder(border1[clrIndex]);
-					tipp.setBorder(border1[clrIndex]);
-					stats.setBorder(border1[clrIndex]);
-					exit.setBorder(border3[clrIndex]);
-					clrLayout.setBorder(border3[clrIndex]);
-					clrButton1.setBorder(border4[clrIndex]);
-					clrButton2.setBorder(border4[clrIndex]);
-					clrButton3.setBorder(border4[clrIndex]);
-					clrButton4.setBorder(border4[clrIndex]);
-					clrButton5.setBorder(border4[clrIndex]);
-					labelNeuladen();
-				});
-
-			for( ActionListener a : clrButton2.getActionListeners() ) {	//Entfernt alle Actionlistner
-					clrButton2.removeActionListener( a );
-				}
-
-				clrButton2.addActionListener((ActionEvent E) -> { // wenn man auf den button drueckt
-
-					clrIndex = 1;
-					centerPanel.repaint();
-					panel1.setBackground(clr6[clrIndex]);
-					panel2.setBackground(clr6[clrIndex]);
-					panel3.setBackground(clr6[clrIndex]);
-					panel4.setBackground(clr6[clrIndex]);
-					punkte.setBackground(clr2[clrIndex]);
-					rekord.setBackground(clr2[clrIndex]);
-					titel.setBackground(clr1[clrIndex]);
-					restart.setBackground(clr3[clrIndex]);
-					zurueck.setBackground(clr3[clrIndex]);
-					tipp.setBackground(clr3[clrIndex]);
-					hilfe.setBackground(clr3[clrIndex]);
-					stats.setBackground(clr3[clrIndex]);
-					exit.setBackground(clr2[clrIndex]);
-					clrLayout.setBackground(clr2[clrIndex]);
-					centerPanel.setBackground(clr5[clrIndex]);
-					clrButton1.setBackground(clr4[clrIndex]);
-					clrButton2.setBackground(clr4[clrIndex]);
-					clrButton3.setBackground(clr4[clrIndex]);
-					clrButton4.setBackground(clr4[clrIndex]);
-					clrButton5.setBackground(clr4[clrIndex]);
-
-					restart.setBorder(border1[clrIndex]);
-					zurueck.setBorder(border1[clrIndex]);
-					tipp.setBorder(border1[clrIndex]);
-					stats.setBorder(border1[clrIndex]);
-					exit.setBorder(border3[clrIndex]);
-					clrLayout.setBorder(border3[clrIndex]);
-					clrButton1.setBorder(border4[clrIndex]);
-					clrButton2.setBorder(border4[clrIndex]);
-					clrButton3.setBorder(border4[clrIndex]);
-					clrButton4.setBorder(border4[clrIndex]);
-					clrButton5.setBorder(border4[clrIndex]);
-					labelNeuladen();
-				});
-
-
-				for( ActionListener a : clrButton1.getActionListeners() ) {	//Entfernt alle Actionlistner
-					clrButton1.removeActionListener( a );
-				}
-
-				clrButton1.addActionListener((ActionEvent E) -> { // wenn man auf den button drueckt
-
-					clrIndex = 0;
-					centerPanel.repaint();
-					panel1.setBackground(clr6[clrIndex]);
-					panel2.setBackground(clr6[clrIndex]);
-					panel3.setBackground(clr6[clrIndex]);
-					panel4.setBackground(clr6[clrIndex]);
-					punkte.setBackground(clr2[clrIndex]);
-					rekord.setBackground(clr2[clrIndex]);
-					titel.setBackground(clr1[clrIndex]);
-					restart.setBackground(clr3[clrIndex]);
-					zurueck.setBackground(clr3[clrIndex]);
-					tipp.setBackground(clr3[clrIndex]);
-					hilfe.setBackground(clr3[clrIndex]);
-					stats.setBackground(clr3[clrIndex]);
-					exit.setBackground(clr2[clrIndex]);
-					clrLayout.setBackground(clr2[clrIndex]);
-					centerPanel.setBackground(clr5[clrIndex]);
-					clrButton1.setBackground(clr4[clrIndex]);
-					clrButton2.setBackground(clr4[clrIndex]);
-					clrButton3.setBackground(clr4[clrIndex]);
-					clrButton4.setBackground(clr4[clrIndex]);
-					clrButton5.setBackground(clr4[clrIndex]);
-
-					restart.setBorder(border1[clrIndex]);
-					zurueck.setBorder(border1[clrIndex]);
-					tipp.setBorder(border1[clrIndex]);
-					stats.setBorder(border1[clrIndex]);
-					exit.setBorder(border3[clrIndex]);
-					clrLayout.setBorder(border3[clrIndex]);
-					clrButton1.setBorder(border4[clrIndex]);
-					clrButton2.setBorder(border4[clrIndex]);
-					clrButton3.setBorder(border4[clrIndex]);
-					clrButton4.setBorder(border4[clrIndex]);
-					clrButton5.setBorder(border4[clrIndex]);
-					labelNeuladen();
-				});
 			} else {
 
-				centerPanel.setLayout(new FlowLayout());
-				centerPanel.repaint();
 				restart.setVisible(true);
 				zurueck.setVisible(true);
 				tipp.setVisible(true);
 				stats.setVisible(true);
-				clrButton1.setVisible(false);
-				clrButton2.setVisible(false);
-				clrButton3.setVisible(false);
-				clrButton4.setVisible(false);
-				clrButton5.setVisible(false);
-				clrLayout.setFont(new Font("Arial", Font.BOLD, 15));
+				clrLayout.setFont(new Font("Arial", Font.BOLD, 25));
 				clrLayout.setText("Design");
 				clrAktiv = false;
-				centerPanel.remove(clrButton1);
-				centerPanel.remove(clrButton2);
-				centerPanel.remove(clrButton3);
-				centerPanel.remove(clrButton4);
-				centerPanel.remove(clrButton5);
 
 			}
 
@@ -741,10 +338,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		exit.setFont(new Font("Arial", Font.BOLD, 15));
 		exit.setText("Zum Login");
 		exit.setBounds(35, 18, 100, 30);
-		exit.setBackground(clr2[clrIndex]);
+		exit.setBackground(new Color(60, 58, 52));
 		exit.setForeground(Color.white);
 		exit.setOpaque(true);
-		exit.setBorder(border3[clrIndex]);
+		exit.setBorder(border3);
 		exit.setFocusable(false);
 		for( ActionListener a : exit.getActionListeners() ) {	//Entfernt alle Actionlistner
 	        exit.removeActionListener( a );
@@ -755,12 +352,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 			statsAktiv = false; 
 			gameFrame.dispose();
 			Login.l.loginGui(); // Static mit Klassennamen aufrufen
-			clrAktiv = false;
-			clrButton1.setVisible(false);
-			clrButton2.setVisible(false);
-			clrButton3.setVisible(false);
-			clrButton4.setVisible(false);
-			clrButton5.setVisible(false);
 
 		});
 
@@ -788,7 +379,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		if (statsAktiv) {
 
-			g.setColor(Color.white);
 			g.setFont(new Font("Arial", Font.BOLD, 40));
 			g.drawString("Statistiken", 80, 40);
 			g.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -855,10 +445,12 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		} else if (clrAktiv) {
 
-			g.setColor(Color.white);
 			g.setFont(new Font("Arial", Font.BOLD, 40));
-			g.drawString("Wählen Sie ein Design", 220, 40);
+			g.drawString("Design", 80, 40);
 			g.setFont(new Font("Arial", Font.PLAIN, 30));
+			g.setColor(Color.white);
+
+			// Alle einzelnen Statistiken
 
 
 			// Der Fall, wenn man spielt
@@ -991,7 +583,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		int wert = block.getWert();
 
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(clr4[clrIndex]);
+		g2.setColor(new Color(189, 176,163));
 
 		g.setFont(new Font("Arial", Font.BOLD, schrift)); // schriftgroesse der zahl im feld
 
@@ -1154,7 +746,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		
 		if (a.s.hoechstesFeld == 2048) {
 
-			titel.setForeground(clr7[clrIndex]);
+			titel.setForeground(new Color(252, 130, 20));
 
 		} else if (a.s.hoechstesFeld == 4096) {
 
@@ -1183,9 +775,22 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		} else {
 
-			zurueck.setBackground(clr3[clrIndex]);
-			zurueck.setBorder(border1[clrIndex]);
+			zurueck.setBackground(new Color(230, 104, 73));
+			zurueck.setBorder(border1);
 
 		}
+
+		/*----------nur fuer ein 3x3 Feld----------*/
+
+		if (a.s.getBreite() == 3 && a.s.getHoechstesFeld() == 1024) {
+
+			titel.setForeground(Color.red);
+			panel1.setBackground(new Color(237, 204, 97));
+			panel2.setBackground(new Color(237, 204, 97));
+			panel3.setBackground(new Color(237, 204, 97));
+			panel4.setBackground(new Color(237, 204, 97));
+
+		}
+
 	}
 }
