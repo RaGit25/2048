@@ -20,6 +20,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static Boolean statsAktiv;      // Benoetigt fuer den Statistiken Button, siehe ActionListener stats und paintComponent()
 	static Boolean clrAktiv;      // Benoetigt fuer den Design Button, siehe ActionListener clrLayout und paintComponent()
 
+	static Color[] clr1;	//Feld mit Farben
+	static Color[] clr2;	//Feld mit Farben
+	static Color[] clr3;	//Feld mit Farben
+	static Color[] clr4;	//Feld mit Farben
+	static Color[] clr5;	//Feld mit Farben
+	static int clrIndex;
+
+
 	static Game game = new Game();  // Objekt der Klasse Game, u.a. fuer den KeyListener benoetigt
 	
 	static JFrame gameFrame;        // Spielfenster
@@ -77,7 +85,18 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		panel3 = new JPanel();
 		panel4 = new JPanel();
 		//border = new LineBorder(new Color(230, 104, 73), 2, true);
-		border1 = new LineBorder(new Color(230, 104, 73), 2, true);
+		clrIndex = 0;
+		clr1 = new Color[1];
+		clr1[0] = new Color(231, 204, 112);
+		clr2 = new Color[1];
+		clr2[0] = new Color(60, 58, 52);
+		clr3 = new Color[1];
+		clr3[0] = new Color(230, 104, 73);
+		clr4 = new Color[1];
+		clr4[0] = new Color(189, 176, 163);
+		clr5 = new Color[1];
+		clr5[0] = new Color(163, 148, 132);
+		border1 = new LineBorder(clr3[clrIndex], 2, true);
 		border2 = new LineBorder(Color.gray, 2, true);
 		border3 = new LineBorder(new Color(60, 58, 52), 2, true);
 		punkte = new JLabel();
@@ -111,7 +130,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		panel1.add(tipp);
 		panel1.add(hilfe);
 		panel1.add(stats);
-		panel1.add(clrLayout);
+		panel4.add(clrLayout);
 		panel4.add(exit);
 		centerPanel.add(this);               // sichtbarmachen der Felder, added das Objekt Game
 
@@ -184,7 +203,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		restart.setBounds(600, 120, 150, 50);
 		restart.setBorder(border1);
 		restart.setFocusable(false);
-		restart.setBackground(new Color(230, 104, 73));
+		restart.setBackground(clr3[clrIndex]);
 		restart.setForeground(Color.white);
 		restart.setOpaque(true);
 		for( ActionListener a : restart.getActionListeners() ) {	//Entfernt alle Actionlistner
@@ -204,7 +223,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		zurueck.setFont(new Font("Arial", Font.BOLD, 22));
 		zurueck.setBorder(border1);
 		zurueck.setFocusable(false);
-		zurueck.setBackground(new Color(230, 104, 73));
+		zurueck.setBackground(clr3[clrIndex]);
 		zurueck.setForeground(Color.white);
 		zurueck.setOpaque(true);
 		for( ActionListener a : zurueck.getActionListeners() ) {	//Entfernt alle Actionlistner
@@ -228,7 +247,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		tipp.setText("?");
 		tipp.setFont(new Font("Arial", Font.BOLD, 35));
 		tipp.setFocusable(false);
-		tipp.setBackground(new Color(230, 104, 73));
+		tipp.setBackground(clr3[clrIndex]);
 		tipp.setForeground(Color.white);
 		tipp.setOpaque(true);
 		tipp.setBorder(border1);
@@ -255,7 +274,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		
 		stats.setBounds(35, 120, 210, 50);
 		stats.setFocusable(false);
-		stats.setBackground(new Color(230, 104, 73));
+		stats.setBackground(clr3[clrIndex]);
 		stats.setForeground(Color.white);
 		stats.setOpaque(true);
 		stats.setBorder(border1);
@@ -293,14 +312,14 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		// Design button
 
-		clrLayout.setBounds(250, 120, 170, 50);
+		clrLayout.setBounds(575, 18, 175, 30);
 		clrLayout.setFocusable(false);
-		clrLayout.setBackground(new Color(230, 104, 73));
+		clrLayout.setBackground(new Color(60, 58, 52));
 		clrLayout.setForeground(Color.white);
 		clrLayout.setOpaque(true);
-		clrLayout.setBorder(border1);
+		clrLayout.setBorder(border3);
 		clrLayout.setText("Design");
-		clrLayout.setFont(new Font("Arial", Font.BOLD, 25));
+		clrLayout.setFont(new Font("Arial", Font.BOLD, 15));
 		for( ActionListener a : clrLayout.getActionListeners() ) {	//Entfernt alle Actionlistner
 			clrLayout.removeActionListener( a );
 		}
@@ -311,7 +330,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				zurueck.setVisible(false);
 				tipp.setVisible(false);
 				stats.setVisible(false);
-				clrLayout.setFont(new Font("Arial", Font.BOLD, 18));
+				clrLayout.setFont(new Font("Arial", Font.BOLD, 15));
 				clrLayout.setText("Zurueck zum Spiel");
 				clrAktiv = true;
 
@@ -321,7 +340,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				zurueck.setVisible(true);
 				tipp.setVisible(true);
 				stats.setVisible(true);
-				clrLayout.setFont(new Font("Arial", Font.BOLD, 25));
+				clrLayout.setFont(new Font("Arial", Font.BOLD, 15));
 				clrLayout.setText("Design");
 				clrAktiv = false;
 
@@ -775,7 +794,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		} else {
 
-			zurueck.setBackground(new Color(230, 104, 73));
+			zurueck.setBackground(clr3[clrIndex]);
 			zurueck.setBorder(border1);
 
 		}
