@@ -3,7 +3,10 @@
 ## Contributions
 ##### [RaGit25](https://github.com/RaGit25), [CClaudio129](https://github.com/CClaudio129), [Lena2351](https://github.com/Lena2351), [pchernig](https://github.com/pchernig), [MarcelMacu](https://github.com/MarcelMacu), [Yso21](https://github.com/Yso21)
 ## SetUp
-##### {This needs to be done!}
+##### You can of course compile the project yourself.
+##### Or just download the latest [release](https://github.com/RaGit25/2048/releases) version
+##### It can be found under Assets/Game
+##### *Be sure to have (at least) Java 8 installed*
 ## How to play
 ##### 
 ##### (1)	After opening the game a login window will appear.
