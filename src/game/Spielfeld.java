@@ -49,7 +49,6 @@ class Spielfeld {
 				this.feld[i][j] = new Block(a.feld[i][j]); // Anderen Copy-Constructor aufrufen
 			}
 		}
-
 		this.punkte = a.punkte;
 		this.hoechstesFeld = a.hoechstesFeld;
 		this.zuege = a.zuege;

@@ -27,7 +27,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static Color[] clr5;	//Feld mit Farben
 	static Color[] clr6;	//Feld mit Farben
 	static Color[] clr7;	//Feld mit Farben
-	static int clrIndex;	//einheitlicher Index für Color Arrays
+	static int clrIndex;	//einheitlicher Index für Color Arrays, wird je nach ausgewaehltem Design geaendert
 
 	static JButton clrButton1;
 	static JButton clrButton2;
@@ -35,7 +35,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static JButton clrButton4;
 	static JButton clrButton5;
 
-	static ImageIcon TEST;
+	static ImageIcon icon;           // icon vom JFrame
 
 	static Game game = new Game();  // Objekt der Klasse Game, u.a. fuer den KeyListener benoetigt
 	
@@ -94,7 +94,10 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		panel2 = new JPanel();
 		panel3 = new JPanel();
 		panel4 = new JPanel();
-		//border = new LineBorder(new Color(230, 104, 73), 2, true);
+		
+		icon = new ImageIcon("bilder/frame.PNG");
+		gameFrame.setIconImage(icon.getImage());
+		
 		clrIndex = 0;
 
 		clr1 = new Color[5];
@@ -396,7 +399,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		clrButton1.setText("Standard");
 		clrButton1.setLayout(null);
 		clrButton1.setFont(new Font("Arial", Font.BOLD, 40));
-		clrButton1.setBounds(20, 70, 700, 100);
+		clrButton1.setBounds(20, 70, 685, 100);
 		clrButton1.setBorder(border4[clrIndex]);
 		clrButton1.setVisible(false);
 		clrButton1.setFocusable(false);
@@ -409,7 +412,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		clrButton2.setText("Nachtmodus");
 		clrButton2.setLayout(null);
 		clrButton2.setFont(new Font("Arial", Font.BOLD, 40));
-		clrButton2.setBounds(20, 200, 700, 100);
+		clrButton2.setBounds(20, 200, 685, 100);
 		clrButton2.setBorder(border4[clrIndex]);
 		clrButton2.setVisible(false);
 		clrButton2.setFocusable(false);
@@ -422,7 +425,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		clrButton3.setText("Arktisblau");
 		clrButton3.setLayout(null);
 		clrButton3.setFont(new Font("Arial", Font.BOLD, 40));
-		clrButton3.setBounds(20, 330, 700, 100);
+		clrButton3.setBounds(20, 330, 685, 100);
 		clrButton3.setBorder(border4[clrIndex]);
 		clrButton3.setVisible(false);
 		clrButton3.setFocusable(false);
@@ -434,7 +437,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		clrButton4.setText("Erdbeere");
 		clrButton4.setLayout(null);
 		clrButton4.setFont(new Font("Arial", Font.BOLD, 40));
-		clrButton4.setBounds(20, 460, 700, 100);
+		clrButton4.setBounds(20, 460, 685, 100);
 		clrButton4.setBorder(border4[clrIndex]);
 		clrButton4.setVisible(false);
 		clrButton4.setFocusable(false);
@@ -446,7 +449,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 		clrButton5.setText("Melone");
 		clrButton5.setLayout(null);
 		clrButton5.setFont(new Font("Arial", Font.BOLD, 40));
-		clrButton5.setBounds(20, 590, 700, 100);
+		clrButton5.setBounds(20, 590, 685, 100);
 		clrButton5.setBorder(border4[clrIndex]);
 		clrButton5.setVisible(false);
 		clrButton5.setFocusable(false);
@@ -476,6 +479,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				zurueck.setVisible(false);
 				tipp.setVisible(false);
 				stats.setVisible(false);
+				exit.setVisible(false);
 				clrButton1.setVisible(true);
 				clrButton2.setVisible(true);
 				clrButton3.setVisible(true);
@@ -497,40 +501,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				clrButton5.addActionListener((ActionEvent E) -> { // wenn man auf den button drueckt
 
 					clrIndex = 4;
-					centerPanel.repaint();
-					panel1.setBackground(clr6[clrIndex]);
-					panel2.setBackground(clr6[clrIndex]);
-					panel3.setBackground(clr6[clrIndex]);
-					panel4.setBackground(clr6[clrIndex]);
-					punkte.setBackground(clr2[clrIndex]);
-					rekord.setBackground(clr2[clrIndex]);
-					titel.setBackground(clr1[clrIndex]);
-					restart.setBackground(clr3[clrIndex]);
-					zurueck.setBackground(clr3[clrIndex]);
-					tipp.setBackground(clr3[clrIndex]);
-					hilfe.setBackground(clr3[clrIndex]);
-					stats.setBackground(clr3[clrIndex]);
-					exit.setBackground(clr2[clrIndex]);
-					clrLayout.setBackground(clr2[clrIndex]);
-					centerPanel.setBackground(clr5[clrIndex]);
-					clrButton1.setBackground(clr4[clrIndex]);
-					clrButton2.setBackground(clr4[clrIndex]);
-					clrButton3.setBackground(clr4[clrIndex]);
-					clrButton4.setBackground(clr4[clrIndex]);
-					clrButton5.setBackground(clr4[clrIndex]);
-
-					restart.setBorder(border1[clrIndex]);
-					zurueck.setBorder(border1[clrIndex]);
-					tipp.setBorder(border1[clrIndex]);
-					stats.setBorder(border1[clrIndex]);
-					exit.setBorder(border3[clrIndex]);
-					clrLayout.setBorder(border3[clrIndex]);
-					clrButton1.setBorder(border4[clrIndex]);
-					clrButton2.setBorder(border4[clrIndex]);
-					clrButton3.setBorder(border4[clrIndex]);
-					clrButton4.setBorder(border4[clrIndex]);
-					clrButton5.setBorder(border4[clrIndex]);
-					labelNeuladen();
+					designAenderung();
+					
 				});
 
 				for( ActionListener a : clrButton4.getActionListeners() ) {	//Entfernt alle Actionlistner
@@ -540,40 +512,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				clrButton4.addActionListener((ActionEvent E) -> { // wenn man auf den button drueckt
 
 					clrIndex = 3;
-					centerPanel.repaint();
-					panel1.setBackground(clr6[clrIndex]);
-					panel2.setBackground(clr6[clrIndex]);
-					panel3.setBackground(clr6[clrIndex]);
-					panel4.setBackground(clr6[clrIndex]);
-					punkte.setBackground(clr2[clrIndex]);
-					rekord.setBackground(clr2[clrIndex]);
-					titel.setBackground(clr1[clrIndex]);
-					restart.setBackground(clr3[clrIndex]);
-					zurueck.setBackground(clr3[clrIndex]);
-					tipp.setBackground(clr3[clrIndex]);
-					hilfe.setBackground(clr3[clrIndex]);
-					stats.setBackground(clr3[clrIndex]);
-					exit.setBackground(clr2[clrIndex]);
-					clrLayout.setBackground(clr2[clrIndex]);
-					centerPanel.setBackground(clr5[clrIndex]);
-					clrButton1.setBackground(clr4[clrIndex]);
-					clrButton2.setBackground(clr4[clrIndex]);
-					clrButton3.setBackground(clr4[clrIndex]);
-                    clrButton4.setBackground(clr4[clrIndex]);
-					clrButton5.setBackground(clr4[clrIndex]);
-
-					restart.setBorder(border1[clrIndex]);
-					zurueck.setBorder(border1[clrIndex]);
-					tipp.setBorder(border1[clrIndex]);
-					stats.setBorder(border1[clrIndex]);
-					exit.setBorder(border3[clrIndex]);
-					clrLayout.setBorder(border3[clrIndex]);
-					clrButton1.setBorder(border4[clrIndex]);
-					clrButton2.setBorder(border4[clrIndex]);
-					clrButton3.setBorder(border4[clrIndex]);
-					clrButton4.setBorder(border4[clrIndex]);
-					clrButton5.setBorder(border4[clrIndex]);
-					labelNeuladen();
+					designAenderung();
+					
 				});
 
 
@@ -584,40 +524,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				clrButton3.addActionListener((ActionEvent E) -> { // wenn man auf den button drueckt
 
 					clrIndex = 2;
-					centerPanel.repaint();
-					panel1.setBackground(clr6[clrIndex]);
-					panel2.setBackground(clr6[clrIndex]);
-					panel3.setBackground(clr6[clrIndex]);
-					panel4.setBackground(clr6[clrIndex]);
-					punkte.setBackground(clr2[clrIndex]);
-					rekord.setBackground(clr2[clrIndex]);
-					titel.setBackground(clr1[clrIndex]);
-					restart.setBackground(clr3[clrIndex]);
-					zurueck.setBackground(clr3[clrIndex]);
-					tipp.setBackground(clr3[clrIndex]);
-					hilfe.setBackground(clr3[clrIndex]);
-					stats.setBackground(clr3[clrIndex]);
-					exit.setBackground(clr2[clrIndex]);
-					clrLayout.setBackground(clr2[clrIndex]);
-					centerPanel.setBackground(clr5[clrIndex]);
-					clrButton1.setBackground(clr4[clrIndex]);
-					clrButton2.setBackground(clr4[clrIndex]);
-					clrButton3.setBackground(clr4[clrIndex]);
-					clrButton4.setBackground(clr4[clrIndex]);
-					clrButton5.setBackground(clr4[clrIndex]);
-
-					restart.setBorder(border1[clrIndex]);
-					zurueck.setBorder(border1[clrIndex]);
-					tipp.setBorder(border1[clrIndex]);
-					stats.setBorder(border1[clrIndex]);
-					exit.setBorder(border3[clrIndex]);
-					clrLayout.setBorder(border3[clrIndex]);
-					clrButton1.setBorder(border4[clrIndex]);
-					clrButton2.setBorder(border4[clrIndex]);
-					clrButton3.setBorder(border4[clrIndex]);
-					clrButton4.setBorder(border4[clrIndex]);
-					clrButton5.setBorder(border4[clrIndex]);
-					labelNeuladen();
+					designAenderung();
+					
 				});
 
 			for( ActionListener a : clrButton2.getActionListeners() ) {	//Entfernt alle Actionlistner
@@ -627,40 +535,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				clrButton2.addActionListener((ActionEvent E) -> { // wenn man auf den button drueckt
 
 					clrIndex = 1;
-					centerPanel.repaint();
-					panel1.setBackground(clr6[clrIndex]);
-					panel2.setBackground(clr6[clrIndex]);
-					panel3.setBackground(clr6[clrIndex]);
-					panel4.setBackground(clr6[clrIndex]);
-					punkte.setBackground(clr2[clrIndex]);
-					rekord.setBackground(clr2[clrIndex]);
-					titel.setBackground(clr1[clrIndex]);
-					restart.setBackground(clr3[clrIndex]);
-					zurueck.setBackground(clr3[clrIndex]);
-					tipp.setBackground(clr3[clrIndex]);
-					hilfe.setBackground(clr3[clrIndex]);
-					stats.setBackground(clr3[clrIndex]);
-					exit.setBackground(clr2[clrIndex]);
-					clrLayout.setBackground(clr2[clrIndex]);
-					centerPanel.setBackground(clr5[clrIndex]);
-					clrButton1.setBackground(clr4[clrIndex]);
-					clrButton2.setBackground(clr4[clrIndex]);
-					clrButton3.setBackground(clr4[clrIndex]);
-					clrButton4.setBackground(clr4[clrIndex]);
-					clrButton5.setBackground(clr4[clrIndex]);
-
-					restart.setBorder(border1[clrIndex]);
-					zurueck.setBorder(border1[clrIndex]);
-					tipp.setBorder(border1[clrIndex]);
-					stats.setBorder(border1[clrIndex]);
-					exit.setBorder(border3[clrIndex]);
-					clrLayout.setBorder(border3[clrIndex]);
-					clrButton1.setBorder(border4[clrIndex]);
-					clrButton2.setBorder(border4[clrIndex]);
-					clrButton3.setBorder(border4[clrIndex]);
-					clrButton4.setBorder(border4[clrIndex]);
-					clrButton5.setBorder(border4[clrIndex]);
-					labelNeuladen();
+					designAenderung();
+					
 				});
 
 
@@ -671,40 +547,8 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				clrButton1.addActionListener((ActionEvent E) -> { // wenn man auf den button drueckt
 
 					clrIndex = 0;
-					centerPanel.repaint();
-					panel1.setBackground(clr6[clrIndex]);
-					panel2.setBackground(clr6[clrIndex]);
-					panel3.setBackground(clr6[clrIndex]);
-					panel4.setBackground(clr6[clrIndex]);
-					punkte.setBackground(clr2[clrIndex]);
-					rekord.setBackground(clr2[clrIndex]);
-					titel.setBackground(clr1[clrIndex]);
-					restart.setBackground(clr3[clrIndex]);
-					zurueck.setBackground(clr3[clrIndex]);
-					tipp.setBackground(clr3[clrIndex]);
-					hilfe.setBackground(clr3[clrIndex]);
-					stats.setBackground(clr3[clrIndex]);
-					exit.setBackground(clr2[clrIndex]);
-					clrLayout.setBackground(clr2[clrIndex]);
-					centerPanel.setBackground(clr5[clrIndex]);
-					clrButton1.setBackground(clr4[clrIndex]);
-					clrButton2.setBackground(clr4[clrIndex]);
-					clrButton3.setBackground(clr4[clrIndex]);
-					clrButton4.setBackground(clr4[clrIndex]);
-					clrButton5.setBackground(clr4[clrIndex]);
-
-					restart.setBorder(border1[clrIndex]);
-					zurueck.setBorder(border1[clrIndex]);
-					tipp.setBorder(border1[clrIndex]);
-					stats.setBorder(border1[clrIndex]);
-					exit.setBorder(border3[clrIndex]);
-					clrLayout.setBorder(border3[clrIndex]);
-					clrButton1.setBorder(border4[clrIndex]);
-					clrButton2.setBorder(border4[clrIndex]);
-					clrButton3.setBorder(border4[clrIndex]);
-					clrButton4.setBorder(border4[clrIndex]);
-					clrButton5.setBorder(border4[clrIndex]);
-					labelNeuladen();
+					designAenderung();
+					
 				});
 			} else {
 
@@ -714,6 +558,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 				zurueck.setVisible(true);
 				tipp.setVisible(true);
 				stats.setVisible(true);
+				exit.setVisible(true);
 				clrButton1.setVisible(false);
 				clrButton2.setVisible(false);
 				clrButton3.setVisible(false);
@@ -1045,6 +890,47 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 		}
 
+	}
+	
+	// Wenn man einen Design Button drueckt wird diese Methode alles neufaerben
+	
+	public static void designAenderung() {
+		
+		centerPanel.repaint();
+		panel1.setBackground(clr6[clrIndex]);
+		panel2.setBackground(clr6[clrIndex]);
+		panel3.setBackground(clr6[clrIndex]);
+		panel4.setBackground(clr6[clrIndex]);
+		punkte.setBackground(clr2[clrIndex]);
+		rekord.setBackground(clr2[clrIndex]);
+		titel.setBackground(clr1[clrIndex]);
+		restart.setBackground(clr3[clrIndex]);
+		zurueck.setBackground(clr3[clrIndex]);
+		tipp.setBackground(clr3[clrIndex]);
+		hilfe.setBackground(clr3[clrIndex]);
+		stats.setBackground(clr3[clrIndex]);
+		exit.setBackground(clr2[clrIndex]);
+		clrLayout.setBackground(clr2[clrIndex]);
+		centerPanel.setBackground(clr5[clrIndex]);
+		clrButton1.setBackground(clr4[clrIndex]);
+		clrButton2.setBackground(clr4[clrIndex]);
+		clrButton3.setBackground(clr4[clrIndex]);
+		clrButton4.setBackground(clr4[clrIndex]);
+		clrButton5.setBackground(clr4[clrIndex]);
+
+		restart.setBorder(border1[clrIndex]);
+		zurueck.setBorder(border1[clrIndex]);
+		tipp.setBorder(border1[clrIndex]);
+		stats.setBorder(border1[clrIndex]);
+		exit.setBorder(border3[clrIndex]);
+		clrLayout.setBorder(border3[clrIndex]);
+		clrButton1.setBorder(border4[clrIndex]);
+		clrButton2.setBorder(border4[clrIndex]);
+		clrButton3.setBorder(border4[clrIndex]);
+		clrButton4.setBorder(border4[clrIndex]);
+		clrButton5.setBorder(border4[clrIndex]);
+		labelNeuladen();
+		
 	}
 
 	// Der KeyListener ruft welcheRichtung() je nach Eingabe auf und klont das Spielfeld

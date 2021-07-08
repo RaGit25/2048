@@ -15,6 +15,8 @@ public class Login extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	static Login l = new Login();
+	
+	static ImageIcon icon;     // icon vom JFrame 
 
 	static JFrame loginFrame;
 
@@ -60,6 +62,9 @@ public class Login extends JPanel implements ActionListener {
 	public Login() {
 
 		loginFrame = new JFrame("2048 - Login");
+		
+		icon = new ImageIcon("bilder/frame.PNG");
+		loginFrame.setIconImage(icon.getImage());
 
 		warnung = new JLabel();
 		warnung2 = new JLabel();
