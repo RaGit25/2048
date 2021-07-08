@@ -40,7 +40,6 @@ public class Autoplay {
 	}
 
 	public String naechsterZug(Spielfeld feld) {
-		// System.out.println(ecken(feld, ecke(feld)));
 		int pos = -1; // findet die position des groessten Feldes
 		int max = 0; // score(feld); //angenommen die Anfangsposition hat den hoechsten Score
 
@@ -51,7 +50,6 @@ public class Autoplay {
 			temp.setHinzufuegen(false); // unterdrueckt neue Bloecke
 			temp.welcheRichtung(richtungen[i]); // verschiebt diesen
 			scores[i] = score(temp); // speichert den aktuellen Score
-			// System.out.println(richtungen[i] + " > " + scores[i]);
 			if (scores[i] > max) {
 				max = scores[i];
 				pos = i;
@@ -104,8 +102,6 @@ public class Autoplay {
 
 		// Viermal fast identische betrachtung jeweils des halben Boardes
 		// Gegen den Uhrzeigersinn wird begonnen mit der Gruppe
-		// Testmethode fuer For-Schleife: System.out.println(b+"<b-c>"+c+"
-		// "+i+"<i-j>"+j);
 
 		// Oben links ausgehend
 		switch (ecke) {
@@ -114,10 +110,8 @@ public class Autoplay {
 				gruppe = 0;
 				b = 0; // fester Wert
 				c = i; // variabler Wert
-				for (int j = 0; j < (i + 1); j++) {// Fürjedes Feld in "Gruppe"
+				for (int j = 0; j < (i + 1); j++) {// Fuerjedes Feld in "Gruppe"
 					gruppe += f.getFeld()[c][b].getWert(); // Feld ist gespiegelt
-					// gruppe = (j == 1 && gruppe > g) ? gruppe : -f.getHoechstesFeld(); // Leere
-					// Felder an Ecken sind schlecht
 					b++;
 					c--;
 				}
@@ -128,14 +122,12 @@ public class Autoplay {
 			break;
 		// Oben rechts ausgehend
 		case ("obenrechts"):
-			for (int i = (f.getBreite() - 1); i >= 0; i--) { // Für Anzahl d. "Gruppen"
+			for (int i = (f.getBreite() - 1); i >= 0; i--) { // Fuer Anzahl d. "Gruppen"
 				gruppe = 0;
 				b = i; // variabler Wert
 				c = 0; // fester Wert
-				for (int j = 0; j < (f.getBreite() - i); j++) {// Für Anzahl Felder in "Gruppe"
+				for (int j = 0; j < (f.getBreite() - i); j++) {// Fuer Anzahl Felder in "Gruppe"
 					gruppe += f.getFeld()[c][b].getWert(); // Feld ist gespiegelt
-					// gruppe = (j == 1 && gruppe > g) ? gruppe : -f.getHoechstesFeld(); // Leere
-					// Felder an Ecken sind schlecht
 					b++;
 					c++;
 				}
@@ -146,14 +138,12 @@ public class Autoplay {
 			break;
 		// Unten links ausgehend
 		case ("untenlinks"):
-			for (int i = (f.getBreite() - 1); i >= 0; i--) { // Für Anzahl d. "Gruppen"
+			for (int i = (f.getBreite() - 1); i >= 0; i--) { // Fuer Anzahl d. "Gruppen"
 				gruppe = 0;
 				b = ((f.getBreite() - 1) - i); // variabler Wert
 				c = (f.getBreite() - 1); // fester Wert
-				for (int j = 0; j < (f.getBreite() - i); j++) {// Für Anzahl Felder in "Gruppe"
+				for (int j = 0; j < (f.getBreite() - i); j++) {// Fuer Anzahl Felder in "Gruppe"
 					gruppe += f.getFeld()[c][b].getWert(); // Feld ist gespiegelt
-					// gruppe = (j == 1 && gruppe > g) ? gruppe : -f.getHoechstesFeld(); // Leere
-					// Felder an Ecken sind schlecht
 					b--;
 					c--;
 				}
@@ -165,14 +155,12 @@ public class Autoplay {
 
 		// Unten rechts ausgehend
 		case ("untenrechts"):
-			for (int i = (f.getBreite() - 1); i >= 0; i--) { // Für Anzahl d. "Gruppen"
+			for (int i = (f.getBreite() - 1); i >= 0; i--) { // Fuer Anzahl d. "Gruppen"
 				gruppe = 0;
 				b = (f.getBreite() - 1); // fester Wert
 				c = i; // variabler Wert
-				for (int j = 0; j < (f.getBreite() - i); j++) {// Für Anzahl Felder in "Gruppe"
+				for (int j = 0; j < (f.getBreite() - i); j++) {// Fuer Anzahl Felder in "Gruppe"
 					gruppe += f.getFeld()[c][b].getWert(); // Feld ist gespiegelt
-					// gruppe = (j == 1 && gruppe > g) ? gruppe : (-g)*g; // Leere Felder an Ecken
-					// sind schlecht
 					b--;
 					c++;
 				}
@@ -197,7 +185,6 @@ public class Autoplay {
 			break;
 		}
 
-		// System.out.println(punkte + " hier in Ecke " + ecke);
 		return punkte;
 
 	}

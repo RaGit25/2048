@@ -221,8 +221,7 @@ class Spielfeld {
 		String r = Richtung;
 
 		switch (r) {
-		// Man geht unterschidlich durchs Feld, beginnend mit der Seite in die geschoben
-		// wird
+		// Unterschiedlich durchs Feld gehen, beginnend mit der in die geschobene Seite
 		case "oben": // oben links beginnend
 
 			for (int i = 0; i < breite; i++) {
@@ -273,11 +272,10 @@ class Spielfeld {
 	}
 
 	public void verschieben(int zeile, int spalte, int z, int s) {
-		// praktische Verbesserung: die Werte fuer z(eile) und s(palte), fuer das
-		// hinzuverschiebende Feld werden Uebergeben
+		// Werte fuer z(eile) und s(palte), des hinzuverschiebende Feld
 
-		if (existiertFeld(z, s) && feld[zeile][spalte].getWert() != 0) { // Schaut, ob es das Feld daneben und selbst
-																			// gibt
+		// Schaut, ob es das Feld daneben und selbst gibt
+		if (existiertFeld(z, s) && feld[zeile][spalte].getWert() != 0) { 
 
 			if (feld[zeile][spalte].getWert() == feld[z][s].getWert() // Wenn: Feld identisch und
 					&& !feld[z][s].getVerschoben()) { // noch nicht verschoben
@@ -352,17 +350,5 @@ class Spielfeld {
 				blockErstellen();
 			}
 		}
-		// ausdrucken();
 	}
-
-	// Zur Fehlerbehebung
-	/*
-	 * public void ausdrucken() { for (int k = 0; k < 5; k++) {
-	 * System.out.println(); } System.out.println("-----------------------"); for
-	 * (int i = 0; i < breite; i++) { for (int j = 0; j < breite; j++) { if
-	 * (feld[i][j].getWert() == 0) System.out.print("| |"); else
-	 * System.out.print("|" + feld[i][j].getWert() + "|"); } System.out.println(); }
-	 * System.out.println("-----------------------"); System.out.println("Zuege:" +
-	 * zuege); }
-	 */
 }

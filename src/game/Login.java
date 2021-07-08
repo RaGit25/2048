@@ -597,7 +597,7 @@ public class Login extends JPanel implements ActionListener {
 		File f = new File("./accounts/"); // Im gleichen Ordner starten
 		File[] fileArray = f.listFiles(); // Erstellen eines Feldes mit allen Dateien
 
-		int anzahlfiles = (fileArray != null) ? fileArray.length : 0;	//Verhindert null
+		int anzahlfiles = (fileArray != null) ? fileArray.length : 0;	//Verhindert nullPointer
 		ArrayList<String> acc = new ArrayList<String>();
 		for (int i = 0; i < anzahlfiles; i++) {
 			if (fileArray[i].getPath().contains(".json")) { // Wenn die Datei .json enthaelt
@@ -608,7 +608,7 @@ public class Login extends JPanel implements ActionListener {
 			}
 		}
 		
-		int anzahlacc = (acc != null) ? acc.size() : 0;	//Verhindert null
+		int anzahlacc = (acc != null) ? acc.size() : 0;	//Verhindert nullPointer
 		String[] accounts = new String[anzahlacc + 1]; // Erstellen einer String-Liste
 		accounts[0] = "Konto auswaehlen"; // Erster Eintrag in der Liste
 		for (int j = 0; j < anzahlacc; j++) {

@@ -3,13 +3,13 @@ package game;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Account {
-	@JsonProperty("Namen")
+	@JsonProperty("Name")
 	public String name;
-	@JsonProperty("spielfeld")
+	@JsonProperty("Spielfeld")
 	public Spielfeld s;
-	@JsonProperty("stats")
+	@JsonProperty("Statistiken")
 	public Stats st;
-	@JsonProperty("klon")
+	@JsonProperty("Klon")
 	public Spielfeld klon; // Zum Zuruecknehmen des letzten Zuges
 
 	public Account(String n, int groesse) { // Erstellen des Accounts
@@ -17,7 +17,6 @@ public class Account {
 		this.s = new Spielfeld(groesse); // <- Groesse des Spielfeldes
 		this.st = new Stats(s);
 		this.klon = new Spielfeld(s);
-		// System.out.println("Acc wird jetzt schon erstellt!");
 	}
 
 	public Account(Account alt) { // Copy-Constructor

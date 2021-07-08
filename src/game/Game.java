@@ -27,7 +27,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static Color[] clr5;	//Feld mit Farben
 	static Color[] clr6;	//Feld mit Farben
 	static Color[] clr7;	//Feld mit Farben
-	static int clrIndex;	//einheitlicher Index für Color Arrays, wird je nach ausgewaehltem Design geaendert
+	static int clrIndex;	//einheitlicher Index fuer Color Arrays, wird je nach ausgewaehltem Design geaendert
 
 	static JButton clrButton1;
 	static JButton clrButton2;
@@ -40,17 +40,6 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 	static Game game = new Game();  // Objekt der Klasse Game, u.a. fuer den KeyListener benoetigt
 	
 	static JFrame gameFrame;        // Spielfenster
-
-	
-	/* Die vier JPanels, bzw. "Teile" des Spielfensters
-	 * 
-	 * centerPanel = Beinhaltet das Spielfeld und ist dunkelgrau gefaerbt, sozusagen der Hintergrund
-	 * 
-	 * panel1 = Panel ueber dem Spielfeld
-	 * panel2/3 = Panel links/rechts neben dem Spielfeld
-	 * panel4 = Panel unter dem Spielfeld
-	 * 
-	 */
 	
 	static JPanel centerPanel;
 	static JPanel panel1;
