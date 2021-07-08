@@ -702,7 +702,7 @@ public class Game extends JPanel implements KeyListener, ActionListener {
 
 			g.setColor(Color.white);
 			g.setFont(new Font("Arial", Font.BOLD, 40));
-			g.drawString("Wählen Sie ein Design", 220, 40);
+			g.drawString("Waehlen Sie ein Design", 215, 40);
 			g.setFont(new Font("Arial", Font.PLAIN, 30));
 
 

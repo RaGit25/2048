@@ -594,7 +594,7 @@ public class Login extends JPanel implements ActionListener {
 	}
 
 	private static String[] accounts() { // Neuladen der gefundenen Accounts
-		File f = new File(".\\accounts\\"); // Im gleichen Ordner starten
+		File f = new File("./accounts/"); // Im gleichen Ordner starten
 		File[] fileArray = f.listFiles(); // Erstellen eines Feldes mit allen Dateien
 
 		ArrayList<String> acc = new ArrayList<String>();
@@ -602,7 +602,7 @@ public class Login extends JPanel implements ActionListener {
 			if (fileArray[i].getPath().contains(".json")) { // Wenn die Datei .json enthaelt
 				String name = fileArray[i].getPath();
 				name = name.replace(".json", ""); // Abschneiden des .json
-				name = name.replace(".\\accounts\\", "");	//Abschneiden der Ordnerstrukur
+				name = name.substring(11, name.length());	//Abschneiden der Ordnerstrukur
 				acc.add(name);
 			}
 		}
