@@ -28,5 +28,5 @@
 ##### (18)	To recive a hint click "?".
 ##### (19)	To restart the game click "Neues Spiel".
 ##### (20)	To return to the login window click "Zum Login" (2).
-## Screenshots
-##### {Coming soon!}
+## Screenshot
+![2048-example](https://user-images.githubusercontent.com/69145397/124947468-246aa700-e010-11eb-8d0f-919a15cf66bd.png)
