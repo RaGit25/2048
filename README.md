@@ -15,7 +15,7 @@
 ##### (4)	To finalise your accound creation process name your account and click "Erstellen".
 ##### (5)	To return to the login window click "Zurueck zur Accountauswahl" (2).
 ##### (6)	To select an already existing account click the upper left panel and then the desired account.
-##### (7)	To change the dimensions of the game click "Feldgroesse auswaehlen" and chose between 3x3 to 8x8.
+##### (7)	To change the dimensions of the game click on the second panel from the top and chose between 3x3 to 8x8.
 ##### (8)	To start a game you can click "Neues Spiel erstellen" or load your recent game by clicking "Spielstand laden".
 ##### --------------------------------------------
 ##### (9)	To move the blocks up press 'W' or '↑'.  
