@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.plaf.DimensionUIResource;
 
 public class Game extends JPanel implements KeyListener, ActionListener {
 
